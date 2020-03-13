@@ -1,0 +1,125 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: 'Popins', sans-serif;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 10vh;
+    width: 100%;
+    background-color: #550a46;
+}
+
+footer {
+    min-height: 10vh;
+    background-color: #550a46;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    letter-spacing: 3px;
+}
+
+section {
+    min-height: 80vh;
+}
+
+.logo {
+    color: whitesmoke;
+    letter-spacing: 5px;
+    font-size: 20px;
+}
+
+.link-list {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+}
+
+.link-list a {
+    text-decoration: none;
+    color: whitesmoke;
+    letter-spacing: 3px;
+    font-size: 17px;
+}
+
+.link-list a:hover {
+    padding: 10px 15px;
+    background-color: #4a69bb;
+    border-radius: 10px;
+}
+
+.burger-menu {
+    display: none;
+}
+
+.burger-menu div {
+    width: 25px;
+    height: 3px;
+    background-color: whitesmoke;
+    margin: 5px;
+    cursor: pointer;
+}
+
+section {
+    min-height: 80vh;
+    display: flex;
+    flex-flow: column wrap;
+    align-content: center;
+    justify-content: space-around;
+}
+  
+  .ecranEX{
+    background:#BDDFFF;
+    height: 30vh;
+    width: 90vw;
+    margin: 4vh 0 5vh 0;
+    border-radius: 30px;
+    border: solid;
+    display: flex;
+    flex-flow:row wrap;
+    align-content: center;
+  }
+
+  input {
+    border: solid black;
+    position: relative;
+    width: 83vw;
+    height: 8vh;
+    margin: 17vh 0 0 3vh;
+    background-color: #5D53AC;
+    border-radius: 20px;
+    font-size: 18px;
+    align-content: center;
+    color: white;
+  }
+
+  .button1 {
+    position: relative;
+    width: 4vw;
+    height: 9vh;
+    top:16vh;
+    border-radius: 50vw;
+    background:url(play.png);
+    background-size: cover;
+    align-content: center;
+  }
+
+@media only screen and (max-width: 600px) {
+    .link-list {
+        display: none;
+    }
+    .burger-menu {
+        display: block;
+    }
+    .input {
+    width: 43vw;
+    height: 6vh;
+    }
+
+}

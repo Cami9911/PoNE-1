@@ -25,10 +25,6 @@ footer {
     letter-spacing: 3px;
 }
 
-section {
-    min-height: 80vh;
-}
-
 .logo {
     color: whitesmoke;
     letter-spacing: 5px;
@@ -68,47 +64,65 @@ section {
 
 section {
     min-height: 80vh;
-    display: flex;
-    flex-flow: column wrap;
-    align-content: center;
+    display: flex; 
     justify-content: space-around;
-}
-  
-  .ecranEX{
-    background:#BDDFFF;
-    height: 30vh;
-    width: 90vw;
-    margin: 4vh 0 5vh 0;
-    border-radius: 30px;
-    border: solid;
-    display: flex;
-    flex-flow:row wrap;
     align-content: center;
-  }
+    flex-flow:row wrap;
+}
 
-  input {
-    border: solid black;
-    position: relative;
-    width: 83vw;
+.ecranEX{
+    background: #BDDFFF;
+    border:solid;
+    border-radius: 30px;
+    width: 90vw;
+    height: 30vh;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    align-content: flex-end;
+    margin: 4vh 0 5vh 0;
+}
+
+input{
+    width: 82vw;
     height: 8vh;
-    margin: 17vh 0 0 3vh;
+    margin:0 0 10px 0;
     background-color: #5D53AC;
     border-radius: 20px;
     font-size: 18px;
-    align-content: center;
     color: white;
-  }
+    border:solid black;
+}
 
-  .button1 {
-    position: relative;
+input:hover{
+    background-color: rgb(81, 72, 153);
+}
+
+.button1{
     width: 4vw;
-    height: 9vh;
-    top:16vh;
+    height: 8vh;
     border-radius: 50vw;
     background:url(play.png);
-    background-size: cover;
-    align-content: center;
-  }
+    background-size:cover;
+}
+
+.button1:hover{
+    background-color: rgb(81, 72, 153);
+}
+  
+@media only screen and (max-width: 959px){
+
+    input{
+        width: 80vw;
+        height: 8vh;
+        margin:0 0 10px 0;
+    }
+
+    .button1{
+        width: 6vw;
+        height: 9vh;
+    }
+}
 
 @media only screen and (max-width: 600px) {
     .link-list {
@@ -117,9 +131,55 @@ section {
     .burger-menu {
         display: block;
     }
-    .input {
-    width: 43vw;
-    height: 6vh;
+
+    input{
+        width: 70vw;
+        height: 8vh;
+        margin:0 0 10px 0;
+    }
+    
+    .button1{
+        width: 8vw;
+        height: 8vh;
     }
 
 }
+@media only screen and (max-width: 411px){
+    input{
+        width: 70vw;
+        height: 7vh;
+        margin:0 -30px 10px -10px;
+    }
+    
+    .button1{
+        width: 14vw;
+        height: 7vh;
+    }
+}
+
+@media only screen and (max-width: 360px){
+    input{
+        width: 70vw;
+        height: 7vh;
+        margin:0 -30px 10px -10px;
+    }
+    
+    .button1{
+        width: 12vw;
+        height: 7vh;
+    }
+}
+
+@media only screen and (max-width: 320px){
+    input{
+        width: 70vw;
+        height: 7vh;
+        margin:0 -30px 10px -10px;
+    }
+    
+    .button1{
+        width: 12vw;
+        height: 7vh;
+    }
+}
+

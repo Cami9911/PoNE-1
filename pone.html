@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <nav>
+        <div class="logo">
+            <h4>The Nav</h4>
+        </div>
+        <ul class="link-list">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">PoNe</a></li>
+            <li><a href="#">Exercitii</a></li>
+        </ul>
+        <div class="burger-menu">
+            <div class="line"></div>
+            <div class="line"></div>
+            <div class="line"></div>
+        </div>
+    </nav>
+    <section>
+        <canvas id="glCanvas" width="1920" height="1080"></canvas>
+
+        <form class="user-input">
+            <div class="user-input-row">
+                <label for="plain-text-expression" class="resizeable-text">Enter your expression:</label>
+                <input type="text" id="plain-text-expression" class="resizeable-text" name="expression">
+            </div>
+            <div class="user-input-row hide-when-small">
+                <label>or ...</label>
+            </div>
+            <div class="user-input-row">
+                <input type="file" class="upload-file" id="upload-file" accept=".mathml">
+                <label for="upload-file" class="resizeable-text-bold">Upload your ML file:</label>
+            </div>
+            <div class="user-input-row">
+                <input type="button" class="resizeable-text" value="ANIMATE!">
+            </div>
+        </form>
+    </section>
+    <footer>
+        <p>Footer</p>
+    </footer>
+    <script src="./gl-matrix.js"></script>
+    <script src="./animation.js"></script>
+</body>
+
+</html>

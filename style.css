@@ -72,7 +72,6 @@ section {
 
 .ecranEX{
     background: #BDDFFF;
-    border:solid;
     border-radius: 30px;
     width: 90vw;
     height: 30vh;
@@ -81,6 +80,8 @@ section {
     flex-flow: row wrap;
     align-content: flex-end;
     margin: 4vh 0 5vh 0;
+    border: solid rgb(211, 209, 209) 5px;
+    box-shadow: 10px 10px grey;
 }
 
 input{
@@ -91,7 +92,8 @@ input{
     border-radius: 20px;
     font-size: 18px;
     color: white;
-    border:solid black;
+    box-shadow: 7px 7px grey;
+    
 }
 
 input:hover{
@@ -104,9 +106,10 @@ input:hover{
     border-radius: 50vw;
     background:url(play.png);
     background-size:cover;
+    box-shadow: 4px 4px grey;
 }
 
-.button1:hover{
+/*.button1:hover{
     background-color: rgb(81, 72, 153);
 }
   
@@ -122,7 +125,7 @@ input:hover{
         width: 6vw;
         height: 9vh;
     }
-}
+}*/
 
 @media only screen and (max-width: 600px) {
     .link-list {
@@ -131,20 +134,39 @@ input:hover{
     .burger-menu {
         display: block;
     }
-
-    input{
-        width: 70vw;
-        height: 8vh;
-        margin:0 0 10px 0;
+    .main {
+        min-height: 90vh;
     }
-    
+    .ecranEX{
+        width: 80vw;
+        height: 30vh;
+    }
+    input{
+        width: 65vw;
+        height: 8vh;
+    }
     .button1{
         width: 8vw;
         height: 8vh;
     }
-
 }
-@media only screen and (max-width: 411px){
+
+@media only screen and (max-width: 320px){
+    .ecranEX{
+        width: 90vw;
+        height: 30vh;
+    }
+    input{
+        width: 70vw;
+        height: 7vh;
+    }
+    .button1{
+        width: 12vw;
+        height: 7vh;
+    }
+}
+
+/*@media only screen and (max-width: 411px){
     input{
         width: 70vw;
         height: 7vh;
@@ -181,5 +203,5 @@ input:hover{
         width: 12vw;
         height: 7vh;
     }
-}
+}*/
 

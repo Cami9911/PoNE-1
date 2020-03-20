@@ -1,0 +1,185 @@
+* {
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    box-sizing: border-box;
+    font-family: 'Popins', sans-serif;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    min-height: 10vh;
+    width: 100%;
+    background-color: #550a46;
+}
+
+footer {
+    min-height: 10vh;
+    background-color: #550a46;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    letter-spacing: 3px;
+}
+
+.logo {
+    color: whitesmoke;
+    letter-spacing: 5px;
+    font-size: 20px;
+}
+
+.link-list {
+    display: flex;
+    justify-content: space-around;
+    width: 40%;
+}
+
+.link-list a {
+    text-decoration: none;
+    color: whitesmoke;
+    letter-spacing: 3px;
+    font-size: 17px;
+}
+
+.link-list a:hover {
+    padding: 10px 15px;
+    background-color: #4a69bb;
+    border-radius: 10px;
+}
+
+.burger-menu {
+    display: none;
+}
+
+.burger-menu div {
+    width: 25px;
+    height: 3px;
+    background-color: whitesmoke;
+    margin: 5px;
+    cursor: pointer;
+}
+
+section {
+    min-height: 80vh;
+    display: flex; 
+    justify-content: space-around;
+    align-content: center;
+    flex-flow:row wrap;
+}
+
+.ecranEX{
+    background: #BDDFFF;
+    border:solid;
+    border-radius: 30px;
+    width: 90vw;
+    height: 30vh;
+    display: flex;
+    justify-content: space-around;
+    flex-flow: row wrap;
+    align-content: flex-end;
+    margin: 4vh 0 5vh 0;
+}
+
+input{
+    width: 82vw;
+    height: 8vh;
+    margin:0 0 10px 0;
+    background-color: #5D53AC;
+    border-radius: 20px;
+    font-size: 18px;
+    color: white;
+    border:solid black;
+}
+
+input:hover{
+    background-color: rgb(81, 72, 153);
+}
+
+.button1{
+    width: 4vw;
+    height: 8vh;
+    border-radius: 50vw;
+    background:url(play.png);
+    background-size:cover;
+}
+
+.button1:hover{
+    background-color: rgb(81, 72, 153);
+}
+  
+@media only screen and (max-width: 959px){
+
+    input{
+        width: 80vw;
+        height: 8vh;
+        margin:0 0 10px 0;
+    }
+
+    .button1{
+        width: 6vw;
+        height: 9vh;
+    }
+}
+
+@media only screen and (max-width: 600px) {
+    .link-list {
+        display: none;
+    }
+    .burger-menu {
+        display: block;
+    }
+
+    input{
+        width: 70vw;
+        height: 8vh;
+        margin:0 0 10px 0;
+    }
+    
+    .button1{
+        width: 8vw;
+        height: 8vh;
+    }
+
+}
+@media only screen and (max-width: 411px){
+    input{
+        width: 70vw;
+        height: 7vh;
+        margin:0 -30px 10px -10px;
+    }
+    
+    .button1{
+        width: 14vw;
+        height: 7vh;
+    }
+}
+
+@media only screen and (max-width: 360px){
+    input{
+        width: 70vw;
+        height: 7vh;
+        margin:0 -30px 10px -10px;
+    }
+    
+    .button1{
+        width: 12vw;
+        height: 7vh;
+    }
+}
+
+@media only screen and (max-width: 320px){
+    input{
+        width: 70vw;
+        height: 7vh;
+        margin:0 -30px 10px -10px;
+    }
+    
+    .button1{
+        width: 12vw;
+        height: 7vh;
+    }
+}
+

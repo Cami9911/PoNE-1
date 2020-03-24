@@ -21,14 +21,13 @@ footer {
     display: flex;
     justify-content: center;
     align-items: center;
-    color: white;
-    letter-spacing: 3px;
 }
 
 .logo {
-    color: whitesmoke;
-    letter-spacing: 5px;
-    font-size: 20px;
+    background:url(PoNE_logo4.png);
+    background-size:cover;
+    width:7vw;
+    height:10vh;
 }
 
 .link-list {
@@ -42,12 +41,22 @@ footer {
     color: whitesmoke;
     letter-spacing: 3px;
     font-size: 17px;
+    padding: 10px 15px;
 }
 
 .link-list a:hover {
-    padding: 10px 15px;
+    
     background-color: #4a69bb;
     border-radius: 10px;
+}
+.line1,
+.line2,
+.line3 {
+    width: 25px;
+    height: 3px;
+    background-color: whitesmoke;
+    margin: 5px;
+    transition: all 0.3s ease-in;
 }
 
 .burger-menu {
@@ -61,7 +70,6 @@ footer {
     margin: 5px;
     cursor: pointer;
 }
-
 section {
     min-height: 80vh;
     display: flex; 
@@ -69,117 +77,180 @@ section {
     align-content: center;
     flex-flow:row wrap;
 }
-
 .ecranEX{
     background: #BDDFFF;
-    border:solid;
     border-radius: 30px;
     width: 90vw;
-    height: 30vh;
+    height: 60vh;
     display: flex;
     justify-content: space-around;
     flex-flow: row wrap;
-    align-content: flex-end;
+    align-content: center;
     margin: 4vh 0 5vh 0;
+    border: solid rgb(211, 209, 209) 5px;
+    box-shadow: 10px 10px grey;
 }
-
-input{
+.cerinta{
+    width:90vw;
+    height:15vh;
+    color: white;
+    text-align: center;
+    font-size: x-large;
+}
+.textRaspuns{
+    display: flex;
+}
+.textRaspuns input{
     width: 82vw;
     height: 8vh;
-    margin:0 0 10px 0;
     background-color: #5D53AC;
     border-radius: 20px;
     font-size: 18px;
     color: white;
-    border:solid black;
+    box-shadow: 7px 7px grey;
 }
 
 input:hover{
     background-color: rgb(81, 72, 153);
 }
-
+.line {
+    width:100%; 
+    height:1px; 
+  }
 .button1{
     width: 4vw;
     height: 8vh;
     border-radius: 50vw;
     background:url(play.png);
     background-size:cover;
+    box-shadow: 4px 4px grey;
+    margin-bottom: 50px;
 }
-
 .button1:hover{
     background-color: rgb(81, 72, 153);
 }
-  
-@media only screen and (max-width: 959px){
+.comm-gen{
+    display: flex;
+    align-items: center;
+}
+.commentGenerate{
+    width: 30vw;
+    height: 7vh;
+    background-color: #BDDFFF;
+    border: none;
+    font-size: medium;
+}
+.commentGenerate:hover{
+    background-color: rgb(175, 207, 236);
+    border-radius: 15px;
+}
 
-    input{
-        width: 80vw;
-        height: 8vh;
-        margin:0 0 10px 0;
-    }
+.vl{
+    border-left: 1px solid rgb(218, 147, 147);
+    height: 50px;
+    position: absolute;
+    left: 50%;
+}
+.comm-user{
+    display: flex;
+    justify-content: space-around;
+}
+.comment input{
+    width: 75vw;
+    height: 7vh;
+    background-color: #ACA4EA;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    font-size: 18px;
+    color: white;
+    border:none;
+    box-shadow: 7px 7px grey;
+    margin-top: 30px;
+}
+.comment input:hover{
+    background-color: rgb(161, 154, 219);
+}
 
-    .button1{
-        width: 6vw;
-        height: 9vh;
-    }
+.user input{
+    width: 7vw;
+    height: 7vh;
+    background-color: #ACA4EA;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    font-size: 18px;
+    color: white;
+    border:none;
+    box-shadow: 7px 7px grey;
+    margin-top: 30px;
+}
+.user input:hover{
+    background-color: rgb(161, 154, 219);
+}
+
+.vl2{
+    border-left: 1px solid rgb(218, 147, 147);
+    margin-top: 30px;
 }
 
 @media only screen and (max-width: 600px) {
+    html,
+    body {
+        overflow-x: hidden;
+    }
+    nav {
+        position: absolute;
+    }
     .link-list {
-        display: none;
+        position: absolute;
+        right: 0px;
+        top: 10vh;
+        height: 30vh;
+        width: 100vw;
+        background-color: #4a69bb;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        z-index: 1;
+        /* transform: translateX(100%); */
+        opacity: 0;
+        transition: opacity 0.5s ease-in;
+        border-bottom-right-radius: 5px;
+        border-bottom-left-radius: 5px;
     }
     .burger-menu {
         display: block;
+        cursor: pointer;
     }
-
-    input{
-        width: 70vw;
+    .link-list a:hover {
+        color: white;
+        font-size: 18px;
+        padding: 0px 0px;
+    }
+    .main {
+        min-height: 90vh;
+    }
+    .textRaspuns input{
+        width:80vw;
+    }
+    .button1{
+        width: 7vw;
         height: 8vh;
-        margin:0 0 10px 0;
-    }
-    
-    .button1{
-        width: 8vw;
-        height: 8vh;
-    }
-
-}
-@media only screen and (max-width: 411px){
-    input{
-        width: 70vw;
-        height: 7vh;
-        margin:0 -30px 10px -10px;
-    }
-    
-    .button1{
-        width: 14vw;
-        height: 7vh;
     }
 }
 
-@media only screen and (max-width: 360px){
-    input{
-        width: 70vw;
-        height: 7vh;
-        margin:0 -30px 10px -10px;
-    }
-    
-    .button1{
-        width: 12vw;
-        height: 7vh;
-    }
+.nav-active {
+    /*transform: translateX(0%); */
+    opacity: 1;
 }
 
-@media only screen and (max-width: 320px){
-    input{
-        width: 70vw;
-        height: 7vh;
-        margin:0 -30px 10px -10px;
-    }
-    
-    .button1{
-        width: 12vw;
-        height: 7vh;
-    }
+.burger-active .line1 {
+    transform: rotate(-45deg) translate(-9px, 6px);
 }
 
+.burger-active .line2 {
+    opacity: 0;
+}
+
+.burger-active .line3 {
+    transform: rotate(45deg) translate(-5px, -3px);
+}

@@ -23,11 +23,8 @@ footer {
     align-items: center;
 }
 
-.logo {
-    background:url(PoNE_logo4.png);
-    background-size:cover;
-    width:7vw;
-    height:10vh;
+footer h3 {
+    color: whitesmoke;
 }
 
 .link-list {
@@ -45,10 +42,10 @@ footer {
 }
 
 .link-list a:hover {
-    
     background-color: #4a69bb;
     border-radius: 10px;
 }
+
 .line1,
 .line2,
 .line3 {
@@ -70,14 +67,138 @@ footer {
     margin: 5px;
     cursor: pointer;
 }
+
+.main {
+    min-height: 80vh;
+    background-color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.content {
+    width: 70vw;
+    height: 60vh;
+    background-color: #BDDFFF;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 5px;
+    box-shadow: 10px 10px grey;
+}
+
+.exercise-sentence {
+    width: 90%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 2vh;
+    color: whitesmoke;
+    border-radius: 5px;
+}
+
+.answer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.answer #answer {
+    width: 80%;
+    height: 90%;
+    background-color: #617be3;
+    border-radius: 10px;
+}
+
+input {
+    color: whitesmoke;
+}
+
+#answer:hover {
+    background-color: rgb(81, 72, 153);
+}
+
+.comments-area {
+    width: 100%;
+    height: 20%;
+}
+
+.buttons-area {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border: 0.5px solid #C0C0C0;
+}
+
+.commentGenerate {
+    width: 100%;
+    height: 100%;
+    background-color: #BDDFFF;
+    font-size: medium;
+    border: 0.5px solid #C0C0C0;
+    color: whitesmoke;
+}
+
+.commentGenerate:hover {
+    background-color: rgb(175, 207, 236);
+}
+
+.comments-area {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.comments-area #comment {
+    width: 80%;
+    height: 50%;
+    background-color: #ACA4EA;
+    border-radius: 10px;
+    border-right: 0.5px solid lightgray;
+    border-bottom-right-radius: 0px;
+    border-top-right-radius: 0px;
+}
+
+.comments-area #username {
+    width: 20%;
+    height: 50%;
+    background-color: #ACA4EA;
+    border-radius: 10px;
+    border-left: none;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
+}
+
+::placeholder {
+    color: whitesmoke;
+    opacity: 1;
+}
+
+.answer img:hover {
+    opacity: 0.5;
+}
+
+#username:hover,
+#comment:hover {
+    background-color: rgb(161, 154, 219);
+}
+
+
+/*
 section {
     min-height: 80vh;
-    display: flex; 
+    display: flex;
     justify-content: space-around;
     align-content: center;
-    flex-flow:row wrap;
+    flex-flow: row wrap;
 }
-.ecranEX{
+
+
+.content {
     background: #BDDFFF;
     border-radius: 30px;
     width: 90vw;
@@ -90,17 +211,20 @@ section {
     border: solid rgb(211, 209, 209) 5px;
     box-shadow: 10px 10px grey;
 }
-.cerinta{
-    width:90vw;
-    height:15vh;
+
+.cerinta {
+    width: 90vw;
+    height: 15vh;
     color: white;
     text-align: center;
     font-size: x-large;
 }
-.textRaspuns{
+
+.textRaspuns {
     display: flex;
 }
-.textRaspuns input{
+
+.textRaspuns input {
     width: 82vw;
     height: 8vh;
     background-color: #5D53AC;
@@ -110,52 +234,60 @@ section {
     box-shadow: 7px 7px grey;
 }
 
-input:hover{
+input:hover {
     background-color: rgb(81, 72, 153);
 }
+
 .line {
-    width:100%; 
-    height:1px; 
-  }
-.button1{
+    width: 100%;
+    height: 1px;
+}
+
+.button1 {
     width: 4vw;
     height: 8vh;
     border-radius: 50vw;
-    background:url(play.png);
-    background-size:cover;
+    background: url(play.png);
+    background-size: cover;
     box-shadow: 4px 4px grey;
     margin-bottom: 50px;
 }
-.button1:hover{
+
+.button1:hover {
     background-color: rgb(81, 72, 153);
 }
-.comm-gen{
+
+.comm-gen {
     display: flex;
     align-items: center;
 }
-.commentGenerate{
+
+.commentGenerate {
     width: 30vw;
     height: 7vh;
     background-color: #BDDFFF;
     border: none;
     font-size: medium;
 }
-.commentGenerate:hover{
+
+.commentGenerate:hover {
     background-color: rgb(175, 207, 236);
     border-radius: 15px;
 }
 
-.vl{
+.vl {
     border-left: 1px solid rgb(218, 147, 147);
     height: 50px;
     position: absolute;
     left: 50%;
 }
-.comm-user{
+
+.comm-user {
     display: flex;
     justify-content: space-around;
 }
-.comment input{
+
+.comment input {
     width: 75vw;
     height: 7vh;
     background-color: #ACA4EA;
@@ -163,15 +295,16 @@ input:hover{
     border-bottom-left-radius: 20px;
     font-size: 18px;
     color: white;
-    border:none;
+    border: none;
     box-shadow: 7px 7px grey;
     margin-top: 30px;
 }
-.comment input:hover{
+
+.comment input:hover {
     background-color: rgb(161, 154, 219);
 }
 
-.user input{
+.user input {
     width: 7vw;
     height: 7vh;
     background-color: #ACA4EA;
@@ -179,18 +312,20 @@ input:hover{
     border-bottom-right-radius: 20px;
     font-size: 18px;
     color: white;
-    border:none;
+    border: none;
     box-shadow: 7px 7px grey;
     margin-top: 30px;
 }
-.user input:hover{
+
+.user input:hover {
     background-color: rgb(161, 154, 219);
 }
 
-.vl2{
+.vl2 {
     border-left: 1px solid rgb(218, 147, 147);
     margin-top: 30px;
 }
+*/
 
 @media only screen and (max-width: 600px) {
     html,
@@ -229,12 +364,21 @@ input:hover{
     .main {
         min-height: 90vh;
     }
-    .textRaspuns input{
-        width:80vw;
+    .answer img {
+        height: 40px;
+        width: 50px;
     }
-    .button1{
-        width: 7vw;
-        height: 8vh;
+    .buttons-area {
+        height: 15%;
+    }
+    .commentGenerate {
+        font-size: 12px;
+    }
+    .content {
+        width: 85vw;
+        height: 60vh;
+        position: absolute;
+        bottom: 20vh;
     }
 }
 

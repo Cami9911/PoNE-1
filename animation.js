@@ -1,24 +1,36 @@
 const vsSource = `
     attribute vec4 aVertexPosition;
     attribute vec4 aVertexColor;
+    attribute vec2 aVertexUVCoordinate;
 
     uniform mat4 uModelViewMatrix;
     uniform mat4 uProjectionMatrix;
 
     varying lowp vec4 vertexColor;
+    varying highp vec2 vertexCoordinate;
 
     void main() {
         gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
         vertexColor = aVertexColor;
+        vertexCoordinate = aVertexUVCoordinate;
     }
 `;
 
 const fsSource = `
+
+    uniform sampler2D uSampler;
+
     varying lowp vec4 vertexColor;
+    varying highp vec2 vertexCoordinate;
+
     void main() {
-        gl_FragColor = vertexColor;
+        gl_FragColor = texture2D(uSampler, vertexCoordinate) * vertexColor;
     }
 `;
+
+function isPowerOfTwo(n) {
+    return (n & (n - 1)) == 0;
+}
 
 function loadShader(gl, type, source) {
     const shader = gl.createShader(type);
@@ -80,10 +92,56 @@ function initBuffers(gl) {
     gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
 
+    const coordinates = [
+        0.0,  0.0,
+        1.0,  0.0,
+        1.0,  1.0,
+        0.0,  1.0,
+    ];
+    const coordinatesBuffer = gl.createBuffer();
+    gl.bindBuffer(gl.ARRAY_BUFFER, coordinatesBuffer);
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(coordinates), gl.STATIC_DRAW);
+
     return {
         vertexBuffer: vertexBuffer,
-        vertexColor: colorBuffer
+        vertexColor: colorBuffer,
+        coordinatesBuffer: coordinatesBuffer
     }
+}
+
+function loadTexture(gl, url) {
+    const texture = gl.createTexture();
+    gl.bindTexture(gl.TEXTURE_2D, texture);
+    
+    const level = 0;
+    const internalFormat = gl.RGBA;
+    const width = 1;
+    const height = 1;
+    const border = 0;
+    const srcFormat = gl.RGBA;
+    const srcType = gl.UNSIGNED_BYTE;
+    const pixels = new Uint8Array([255,255,0,255]);
+    gl.texImage2D(gl.TEXTURE_2D, level, internalFormat, width, height,
+        border, srcFormat, srcType, pixels);
+
+    const image = new Image();
+
+    image.onload = function() {
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.texImage2D(gl.TEXTURE_2D, level, internalFormat, srcFormat, srcType, image);
+
+        if (isPowerOfTwo(image.width) && isPowerOfTwo(image.height)) {
+            gl.generateMipmap(gl.TEXTURE_2D);
+        } else {
+            gl.texParametri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_S, gl.CLAMP_TO_EDGE);
+            gl.texParametri(gl.TEXTURE_2D, gl.TEXTURE_WRAP_T, gl.CLAMP_TO_EDGE);
+            gl.texParametri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, gl.LINEAR);
+            gl.texParametri(gl.TEXTURE_2D, gl.TEXTURE_MAX_FILTER, gl.LINEAR);
+        }
+    };
+    image.crossOrigin = "anonymous";
+    image.src = url;
+    return texture;
 }
 
 function main() {
@@ -102,21 +160,25 @@ function main() {
         program: shaderProgram,
         attributeLocations : {
             aVertexPosition : gl.getAttribLocation(shaderProgram, "aVertexPosition"),
-            aVertexColor : gl.getAttribLocation(shaderProgram, "aVertexColor")
+            aVertexColor : gl.getAttribLocation(shaderProgram, "aVertexColor"),
+            aVertexUVCoordinate : gl.getAttribLocation(shaderProgram, "aVertexUVCoordinate")
         },
         uniformLocations : {
             uProjectionMatrix : gl.getUniformLocation(shaderProgram, "uProjectionMatrix"),
-            uModelViewMatrix : gl.getUniformLocation(shaderProgram, "uModelViewMatrix")
+            uModelViewMatrix : gl.getUniformLocation(shaderProgram, "uModelViewMatrix"),
+            uSampler : gl.getUniformLocation(shaderProgram, "uSampler")
         }
     }
 
     const buffers = initBuffers(gl);
 
-    drawScene(gl, programInfo, buffers);
+    const texture = loadTexture(gl, 'https://webglfundamentals.org/webgl/resources/f-texture.png');
+
+    drawScene(gl, programInfo, buffers, texture);
 
 }
 
-function drawScene(gl, programInfo, buffers) {
+function drawScene(gl, programInfo, buffers, texture) {
 
     var then = 0.0;
     var squareRotation = 0.0;
@@ -144,7 +206,7 @@ function drawScene(gl, programInfo, buffers) {
         squareRotation += dt;
         mat4.rotate(modelViewMatrix, modelViewMatrix, squareRotation, [0, 0, 1, 0]);
 
-        {
+        { // Position
             const numComponents = 2;
             const type = gl.FLOAT;
             const normalize = false;
@@ -155,25 +217,38 @@ function drawScene(gl, programInfo, buffers) {
                 numComponents, type, normalize, stride, offset);
             gl.enableVertexAttribArray(programInfo.attributeLocations.aVertexPosition);
         }
-        {
+        { // Color
             const numComponents = 4;
             const type = gl.FLOAT;
             const normalize = false;
             const stride = 0;
             const offset = 0;
             gl.bindBuffer(gl.ARRAY_BUFFER, buffers.vertexColor);
-            gl.vertexAttribPointer(
-                programInfo.attributeLocations.aVertexColor,
-                numComponents,
-                type,
-                normalize,
-                stride,
-                offset);
-            gl.enableVertexAttribArray(
-                programInfo.attributeLocations.aVertexColor);
+            gl.vertexAttribPointer(programInfo.attributeLocations.aVertexColor,
+                numComponents, type, normalize, stride, offset);
+            gl.enableVertexAttribArray(programInfo.attributeLocations.aVertexColor);
         }
+        { // Coordinates
+            const numComponents = 2;
+            const type = gl.FLOAT;
+            const normalize = true;
+            const stride = 0;
+            const offset = 0;
+            gl.bindBuffer(gl.ARRAY_BUFFER, buffers.coordinatesBuffer);
+            gl.vertexAttribPointer(programInfo.attributeLocations.aVertexUVCoordinate,
+                numComponents, type, normalize, stride, offset);
+            gl.enableVertexAttribArray(programInfo.attributeLocations.aVertexUVCoordinate);
+        }
+
+        // Bind program
         gl.useProgram(programInfo.program);
 
+        // Bind texture
+        gl.activeTexture(gl.TEXTURE0);
+        gl.bindTexture(gl.TEXTURE_2D, texture);
+        gl.uniform1i(programInfo.uniformLocations.uSampler, 0);
+        
+        // Bind matrices
         gl.uniformMatrix4fv(programInfo.uniformLocations.uProjectionMatrix, false, projectionMatrix);
         gl.uniformMatrix4fv(programInfo.uniformLocations.uModelViewMatrix, false, modelViewMatrix);
         

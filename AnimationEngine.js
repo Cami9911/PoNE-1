@@ -1,5 +1,8 @@
 "use strict"
 
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~ UTILITIES ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 function normalizeVector(vector) {
     vectorLength(vector);
     for (var i = 0; i < vector.length; ++i) {
@@ -67,6 +70,10 @@ function initProgram(gl, vsSource, fsSource) {
     return resultProgram;
 }
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~ END UTILITIES ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~ CLASSES ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 class Renderer {
 
     constructor() {
@@ -107,7 +114,6 @@ class Renderer {
         const zNear = 0.1;
         const zFar = 100.0;
         mat4.ortho(this.projectionMatrix, 0, this.width, this.height, 0, this.zNear, this.zFar);
-        // mat4.perspective(this.projectionMatrix, fieldOfView, aspect, zNear, zFar);
         
     }
 
@@ -149,7 +155,7 @@ class Renderer {
         if (this.jobs.length) {
             let reset = false;
             for (var i = 0; i < this.jobs.length; ++i) {
-                if (this.jobs[i] == null) {
+                if (this.jobs[i] == null || i == this.jobs.length - 1) {
                     if (!reset) { // delete elements [0, i]
                         this.jobs.splice(0, i + 1);
                     }
@@ -168,6 +174,11 @@ class Renderer {
                 this.randableObjects.splice(i, 1);
             }
         }
+    }
+
+    clear() {
+        this.jobs.clear();
+        this.randableObjects.clear();
     }
     
 };
@@ -220,28 +231,33 @@ class Line {
 
         this.angle = Math.atan2(this.endPoint[1] - this.startPoint[1],
                             this.endPoint[0] - this.startPoint[0]);
-
-        console.log("console angle = ", this.angle);
         
 
         this.modelViewMatrix = mat4.create();
     }
 
     update(dt) {
-        // Improve this, like a lot
         if (this.animationTime >= this.animationDuration) {
+
+            // Stabilize stuff
+            let currentLength = distance(this.startPoint, this.endPoint);
+
+            this.modelViewMatrix = mat4.create();
+            let startPosition = [this.startPoint, -1.0];
+            startPosition = startPosition.flat(1);
+            mat4.translate(this.modelViewMatrix, this.modelViewMatrix, startPosition);
+            mat4.rotate(this.modelViewMatrix, this.modelViewMatrix, this.angle, [0.0, 0.0, 1.0]);
+            mat4.scale(this.modelViewMatrix, this.modelViewMatrix, [currentLength, 1.0, 1.0]);
+            mat4.scale(this.modelViewMatrix, this.modelViewMatrix, [1.0, this.thickness, 1.0]);
+
             return false;
         }
-
-        this.endPoint[1] -= 0.05 * dt;
         
         let dist = distance(this.startPoint, this.endPoint);
         let currentLength = lerp(0.0, dist, this.animationTime / this.animationDuration);
         
-        console.log("Current length = ", currentLength);
-        
 
-        this.animationTime += dt / this.animationDuration;
+        this.animationTime += dt;
 
         this.modelViewMatrix = mat4.create();
         let startPosition = [this.startPoint, -6.0];
@@ -287,7 +303,7 @@ class Square {
 
     generateNewLine(startPosition, endPosition) {
         return new Line(this.renderer, this.program,
-            startPosition, endPosition, this.color, this.color, this.thickness, this.animationDuration);
+            startPosition, endPosition, this.color, this.color, this.thickness, this.animationDuration / 4.0);
     }
 
     constructor(renderer, program, position, size, color, thickness = 5, animationDuration = 0.5) {
@@ -302,9 +318,10 @@ class Square {
         this.animationDuration = animationDuration;
     
         this.lines = [];
-        this.lines.push(this.generateNewLine([position[0] + size, position[1]], position));
+        this.lines.push(this.generateNewLine(position, [position[0] + size, position[1]]));
         renderer.addRandableObject(this.lines[0]);
         renderer.addJob(dt => this.lines[0].update(dt));
+        renderer.addSeparator();
 
         this.lines.push(this.generateNewLine([position[0] + size, position[1]], [position[0] + size, position[1] + size]));
         renderer.addRandableObject(this.lines[1]);
@@ -314,17 +331,25 @@ class Square {
         this.lines.push(this.generateNewLine([position[0] + size, position[1] + size], [position[0], position[1] + size]));
         renderer.addRandableObject(this.lines[2]);
         renderer.addJob(dt => this.lines[2].update(dt));
+        renderer.addSeparator();
 
-        this.lines.push(this.generateNewLine(position, [position[0], position[1] + size]));
+        this.lines.push(this.generateNewLine([position[0], position[1] + size], position));
         renderer.addRandableObject(this.lines[3]);
         renderer.addJob(dt => this.lines[3].update(dt));
+        renderer.addSeparator();
 
     }
 };
 
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~ END CLASSES ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~ MAIN SCRIPT ~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 function init() {
 
     const renderer = new Renderer();
+
+    document.getElementById("animate-button").onclick = animate;
 
     const colorOnlyProgram = initProgram(renderer.gl,
         `
@@ -367,7 +392,7 @@ function run(renderer, programs, matrices) {
 
 
     const sq = new Square(renderer, programs.colorOnlyProgram,
-            [100.0, 30.0], 200, renderer.fillColor, 3, 1);
+            [100.0, 30.0], 200, renderer.fillColor, 5, 1.0);
 
 
 
@@ -384,4 +409,24 @@ function run(renderer, programs, matrices) {
     requestAnimationFrame(render);
 }
 
+
+function animate() {
+    let expressionElement = document.getElementById("plain-text-expression");
+
+    let expression = expressionElement.value;
+    let parsedExpression = expression.split(/([-+(\/)])/g);
+    parsedExpression = parsedExpression.filter(function (el) {
+        return el != '' && el != null;
+    });
+    console.log(parsedExpression);
+    let variables = expression.split(/[-+\/]/g)
+    variables = variables.filter(function (el) {
+        return el != '' && el != null;
+    });
+    console.log(variables);
+
+}
+
 window.onload = init();
+
+// ~~~~~~~~~~~~~~~~~~~~~~~~~~ END MAIN SCRIPT ~~~~~~~~~~~~~~~~~~~~~~~~~~

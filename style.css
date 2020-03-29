@@ -186,3 +186,12 @@ section > canvas {
     }
     
 }
+
+@media only screen and (min-width: 900px) {
+    .resizeable-text {
+        font-size: 0.8em;
+    }
+    .resizeable-text-bold {
+        font-size: 0.9em;
+    }
+}

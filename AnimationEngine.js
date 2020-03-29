@@ -70,6 +70,10 @@ function initProgram(gl, vsSource, fsSource) {
     return resultProgram;
 }
 
+function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  };
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~ END UTILITIES ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~ CLASSES ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -82,6 +86,7 @@ class Renderer {
         this.frameID = 0;
         this.jobs = [];
         this.randableObjects = [];
+        this.longLiveObjects = [];
 
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             this.clearColor = [0.0, 0.0, 0.0, 1.0];
@@ -125,6 +130,9 @@ class Renderer {
     }
     addRandableObject(obj) {
         this.randableObjects.push(obj);
+    }
+    addLongLiveObject(obj) {
+        this.longLiveObjects.push(obj);
     }
 
     createBuffer(target, data, usage) {
@@ -177,8 +185,17 @@ class Renderer {
     }
 
     clear() {
-        this.jobs.clear();
-        this.randableObjects.clear();
+        this.jobs = [];
+        this.randableObjects = [];
+        this.longLiveObjects = [];
+    }
+
+    getWidth() {
+        return this.width;
+    }
+
+    getHeight() {
+        return this.height;
     }
     
 };
@@ -341,6 +358,43 @@ class Square {
     }
 };
 
+class Stack {
+
+    generateSquares() {
+        
+        // let totalSize = this.numElements * this.elementSize;
+        // let halfTotalSize = totalSize / 2.0;
+        let halfNumElements = this.numElements / 2.0;
+
+        let center = this.renderer.getWidth() / 2.0;
+
+        this.squares = [];
+        let lowerBound = -Math.round(halfNumElements);
+        let upperBound = Math.floor(halfNumElements);
+        for (var i = lowerBound; i < upperBound; ++i) {
+            this.squares.push(new Square(this.renderer, this.program,
+                [center + i * this.elementSize, 400], this.elementSize, this.renderer.fillColor, 5, 1.0 ));
+        }
+
+    }
+
+    constructor(renderer, program, numElements) {
+        
+        this.renderer = renderer;
+        this.program = program;
+        this.numElements = numElements;
+
+        this.MIN_SQUARE_SIZE = 10;
+        this.MAX_SQUARE_SIZE = 300;
+
+        this.elementSize = clamp(renderer.getWidth() / (numElements + 1), this.MIN_SQUARE_SIZE, this.MAX_SQUARE_SIZE);
+
+        this.generateSquares();
+
+    }
+
+};
+
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~ END CLASSES ~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 // ~~~~~~~~~~~~~~~~~~~~~~~~~~ MAIN SCRIPT ~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -348,9 +402,6 @@ class Square {
 function init() {
 
     const renderer = new Renderer();
-
-    document.getElementById("animate-button").onclick = animate;
-
     const colorOnlyProgram = initProgram(renderer.gl,
         `
         attribute vec4 aVertexPosition;
@@ -387,12 +438,13 @@ function init() {
     });
 }
 
-function run(renderer, programs, matrices) {
+function run(renderer, programs) {
     var then = 0.0;
 
+    document.getElementById("animate-button").onclick = () => animate(renderer, programs);
 
-    const sq = new Square(renderer, programs.colorOnlyProgram,
-            [100.0, 30.0], 200, renderer.fillColor, 5, 1.0);
+    // const sq = new Square(renderer, programs.colorOnlyProgram,
+    //         [100.0, 30.0], 200, renderer.fillColor, 5, 1.0);
 
 
 
@@ -410,20 +462,27 @@ function run(renderer, programs, matrices) {
 }
 
 
-function animate() {
+function animate(renderer, programs) {
+    // Keep in mind that here is not a lot of error handling
     let expressionElement = document.getElementById("plain-text-expression");
 
     let expression = expressionElement.value;
-    let parsedExpression = expression.split(/([-+(\/)])/g);
+    let re = /([-+*\/()])/g;
+    let parsedExpression = expression.split(re);
     parsedExpression = parsedExpression.filter(function (el) {
         return el != '' && el != null;
     });
-    console.log(parsedExpression);
-    let variables = expression.split(/[-+\/]/g)
-    variables = variables.filter(function (el) {
-        return el != '' && el != null;
-    });
-    console.log(variables);
+
+    let count = 0;
+    for (var i = 0; i < parsedExpression.length; ++i) {
+        if (parsedExpression[i].match(re)) {
+            count++;
+        }
+    }
+
+    renderer.clear();
+    
+    renderer.addLongLiveObject(new Stack(renderer, programs.colorOnlyProgram, count));
 
 }
 

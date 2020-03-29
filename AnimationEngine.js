@@ -361,31 +361,30 @@ class Square {
 class Stack {
 
     generateSquares() {
-        
-        // let totalSize = this.numElements * this.elementSize;
-        // let halfTotalSize = totalSize / 2.0;
         let halfNumElements = this.numElements / 2.0;
 
         let center = this.renderer.getWidth() / 2.0;
+        let yPosition = this.renderer.getHeight() - 1.3 * this.elementSize;
 
         this.squares = [];
         let lowerBound = -Math.round(halfNumElements);
         let upperBound = Math.floor(halfNumElements);
         for (var i = lowerBound; i < upperBound; ++i) {
             this.squares.push(new Square(this.renderer, this.program,
-                [center + i * this.elementSize, 400], this.elementSize, this.renderer.fillColor, 5, 1.0 ));
+                [center + i * this.elementSize, yPosition], this.elementSize, this.renderer.fillColor, 8, this.animationTime / this.numElements));
         }
 
     }
 
-    constructor(renderer, program, numElements) {
+    constructor(renderer, program, numElements, animationTime) {
         
         this.renderer = renderer;
         this.program = program;
         this.numElements = numElements;
+        this.animationTime = animationTime;
 
         this.MIN_SQUARE_SIZE = 10;
-        this.MAX_SQUARE_SIZE = 300;
+        this.MAX_SQUARE_SIZE = 200;
 
         this.elementSize = clamp(renderer.getWidth() / (numElements + 1), this.MIN_SQUARE_SIZE, this.MAX_SQUARE_SIZE);
 
@@ -481,8 +480,7 @@ function animate(renderer, programs) {
     }
 
     renderer.clear();
-    
-    renderer.addLongLiveObject(new Stack(renderer, programs.colorOnlyProgram, count));
+    renderer.addLongLiveObject(new Stack(renderer, programs.colorOnlyProgram, count, 1.5));
 
 }
 

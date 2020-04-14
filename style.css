@@ -1,91 +1,35 @@
 * {
     margin: 0px;
-    padding: 0px;
-    list-style: none;
     box-sizing: border-box;
-    font-family: 'Popins', sans-serif;
-}
-
-nav {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    min-height: 10vh;
-    width: 100%;
-    background-color: #550a46;
-}
-
-footer {
-    min-height: 10vh;
-    background-color: #550a46;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.link-list {
-    display: flex;
-    justify-content: space-around;
-    width: 40%;
-}
-
-.link-list a {
     text-decoration: none;
-    color: whitesmoke;
-    letter-spacing: 3px;
-    font-size: 17px;
-    padding: 10px 15px;
-    border: 1px solid rgb(211, 209, 209);
-    border-radius: 10px;
-}
-
-.link-list a:hover {
-    background-color: #4a69bb;
-    border-radius: 10px;
-}
-
-.line1,
-.line2,
-.line3 {
-    width: 25px;
-    height: 3px;
-    background-color: whitesmoke;
-    margin: 5px;
-    transition: all 0.3s ease-in;
-}
-
-.burger-menu {
-    display: none;
-}
-
-.burger-menu div {
-    width: 25px;
-    height: 3px;
-    background-color: whitesmoke;
-    margin: 5px;
-    cursor: pointer;
+    list-style: none;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
 }
 
 .main {
-    min-height: 80vh;
-    background-color: whitesmoke;
+    width: 100%;
+    min-height: 100vh;
+    background-image: url(./back3.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: #f8f5f5;
+    margin-bottom: 0px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
 }
-
 .content {
     width: 60vw;
     height: 60vh;
-    background-color: #BDDFFF;
+    background-color: #EFE5E5;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    border: solid rgb(211, 209, 209) 5px;
-    box-shadow: 10px 10px grey;
-    border-bottom-left-radius: 30px;
-    border-top-left-radius: 30px;
+    border-radius: 10px;
+    margin-bottom: 80px;
+ 
+    box-shadow: rgb(182, 157, 182) 0 1px 2px;
 }
 
 .exercise-area {
@@ -95,29 +39,28 @@ footer {
     flex-direction: column;
     justify-content: space-around;
     font-size: 2vh;
-    color: black;
+
 }
 
 .answer {
     display: flex;
     justify-content: space-around;
     align-items: center;
+    
 }
 
 .answer #answer {
     width: 100%;
     height: 70%;
-    background-color: #5D53AC;
-    border-radius: 20px;
-    box-shadow: 7px 7px grey;
+    background-color: #F8F5F5;
+    border-radius: 15px;
+    border:solid #E6D7D7 1px;
+    color: black;
 }
 
-input {
-    color: whitesmoke;
-}
 
 #answer:hover {
-    background-color: rgb(81, 72, 153);
+    background-color: rgb(226, 221, 221);
 }
 
 .buttons-area {
@@ -126,20 +69,20 @@ input {
     display: flex;
     justify-content: space-around;
     align-items: center;
-    border: 0.5px solid #C0C0C0;
+    
 }
 
 .commentGenerate {
     width: 100%;
     height: 100%;
-    background-color: #BDDFFF;
+    background-color: #EFE5E5;
     font-size: medium;
-    border: 0.5px solid #C0C0C0;
-    color: black;
+    border:none;
+    border:solid white 1px;  
 }
 
 .commentGenerate:hover {
-    background-color: rgb(175, 207, 236);
+    background-color: rgb(226, 221, 221);
 }
 
 .comments-area {
@@ -148,112 +91,26 @@ input {
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    color:black;
+
 }
 
 .comments-area #comment {
-    width: 80%;
+    width: 100%;
     height: 50%;
-    background-color: #ACA4EA;
-    border-right: 0.5px solid lightgray;
-    border-bottom-left-radius: 20px;
-    border-top-left-radius: 20px;
+    background-color: #F8F5F5;
+    border-radius: 15px;
     border:none;
-    box-shadow: 7px 7px grey;
     margin-top: 30px;
+    border:#E6D7D7 1px solid;
 }
-
-.comments-area #username {
-    width: 20%;
-    height: 50%;
-    background-color: #ACA4EA;
-    border-left: none;
-    border-bottom-right-radius: 20px;
-    border-top-right-radius: 20px;
-    border:none;
-    box-shadow: 7px 7px grey;
-    margin-top: 30px;
-}
-
-.comment-section {
-    width: 20vw;
-    height: 60vh;
-    background-color: #BDDFFF;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    border-bottom-right-radius: 30px;
-    border-top-right-radius: 30px;
-    border: solid rgb(211, 209, 209) 5px;
-    box-shadow: 10px 10px grey;
-}
-
-.comm {
-    width: 90%;
-    height: 20%;
-    background-color: #ACA4EA;
-    border-right: 0.5px solid lightgray;
-    border-radius: 20px;
-    border:none;
-    box-shadow: 7px 7px grey;
-    margin-top: 30px;
-}
-
-
-.vl{
-    border-left: 1px solid rgb(218, 147, 147);
-    margin-top: 30px;
-}
-
-::placeholder {
-    color: whitesmoke;
-    opacity: 1;
-}
-
-.answer img:hover {
-    opacity: 0.5;
-}
-
-#username:hover,
-#comment:hover {
-    background-color: rgb(161, 154, 219);
+.comments-area #comment:hover{
+    background-color: rgb(226, 221, 221);
 }
 
 
 @media only screen and (max-width: 600px) {
-    html,
-    body {
-        overflow-x: hidden;
-    }
-    nav {
-        position: absolute;
-    }
-    .link-list {
-        position: absolute;
-        right: 0px;
-        top: 10vh;
-        height: 30vh;
-        width: 100vw;
-        background-color: #4a69bb;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        z-index: 1;
-        /* transform: translateX(100%); */
-        opacity: 0;
-        transition: opacity 0.5s ease-in;
-        border-bottom-right-radius: 5px;
-        border-bottom-left-radius: 5px;
-    }
-    .burger-menu {
-        display: block;
-        cursor: pointer;
-    }
-    .link-list a:hover {
-        color: white;
-        font-size: 18px;
-        padding: 0px 0px;
-    }
+   
     .main {
         min-height: 90vh;
     }
@@ -273,21 +130,4 @@ input {
         position: absolute;
         bottom: 20vh;
     }
-}
-
-.nav-active {
-    /*transform: translateX(0%); */
-    opacity: 1;
-}
-
-.burger-active .line1 {
-    transform: rotate(-45deg) translate(-9px, 6px);
-}
-
-.burger-active .line2 {
-    opacity: 0;
-}
-
-.burger-active .line3 {
-    transform: rotate(45deg) translate(-5px, -3px);
 }

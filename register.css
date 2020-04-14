@@ -1,0 +1,124 @@
+    * {
+        margin: 0px;
+        box-sizing: border-box;
+        text-decoration: none;
+        list-style: none;
+        font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    }
+    
+    .main-content {
+        width: 100%;
+        min-height: 100vh;
+        background-image: url(./assets/back2.jpg);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-color: #f8f5f5;
+        margin-bottom: 0px;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+    
+    .form-container {
+        width: 35%;
+        height: 80vh;
+        margin-left: 50%;
+        display: flex;
+        justify-content: space-evenly;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .link-list {
+        width: 100%;
+        display: flex;
+        justify-content: space-evenly;
+        margin-right: 10%;
+    }
+    
+    .link-list a {
+        font-size: 40px;
+        font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+        color: #C4C0C0;
+        font-weight: bolder;
+    }
+    
+    #sign-up-link {
+        color: #93137A;
+    }
+    
+    form {
+        height: 60%;
+        width: 80%;
+        position: relative;
+    }
+    
+    input {
+        width: 100%;
+        height: 6.5vh;
+        border-radius: 15px;
+        border: 1px solid #707070;
+        border-bottom: 2px solid #93137A;
+        border-right: 2px solid #93137A;
+        background-color: white;
+        margin-top: 8%;
+        padding-left: 40px;
+        font-size: 15px;
+    }
+    
+    #username {
+        margin-top: 0%;
+    }
+    
+    #password {
+        margin-bottom: 5%;
+    }
+    
+    span>a,
+    span {
+        color: #93137A;
+        font-size: 21px;
+    }
+    
+    span {
+        margin-left: 20%;
+    }
+    
+    #submit-button {
+        margin-top: 10%;
+        margin-left: 15%;
+        background-color: #550A46;
+        color: white;
+        font-size: 20px;
+        width: 70%;
+        padding: 0px;
+    }
+    
+    .input-container i {
+        position: absolute;
+    }
+    
+    .fa-user-circle-o {
+        top: 18%;
+    }
+    
+    .fa-envelope {
+        top: 50%;
+    }
+    
+    .fa-unlock-alt {
+        top: 41%;
+    }
+    
+    .input-container {
+        width: 100%;
+        margin-bottom: 10px;
+        position: relative;
+    }
+    
+    .icon {
+        min-width: 50px;
+        text-align: center;
+        z-index: 1;
+        padding: 10px;
+    }

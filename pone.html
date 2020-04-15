@@ -24,8 +24,13 @@
             <div class="line"></div>
         </div>
     </nav>
-    <section>
-        <canvas id="glCanvas" width="1920" height="1080"></canvas>
+    <section id="pone-main-page">
+        <section id="pone-container">
+            <canvas id="glCanvas" width="1920" height="1080"></canvas>
+            <svg id="text">
+<!--                <text x="100" y="100" fill="red" opacity="0.4">I love SVG!</text>-->
+            </svg>
+        </section>
 
         <form class="user-input">
             <div class="user-input-row">
@@ -48,6 +53,12 @@
         <p>Footer</p>
     </footer>
     <script src="./gl-matrix.js"></script>
+    <script src="./Utils.js"></script>
+    <script src="./Renderer.js"></script>
+    <script src="./Line.js"></script>
+    <script src="./Square.js"></script>
+    <script src="./Stack.js"></script>
+    <script src="./Text.js"></script>
     <script src="./AnimationEngine.js"></script>
 </body>
 

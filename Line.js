@@ -69,7 +69,6 @@ class Line {
         let dist = distance(this.startPoint, this.endPoint);
         let currentLength = lerp(0.0, dist, this.animationTime / this.animationDuration);
 
-
         this.animationTime += dt;
 
         this.modelViewMatrix = mat4.create();

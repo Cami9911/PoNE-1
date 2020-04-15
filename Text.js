@@ -65,6 +65,14 @@ class Text{
         return this.fontColor;
     }
 
+    getText() {
+        return this.element.innerHTML;
+    }
+
+    setText(text) {
+        this.element.innerHTML = text;
+    }
+
     getMiddleWidthCoordinate() {
         let halfWidth = this.renderer.width / 2.0;
         let halfTextSize = this.element.getBoundingClientRect().width / 2.0;
@@ -172,7 +180,6 @@ class Text{
 
     render(projectionMatrix) {
         let position = [this.convertToRenderSizeWidth(this.position[0]), this.convertToRenderSizeHeight(this.position[1])];
-        console.log("Render text position = ", position);
         let fontSize = this.convertToRenderSizeHeight(this.fontSize);
         this.element.setAttribute('x', position[0]);
         this.element.setAttribute('y', position[1]);

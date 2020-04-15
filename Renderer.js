@@ -82,6 +82,35 @@ class Renderer {
         this.gl.enableVertexAttribArray(location);
     }
 
+    executeJobs(jobs, dt) {
+        if (Array.isArray(jobs)) {
+            if (jobs.length) {
+                let reset = false;
+                for (let i = 0; i < jobs.length; ++i) {
+                    if (jobs[i] == null) {
+                        if (!reset) { // delete elements [0, i]
+                            jobs.splice(0, i + 1);
+                        }
+                        return true;
+                    } else if (i === jobs.length - 1) {
+                        reset |= this.executeJobs(jobs[i], dt);
+                        if (!reset) { // delete elements [0, i]
+                            jobs.splice(0, i + 1);
+                        }
+                        return true;
+                    } else {
+                        reset |= this.executeJobs(jobs[i], dt); // This is some sort of update
+                    }
+                }
+            } else {
+                // No jobs? Just look pretty for now!
+                return false;
+            }
+        } else {
+            return jobs(dt);
+        }
+    }
+
     frame(dt) {
         this.frameID = this.frameID + 1;
 
@@ -92,27 +121,7 @@ class Renderer {
         this.gl.clearColor(this.clearColor[0],this.clearColor[1],this.clearColor[2],this.clearColor[3]);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT);
 
-        if (this.jobs.length) {
-            let reset = false;
-            for (let i = 0; i < this.jobs.length; ++i) {
-                if (this.jobs[i] == null) {
-                    if (!reset) { // delete elements [0, i]
-                        this.jobs.splice(0, i + 1);
-                    }
-                    break;
-                } else if (i === this.jobs.length - 1) {
-                    reset |= this.jobs[i](dt);
-                    if (!reset) { // delete elements [0, i]
-                        this.jobs.splice(0, i + 1);
-                    }
-                    break;
-                } else {
-                    reset |= this.jobs[i](dt); // This is some sort of update
-                }
-            }
-        } else {
-            // No jobs? Just look pretty for now!
-        }
+        this.executeJobs(this.jobs, dt);
 
         if (this.asyncJobs.length) {
             for (let i = 0; i < this.asyncJobs.length; ++i) {

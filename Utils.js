@@ -1,6 +1,7 @@
 "use strict"
 
 const EXPLAIN_TEXT_SIZE = 54;
+const PADDING_SIZE = 50;
 
 
 function normalizeVector(vector) {

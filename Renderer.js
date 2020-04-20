@@ -18,7 +18,8 @@ class Renderer {
             this.clearColor = [1.0, 1.0, 1.0, 1.0];
             this.fillColor  = [0.0, 0.0, 0.0, 1.0];
         }
-        console.log("Selected color", this.clearColor);
+        console.log("Selected clear color", this.clearColor);
+        console.log("Sected fill color", this.fillColor);
 
         var canvas = document.querySelector("#glCanvas");
         this.gl = canvas.getContext("webgl");
@@ -39,6 +40,15 @@ class Renderer {
         this.zFar = 100.0;
         mat4.ortho(this.projectionMatrix, 0, this.width, this.height, 0, this.zNear, this.zFar);
 
+    }
+
+    getHexFillColor() {
+        let hexColor = [
+            (this.fillColor[0] * 255.0).toString(16),
+            (this.fillColor[1] * 255.0).toString(16),
+            (this.fillColor[2] * 255.0).toString(16)
+        ];
+        return '#' + hexColor.join('');
     }
 
     addJob(job, position = null) {

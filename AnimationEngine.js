@@ -78,15 +78,20 @@ function animate(renderer, programs) {
     }
 
     renderer.clear();
-    renderer.addLongLiveObject(new Stack(renderer, programs.colorOnlyProgram, count, 1.5));
+    let st = new Stack(renderer, programs.colorOnlyProgram, count, 1.5);
+    let halfHeight = renderer.getHeight() / 2.0;
+    let input = new Expression(renderer, " Input:", [], [PADDING_SIZE, halfHeight - EXPLAIN_TEXT_SIZE], 1.5);
+    let output = new Expression(renderer, "Output:", [], [PADDING_SIZE, halfHeight + EXPLAIN_TEXT_SIZE], 1.5);
 
-    // let t = new Text(renderer, [100.0, 100.0], 32, 'Hello world!');
-    // t.setAnimation('move', 1.0, [200.0, 200.0]);
-    //
-    // renderer.addRandableObject(t);
-    // renderer.addJob(dt => t.update(dt));
-    // renderer.addSeparator();
-    // renderer.addJob(dt => t.update(dt));
+    function update(dt) {
+        st.update(dt);
+        input.update(dt);
+        output.update(dt);
+        return true;
+    }
+
+    renderer.addJob(update)
+    
 }
 
 window.onload = init();

@@ -60,7 +60,11 @@ footer {
 }
 
 .explain-text {
-    font-family: Consolas;
+    font-family: Consolas, monospace;
+}
+
+.expression-text {
+    font-family: Consolas, monospace;
 }
 
 .user-input {

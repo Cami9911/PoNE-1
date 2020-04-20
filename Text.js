@@ -1,13 +1,8 @@
 "use strict"
 
 class Text{
-    static availableTexts = [];
-
     static clearAvailableTexts() {
-        for (let i = 0; i < Text.availableTexts.length; ++i) {
-            Text.availableTexts[i].delete();
-        }
-        Text.availableTexts = [];
+        document.querySelector('svg').innerHTML = '';
     }
 
     constructor(renderer, position, fontSize, fontColor, text, textClass = null) {
@@ -23,19 +18,22 @@ class Text{
         let svgElement = document.getElementById("text");
         this.parentElement = svgElement;
 
+        // this.element = document.createElement("text");
+        // svgElement.appendChild(this.element);
+        // this.element.setAttribute('id', this.id);
+        // this.element.setAttribute('overflow', 'visible');
+
         let elementString = "<text id=\"" + this.id + "\">" + text + "</text>";
         svgElement.innerHTML = svgElement.innerHTML + elementString;
         this.element = document.getElementById(this.id);
+
         this.element.setAttribute('font-size', fontSize);
         this.setPosition(position[0], position[1]);
 
         if (textClass != null) {
             this.element.setAttribute('class', textClass);
         }
-
-        this.frame = 0;
-
-        Text.availableTexts.push(this);
+        
     }
 
     setPosition(x, y) {
@@ -75,13 +73,13 @@ class Text{
 
     getMiddleWidthCoordinate() {
         let halfWidth = this.renderer.width / 2.0;
-        let halfTextSize = this.element.getBoundingClientRect().width / 2.0;
+        let halfTextSize = this.element.getBoundingClientRect().width;
         return halfWidth - halfTextSize;
     }
 
     getMiddleHeightCoordinate() {
         let halfHeight = this.renderer.height / 2.0;
-        let halfTextSize = this.element.getBoundingClientRect().height / 2.0;
+        let halfTextSize = this.element.getBoundingClientRect().height;
         return halfHeight - halfTextSize;
     }
 
@@ -110,10 +108,6 @@ class Text{
                 animationArgs[1][1] === 'middle' ? this.getMiddleHeightCoordinate() : animationArgs[1][1]
             ];
         }
-    }
-
-    delete() {
-        document.getElementById("text").removeChild(this.element);
     }
 
     updateFadeIn(dt) {
@@ -166,6 +160,7 @@ class Text{
     }
 
     update(dt) {
+        this.element = document.getElementById(this.id);
         if (this.animation === "fade-in") {
             return this.updateFadeIn(dt);
         } else if (this.animation === "fade-out") {
@@ -179,8 +174,9 @@ class Text{
     }
 
     render(projectionMatrix) {
+        this.element = document.getElementById(this.id);
         let position = [this.convertToRenderSizeWidth(this.position[0]), this.convertToRenderSizeHeight(this.position[1])];
-        let fontSize = this.convertToRenderSizeHeight(this.fontSize);
+        let fontSize = Math.min(this.convertToRenderSizeHeight(this.fontSize), this.convertToRenderSizeWidth((this.fontSize)));
         this.element.setAttribute('x', position[0]);
         this.element.setAttribute('y', position[1]);
         this.element.setAttribute('fill', this.fontColor);

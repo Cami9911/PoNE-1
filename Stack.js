@@ -19,10 +19,8 @@ class Stack {
 
         this.generateSquares();
 
-        this.text = new Text(renderer, ['middle', TEXT_EXPLAIN_Y], EXPLAIN_TEXT_SIZE, '#550a46', '1. Build a stack', 'explain-text');
+        this.text = new Text(renderer, ['middle', TEXT_EXPLAIN_Y], EXPLAIN_TEXT_SIZE, renderer.getHexFillColor(), '1. Build a stack', 'explain-text');
         this.text.setAnimation('fade-in', animationTime);
-
-        renderer.addJob(dt => this.update(dt));
 
         renderer.addRandableObject(this.text);
         this.jobs = [dt=> this.text.update(dt), [this.jobs]];

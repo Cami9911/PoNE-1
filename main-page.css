@@ -8,7 +8,7 @@
 
 .main {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     background-image: url(./assets/back3.jpg);
     background-size: 100% 100%;
     background-repeat: no-repeat;
@@ -110,4 +110,62 @@ nav {
 
 .avatar-dropmenu:hover .drop-content {
     display: block;
+}
+
+@media only screen and (max-width: 800px) and (orientation:portrait) {
+    .main {
+        width: 100%;
+        min-height: 100vh;
+        background-image: url(./assets/iphone678.jpg);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-color: #f8f5f5;
+    }
+    .main-content__text {
+        width: 90%;
+        background-color: #F8F5F5;
+    }
+    .main-content {
+        padding-bottom: 15%;
+        font-size: 13px;
+    }
+    .fa.fa-graduation-cap,
+    .fa.fa-pencil,
+    .fa.fa-check-circle {
+        font-size: 50px;
+    }
+    .main-content__text {
+        border: none;
+    }
+    .main-content__text:nth-child(1) {
+        border-bottom: none;
+    }
+    .main-content__text:nth-child(3) {
+        border-top: none;
+    }
+}
+
+@media only screen and (max-width: 800px) and (orientation: landscape) {
+    .main-content__text {
+        width: 80%;
+        background-color: #F8F5F5;
+    }
+    .main-content {
+        padding-bottom: 5%;
+        font-size: 13px;
+    }
+    .fa.fa-graduation-cap,
+    .fa.fa-pencil,
+    .fa.fa-check-circle {
+        font-size: 50px;
+    }
+    .main-content__text {
+        border: none;
+    }
+    .main-content__text:nth-child(1) {
+        border-bottom: none;
+    }
+    .main-content__text:nth-child(3) {
+        border-top: none;
+    }
 }

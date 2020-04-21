@@ -61,8 +61,7 @@ input {
     border-bottom: 2px solid #93137A;
     border-right: 2px solid #93137A;
     background-color: white;
-    margin-top: 8%;
-    padding-left: 40px;
+    padding-left: 50px;
     font-size: 15px;
 }
 
@@ -106,23 +105,86 @@ input {
     position: absolute;
 }
 
-.fa-envelope {
-    top: 50%;
-}
-
-.fa-unlock-alt {
-    top: 41%;
-}
-
 .input-container {
     width: 100%;
-    margin-bottom: 10px;
-    position: relative;
+    margin-bottom: 20px;
 }
 
 .icon {
+    padding: 20px;
+    color: #93137A;
     min-width: 50px;
     text-align: center;
-    z-index: 1;
-    padding: 10px;
+}
+
+@media only screen and (max-width: 900px) and (orientation: portrait) {
+    .main-content {
+        background-image: url(./assets/iphone678plus.jpg);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-color: #f8f5f5;
+    }
+    .form-container {
+        justify-content: center;
+        align-items: center;
+        margin-left: 0px;
+        width: 100%;
+    }
+    .link-list a {
+        font-size: 30px;
+    }
+    .link-list {
+        margin-bottom: 30px;
+    }
+    .input-field {
+        height: 7vh;
+    }
+    .submit-area {
+        height: 30%;
+        flex-direction: column;
+    }
+    .submit-area a {
+        font-size: 15px;
+    }
+    #submit-button {
+        height: 6vh;
+        width: 60%;
+        font-size: 18px;
+        border-radius: 30px;
+    }
+    .icon {
+        padding: 15px;
+    }
+}
+
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+    .link-list a {
+        font-size: 22px;
+    }
+    .link-list {
+        margin-bottom: 30px;
+        margin-right: 20%;
+    }
+    .submit-area {
+        height: 30%;
+        flex-direction: column;
+    }
+    .submit-area a {
+        font-size: 15px;
+    }
+    #submit-button {
+        height: 7vh;
+        width: 60%;
+        font-size: 15px;
+        border-radius: 30px;
+    }
+    .input-field {
+        height: 9vh;
+    }
+    .icon {
+        padding: 15px;
+    }
+    form {
+        width: 90%;
+    }
 }

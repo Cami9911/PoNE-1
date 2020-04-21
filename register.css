@@ -80,13 +80,8 @@
         font-size: 21px;
     }
     
-    span {
-        margin-left: 20%;
-    }
-    
     #submit-button {
         margin-top: 10%;
-        margin-left: 15%;
         background-color: #550A46;
         color: white;
         font-size: 20px;
@@ -121,4 +116,83 @@
         text-align: center;
         z-index: 1;
         padding: 10px;
+    }
+    
+    .submit-area {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    
+    @media only screen and (max-width: 900px) and (orientation: portrait) {
+        .main-content {
+            background-image: url(./assets/iphone678plus.jpg);
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+            background-color: #f8f5f5;
+        }
+        .form-container {
+            justify-content: center;
+            align-items: center;
+            margin-left: 0px;
+            width: 100%;
+            margin-bottom: 35%;
+        }
+        .link-list a {
+            font-size: 30px;
+        }
+        .link-list {
+            margin-bottom: 30px;
+        }
+        .input-field {
+            height: 7vh;
+        }
+        #submit-button {
+            height: 6vh;
+            width: 60%;
+            font-size: 18px;
+            border-radius: 30px;
+        }
+        .icon {
+            padding: 15px;
+        }
+        form span,
+        form a {
+            font-size: 15px;
+        }
+    }
+    
+    @media only screen and (max-width: 900px) and (orientation: landscape) {
+        .link-list a {
+            font-size: 20px;
+        }
+        .input-field {
+            height: 9vh;
+            width: 100%;
+        }
+        #submit-button {
+            height: 7vh;
+            width: 60%;
+            font-size: 15px;
+            border-radius: 30px;
+        }
+        .icon {
+            padding: 15px;
+        }
+        form {
+            width: 90%;
+        }
+        .form-container {
+            justify-content: space-evenly;
+        }
+        form:nth-child(1) {
+            margin-top: 0px;
+        }
+        .submit-area span,
+        .submit-area a {
+            font-size: 13px;
+        }
+        .main-content {
+            align-items: flex-start;
+        }
     }

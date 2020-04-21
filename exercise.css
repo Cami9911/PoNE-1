@@ -26,10 +26,10 @@
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    border-radius: 10px;
+    border-radius: 5px;
     margin-bottom: 80px;
  
-    box-shadow: rgb(182, 157, 182) 0 1px 2px;
+    box-shadow: rgb(182, 157, 182) 0 1px 1px;
 }
 
 .exercise-area {
@@ -51,7 +51,7 @@
 
 .answer #answer {
     width: 100%;
-    height: 70%;
+    height: 90%;
     background-color: #F8F5F5;
     border-radius: 15px;
     border:solid #E6D7D7 1px;
@@ -69,7 +69,7 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    
+
 }
 
 .commentGenerate {
@@ -129,5 +129,49 @@
         height: 60vh;
         position: absolute;
         bottom: 20vh;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .content{
+        margin-bottom: 50px;
+    }
+    h1{
+        font-size: 15px;
+    }
+    .main {
+        background-repeat: no-repeat;
+        background-image: url(./phone.jpg);
+        min-height: 100vh;
+    }
+    
+}
+
+@media screen and (width: 768px) and (height: 1024px) {
+    .content{
+        width:90%;
+        margin-bottom: 120px;
+    }
+    h1{
+        font-size: 15px;
+    }
+    .main {
+        background-repeat: no-repeat;
+        background-image: url(./ipad.jpg);
+        min-height: 100vh;
+    }
+  
+}
+@media screen and (width: 1024px) and (height: 1366px) {
+    .content{
+        width:90%;
+        margin-bottom: 160px;
+    }
+    h1{
+        font-size: 15px;
+    }
+    .main {
+        background-repeat: no-repeat;
+        background-image: url(./ipad.jpg);
+        min-height: 100vh;
     }
 }

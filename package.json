@@ -1,0 +1,17 @@
+{
+  "name": "server_node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "md5": "^2.2.1",
+    "mysql": "^2.18.1",
+    "xmlserializer": "^0.6.1"
+  }
+}

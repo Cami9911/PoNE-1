@@ -1,0 +1,190 @@
+* {
+    margin: 0px;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+.main-content {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url(./assets/back2.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: #f8f5f5;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.form-container {
+    width: 35%;
+    height: 80vh;
+    margin-left: 50%;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    align-items: center;
+}
+
+.link-list {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    margin-right: 10%;
+}
+
+.link-list a {
+    font-size: 40px;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+    color: #C4C0C0;
+    font-weight: bolder;
+}
+
+#sign-up-link {
+    color: #93137A;
+}
+
+form {
+    height: 60%;
+    width: 80%;
+    position: relative;
+}
+
+input {
+    width: 100%;
+    height: 6.5vh;
+    border-radius: 15px;
+    border: 1px solid #707070;
+    border-bottom: 2px solid #93137A;
+    border-right: 2px solid #93137A;
+    background-color: white;
+    padding-left: 50px;
+    font-size: 15px;
+}
+
+#username {
+    margin-top: 0%;
+}
+
+#password {
+    margin-bottom: 5%;
+}
+
+.submit-area {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 6.5vh;
+}
+
+.submit-area a {
+    color: #93137A;
+    font-size: 20px;
+}
+
+#submit-button {
+    background-color: #550A46;
+    color: white;
+    font-size: 20px;
+    width: 50%;
+    padding: 0px;
+    cursor: pointer;
+    height: 70%;
+    margin-top: 0%;
+}
+
+#submit-button:hover {
+    background-color: #93137A;
+}
+
+.input-container i {
+    position: absolute;
+}
+
+.input-container {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.icon {
+    padding: 20px;
+    color: #93137A;
+    min-width: 50px;
+    text-align: center;
+}
+
+@media only screen and (max-width: 900px) and (orientation: portrait) {
+    .main-content {
+        background-image: url(./assets/iphone678plus.jpg);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-color: #f8f5f5;
+    }
+    .form-container {
+        justify-content: center;
+        align-items: center;
+        margin-left: 0px;
+        width: 100%;
+    }
+    .link-list a {
+        font-size: 30px;
+    }
+    .link-list {
+        margin-bottom: 30px;
+    }
+    .input-field {
+        height: 7vh;
+    }
+    .submit-area {
+        height: 30%;
+        flex-direction: column;
+    }
+    .submit-area a {
+        font-size: 15px;
+    }
+    #submit-button {
+        height: 6vh;
+        width: 60%;
+        font-size: 18px;
+        border-radius: 30px;
+    }
+    .icon {
+        padding: 15px;
+    }
+}
+
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+    .link-list a {
+        font-size: 22px;
+    }
+    .link-list {
+        margin-bottom: 30px;
+        margin-right: 20%;
+    }
+    .submit-area {
+        height: 30%;
+        flex-direction: column;
+    }
+    .submit-area a {
+        font-size: 15px;
+    }
+    #submit-button {
+        height: 7vh;
+        width: 60%;
+        font-size: 15px;
+        border-radius: 30px;
+    }
+    .input-field {
+        height: 9vh;
+    }
+    .icon {
+        padding: 15px;
+    }
+    form {
+        width: 90%;
+    }
+}

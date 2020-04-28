@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="register.css">
+    <title>Register</title>
+</head>
+
+<body>
+    <div class="main-content">
+        <div class='form-container'>
+            <ul class="link-list">
+                <li><a href="./login.html">Login</a></li>
+                <li><a href="#" id="sign-up-link">Sign Up</a></li>
+            </ul>
+            <form>
+                <div class="input-container">
+                    <i class="fa fa-user-circle-o icon"></i>
+                    <input class="input-field" type="text" id="username" name="username" placeholder="Username">
+                </div>
+                <div class="input-container">
+                    <i class="fa fa-envelope icon"></i>
+                    <input class="input-field" type="email" name="email" id="email" placeholder="Email">
+                </div>
+                <div class="input-container">
+                    <i class="fa fa-unlock-alt icon"></i>
+                    <input class="input-field" type="password" name="password" id="password" placeholder="Password">
+                </div>
+                <div class="submit-area">
+                    <span>I agree with <a href="#">Application Policy</a></span>
+                    <input onClick="registerFunction()" id="submit-button" type="reset" value="Sign Up">
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="registerScript.js"></script>
+</body>
+
+</html>

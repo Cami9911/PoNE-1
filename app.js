@@ -25,7 +25,7 @@ let registerPage = new Page('.*/register.js',
                     response.message = "FAILED";
                 } else {
                     console.log('Inserted ' + results.affectedRows + ' row(s).');
-                    response.message = "SUCCEEDED";   
+                    response.message = "SUCCEEDED";
                 }
 
                 res.writeHeader(200, { 'Content-Type': 'application/json' });
@@ -38,8 +38,34 @@ let registerPage = new Page('.*/register.js',
 
 let commentPage = new Page('.*/comment.html',
     function(params, req, res) {
-        
+
     });
+
+let exercisePage = new Page('.*/exercise.js',
+    function(params, req, res) {
+        conn.query("Select * from exercises;", function(err, result, fields) {
+            let response = {};
+            console.log("am ajuns aici 1");
+            if (err) {
+                response.message = "Failure";
+                response.id = 'null';
+                response.exercise = 'null';
+            } else {
+                var count = Math.floor(Math.random() * (result.length + 1));
+                response.message = 'Succes';
+                response.id = result[count].id_exercise;
+                response.exercise = result[count].exercise;
+            }
+            console.log("am ajuns aici 2");
+            console.log(response);
+            res.writeHeader(200, { 'Content-Type': 'application/json' });
+
+            let jsonString = JSON.stringify(response);
+            res.write(jsonString);
+            res.end();
+        });
+    }, null, null);
+
 
 let loginPage = new Page('.*/login.js',
     function(params, req, res) { // post
@@ -51,7 +77,7 @@ let loginPage = new Page('.*/login.js',
                 if (err) {
                     response.message = "FAILED";
                 } else {
-                    console.log(results);
+                    // console.log(results);
                     if (password == results[0].password) {
                         response.message = "SUCCEEDED";
                     } else {
@@ -67,7 +93,7 @@ let loginPage = new Page('.*/login.js',
     }, null, null);
 
 let pages = [
-    registerPage, loginPage, commentPage
+    registerPage, loginPage, commentPage, exercisePage
 ]
 
 const conn = new mysql.createConnection(config);
@@ -82,7 +108,7 @@ conn.connect(
     });
 
 function serveFile(req, res, ext) {
-    handleGetRequest(req, res, function () {
+    handleGetRequest(req, res, function() {
         if (req.url === '/')
             req.url = "/index.html";
         fs.readFile("./src" + req.url, (err, data) => {
@@ -108,7 +134,7 @@ function handlePostRequest(req, res) {
         body += chunk.toString();
     });
     req.on('end', () => {
-        for(let i = 0; i < pages.length; ++i) {
+        for (let i = 0; i < pages.length; ++i) {
             if (pages[i].matchesPagePost(req.url)) {
                 pages[i].post(parse(body), req, res);
             }
@@ -123,7 +149,7 @@ function handleGetRequest(req, res, callback) {
     });
     req.on('end', () => {
         let called = false;
-        for(let i = 0; i < pages.length; ++i) {
+        for (let i = 0; i < pages.length; ++i) {
             if (pages[i].matchesPageGet(req.url)) {
                 pages[i].get(req.url, req, res);
                 called = true;
@@ -176,6 +202,5 @@ function view() {
         console.log(results);
     });
 }
-view();
 
 http.createServer(serverHandler).listen(3000);

@@ -1,0 +1,106 @@
+* {
+    margin: 0px;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+.main {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url(./back3.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: #f8f5f5;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.comment-section {
+    width: 90vw;
+    height: 70vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 60px;
+}
+h1{
+    margin-bottom: 40px;
+}
+
+.comm {
+    width: 40%;
+    height: 10%;
+    background-color: #EFE5E5;
+    border-radius: 15px;
+    
+}
+input {
+    width: 40%;
+    height: 10%;
+    background-color: #EFE5E5;
+    border:1px solid grey;
+    color: black;
+    font-size: 20px;
+    border-radius: 15px;
+   
+}
+::placeholder{
+    color: black;
+}
+
+@media only screen and (max-width: 600px) {
+    .comm{
+        width: 90%;
+    }
+    input{
+        width: 90%;
+    }
+    .main {
+        background-repeat: no-repeat;
+        background-image: url(./phone.jpg);
+        min-height: 100vh;
+    }
+    .comment-section{
+        margin-bottom: 90px;
+    }
+    h1{
+        font-size: 20px;
+    }
+}
+@media screen and (width: 768px) and (height: 1024px) {
+    .comm{
+        width: 90%;
+    }
+    input{
+        width: 90%;
+    }
+    .main {
+        background-repeat: no-repeat;
+        background-image: url(./ipad.jpg);
+        min-height: 100vh;
+    }
+    .comment-section{
+        margin-bottom: 120px;
+    }
+  
+}
+@media screen and (width: 1024px) and (height: 1366px) {
+    .comm{
+        width: 90%;
+    }
+    input{
+        width: 90%;
+    }
+    .main {
+        background-repeat: no-repeat;
+        background-image: url(./ipad.jpg);
+        min-height: 100vh;
+    }
+    .comment-section{
+        margin-bottom: 120px;
+    }
+}

@@ -1,0 +1,200 @@
+* {
+    margin: 0px;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+.main {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url(./back3.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: #f8f5f5;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.content {
+    width: 60vw;
+    height: 60vh;
+    background-color: #EFE5E5;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 80px;
+ 
+    box-shadow: rgb(182, 157, 182) 0 1px 1px;
+}
+
+.exercise-area {
+    width: 90%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    font-size: 2vh;
+
+}
+
+.answer {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.answer #answer {
+    width: 50vw;
+    height: 40px;
+    background-color: #F8F5F5;
+    border-radius: 15px;
+    border:solid #E6D7D7 1px;
+    color: black;
+}
+
+
+#answer:hover {
+    background-color: rgb(226, 221, 221);
+}
+
+.buttons-area {
+    width: 100%;
+    height: 13%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+
+.commentGenerate {
+    width: 100%;
+    height: 100%;
+    background-color: #EFE5E5;
+    font-size: medium;
+    border:none;
+    border:solid white 1px;  
+}
+
+.commentGenerate:hover {
+    background-color: rgb(226, 221, 221);
+}
+
+.comments-area {
+    width: 90%;
+    height: 20%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    color:black;
+
+}
+
+.comments-area #comment {
+    width: 50vw;
+    height: 40px;
+    background-color: #F8F5F5;
+    border-radius: 15px;
+    border:none;
+    margin-top: 30px;
+    border:#E6D7D7 1px solid;
+}
+.comments-area #comment:hover{
+    background-color: rgb(226, 221, 221);
+}
+
+.btn{
+    border-radius: 50px;
+    height: 40px;
+    width: 60px;
+    background-color: #93137A;
+    color:white;
+    border:#E6D7D7 1px solid;
+  
+}
+.btn1{
+    border-radius: 50px;
+    border:#E6D7D7 1px solid;
+    margin-top: 30px;
+    height: 40px;
+    width: 60px;
+    background-color: #93137A;
+    color:white;
+}
+.btn:hover{
+    background-color: rgb(107, 15, 89);
+}
+.btn1:hover{
+    background-color: rgb(107, 15, 89);
+}
+
+@media only screen and (max-width: 600px) {
+   
+    .main {
+        min-height: 90vh;
+    }
+    .answer img {
+        height: 50px;
+        width: 50px;
+    }
+    .buttons-area {
+        height: 15%;
+    }
+    .commentGenerate {
+        font-size: 12px;
+    }
+    .content {
+        width: 85vw;
+        height: 60vh;
+        position: absolute;
+        bottom: 20vh;
+    }
+}
+@media only screen and (max-width: 600px) {
+    .content{
+        margin-bottom: 50px;
+    }
+    h1{
+        font-size: 15px;
+    }
+    .main {
+        background-repeat: no-repeat;
+        background-image: url(./phone.jpg);
+        min-height: 100vh;
+    }
+    
+}
+
+@media screen and (width: 768px) and (height: 1024px) {
+    .content{
+        width:90%;
+        margin-bottom: 120px;
+    }
+    h1{
+        font-size: 15px;
+    }
+    .main {
+        background-repeat: no-repeat;
+        background-image: url(./ipad.jpg);
+        min-height: 100vh;
+    }
+  
+}
+@media screen and (width: 1024px) and (height: 1366px) {
+    .content{
+        width:90%;
+        margin-bottom: 160px;
+    }
+    h1{
+        font-size: 15px;
+    }
+    .main {
+        background-repeat: no-repeat;
+        background-image: url(./ipad.jpg);
+        min-height: 100vh;
+    }
+}

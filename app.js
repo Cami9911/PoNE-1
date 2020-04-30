@@ -36,10 +36,26 @@ let registerPage = new Page('.*/register.js',
             });
     }, null, null);
 
-let commentPage = new Page('.*/comment.html',
+    let commentPage = new Page('.*/comment.js',
     function(params, req, res) {
+        conn.query('INSERT INTO comments (email, id_exercise, comment) VALUES (?,?,?);', [params.email, params.id_exercise, params.comment],
+            function(err, results, fields) {
+                let response = {};
+                console.log("coloane inserate");
+                if (err) {
+                    response.message = "FAILED";
+                } else {
+                    console.log('Inserted ' + results.affectedRows + ' row(s).');
+                    response.message = "SUCCEEDED";
+                }
+                console.log(response);
+                res.writeHeader(200, { 'Content-Type': 'application/json' });
 
-    });
+                let jsonString = JSON.stringify(response);
+                res.write(jsonString);
+                res.end();
+            });
+    }, null, null);
 
 let exercisePage = new Page('.*/exercise.js',
     function(params, req, res) {

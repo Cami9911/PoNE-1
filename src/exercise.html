@@ -12,7 +12,7 @@
 <body>
     <div class="main">
         <div class="content">
-        
+
             <div class="exercise-area">
                 <h1 id="exRequirement"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Des pariatur doloribus!</h1>
                 <form>
@@ -22,12 +22,12 @@
                     </div>
                 </form>
             </div>
-        
+
             <div class="buttons-area">
                 <button onclick="generateExercise()" class="commentGenerate" id="generate-exercise"><i
                         class="fa fa-puzzle-piece"></i> Generate Exercise</button>
-                <button class="commentGenerate" id="comment-exercise" type="submit"><i class="fa fa-commenting-o"></i>
-                    Comment</button>
+                <button class="commentGenerate" onclick="getComments()" id="comment-exercise" type="submit"><i class="fa fa-commenting-o"></i>
+                    See comments</button>
             </div>
 
             <form>
@@ -40,6 +40,8 @@
     </div>
     <script type="text/javascript" src="exerciseScript.js"></script>
     <script src="postCommentScript.js"></script>
+    <script src="modifyPage.js"></script>
+    <script src="getComments.js"></script>
 </body>
 
 </html>

@@ -12,7 +12,12 @@ let config = {
     password: '!Parolamea123',
     database: 'PolishNotationDatabase',
     port: 3306,
-    ssl: true
+    ssl: true,
+    connectionLimit: 5,
+    connectTimeout: 10000,
+    acquireTimeout: 10000,
+    waitForConnections: true,
+    queueLimit: 0,
 };
 
 let registerPage = new Page('.*/register.js',
@@ -36,7 +41,7 @@ let registerPage = new Page('.*/register.js',
             });
     }, null, null);
 
-    let commentPage = new Page('.*/comment.js',
+let commentPage = new Page('.*/comment.js',
     function(params, req, res) {
         conn.query('INSERT INTO comments (email, id_exercise, comment) VALUES (?,?,?);', [params.email, params.id_exercise, params.comment],
             function(err, results, fields) {
@@ -61,18 +66,17 @@ let exercisePage = new Page('.*/exercise.js',
     function(params, req, res) {
         conn.query("Select * from exercises;", function(err, result, fields) {
             let response = {};
-            console.log("am ajuns aici 1");
+
             if (err) {
                 response.message = "Failure";
                 response.id = 'null';
                 response.exercise = 'null';
             } else {
-                var count = Math.floor(Math.random() * (result.length + 1));
+                var count = Math.floor(Math.random() * (result.length));
                 response.message = 'Succes';
                 response.id = result[count].id_exercise;
                 response.exercise = result[count].exercise;
             }
-            console.log("am ajuns aici 2");
             console.log(response);
             res.writeHeader(200, { 'Content-Type': 'application/json' });
 
@@ -82,6 +86,29 @@ let exercisePage = new Page('.*/exercise.js',
         });
     }, null, null);
 
+let getCommentPage = new Page('.*/getComments.js',
+    function(params, req, res) {
+        conn.query("Select * from comments where id_exercise= '" + params.id_exercise + "'", function(err, result, fields) {
+            var arrayOfObjects = [];
+            var response = {};
+            if (err) {
+                response.message = 'Failure';
+                arrayOfObjects[0] = response;
+            } else {
+                for (i = 0; i < result.length; i++) {
+                    response = {};
+                    response.email = result[i].email;
+                    response.comment = result[i].comment;
+                    arrayOfObjects[i] = response;
+                }
+            }
+            res.writeHeader(200, { 'Content-Type': 'application/json' });
+
+            let jsonString = JSON.stringify(arrayOfObjects);
+            res.write(jsonString);
+            res.end();
+        });
+    }, null, null);
 
 let loginPage = new Page('.*/login.js',
     function(params, req, res) { // post
@@ -109,7 +136,7 @@ let loginPage = new Page('.*/login.js',
     }, null, null);
 
 let pages = [
-    registerPage, loginPage, commentPage, exercisePage
+    registerPage, loginPage, commentPage, exercisePage, getCommentPage
 ]
 
 const conn = new mysql.createConnection(config);

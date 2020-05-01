@@ -13,12 +13,10 @@ conn.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
 });
-
-//populateTable();
-selectFromTable();
+selectFromComments();
 
 function populateTable() {
-    var exercises = ["_ * ( ( ( _ + _ ) + ( _ * _ ) ) - _ )", "_ + _ + ( _ * _ ) - ( _ / _ )", "((_+_)?_)-_"];
+    var exercises = ["_ * _ + _ /_", "_ * (_ + _ / _)", "((_ * (_ + _) ) / _)", "(_ * (_ + (_ / _) ) )", "_ + _ + _ + _", "( _ + _ ) * _ - ( _ - _ ) * ( _ + _ )"];
     var i;
 
     for (i = 0; i < exercises.length; i++) {
@@ -43,7 +41,7 @@ function commitChanges() {
 };
 
 function deleteFromTable() {
-    conn.query("Delete from exercises where id_exercise >= 1 and id_exercise <= 10;", function(err, result, fields) {
+    conn.query("Delete from comments where id_exercise >= 11;", function(err, result, fields) {
         if (err) throw err;
         console.log('Delete Successfull...');
     });
@@ -57,6 +55,18 @@ function selectFromTable() {
         for (i = 0; i < result.length; i++) {
             console.log(result[i].id_exercise);
             console.log(result[i].exercise)
+        }
+    });
+};
+
+function selectFromComments() {
+    conn.query("Select * from comments;", function(err, result, fields) {
+        if (err) throw err;
+        var i;
+        for (i = 0; i < result.length; i++) {
+            console.log(result[i].id_exercise);
+            console.log(result[i].email);
+            console.log(result[i].comment);
         }
     });
 };

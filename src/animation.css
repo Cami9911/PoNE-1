@@ -1,0 +1,148 @@
+* {
+    margin: 0px;
+    box-sizing: border-box;
+    text-decoration: none;
+    list-style: none;
+    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
+}
+
+.main {
+    width: 100%;
+    min-height: 100vh;
+    background-image: url(./back3.jpg);
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-color: #f8f5f5;
+    margin-bottom: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+.content {
+    width: 80vw;
+    height: 80vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-bottom: 80px;
+}
+
+.pone-container {
+    display: flex;
+    height: 60%;
+    width: 60%;
+    background-color: black;
+    border-radius: 15px;
+    margin-bottom: 5%;
+    position: relative;
+}
+
+.pone-container > #glCanvas {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index: 0;
+}
+
+.pone-container > #text {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    left: 0;
+    top: 0;
+    position: absolute;
+    z-index: 69420;
+}
+
+.user-input {
+    margin-bottom: 5%;
+    height: 60%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.user-input-row {
+    color: #550a46;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    font-size: 20px;
+}
+#plain-text-expression{
+    margin-top: 20px;
+    border-radius: 15px;
+    border: 1px solid #707070;
+    border-bottom: 2px solid #93137A;
+    border-right: 2px solid #93137A;
+    background-color: white;
+    height: 40px;
+}
+#animate-button{
+    height: 40px;
+    width: 140px;
+    border-radius: 15px;
+    background-color: #550a46;
+    border:none;
+    color: white;
+    font-size: 20px;
+}
+
+#upload-file {
+    display: none;
+}
+
+#upload-file + label {
+    font-weight: bold;
+    display: inline-block;
+    border-radius: 10px;
+    padding: 5px;
+    cursor: pointer;
+}
+
+#upload-file + label:hover{
+    background-color: #b198b8;
+}
+@media only screen and (max-width: 600px) {
+    .main {
+        background-repeat: no-repeat;
+        background-image: url(./phone.jpg);
+    }
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+    }
+    .pone-container{
+        margin-right: 135px;
+    }
+    #plain-text-expression{
+        width: 120%;
+    }
+    
+}
+
+@media screen and (width: 768px) and (height: 1024px) {
+    .content{
+        width:95%;
+    }
+    .main {
+        background-repeat: no-repeat;
+        background-image: url(./ipad.jpg);
+    }
+  
+}
+@media screen and (width: 1024px) and (height: 1366px) {
+    .content{
+        width:95%;
+    }
+    .main {
+        background-repeat: no-repeat;
+        background-image: url(./ipad.jpg);
+      
+    }
+}

@@ -1,6 +1,7 @@
 "use strict"
 
 const EXPLAIN_TEXT_SIZE = 54;
+const PADDING_SIZE = 50;
 
 
 function normalizeVector(vector) {
@@ -76,4 +77,13 @@ function initProgram(gl, vsSource, fsSource) {
 
 function clamp(value, min, max) {
     return Math.min(Math.max(value, min), max);
+}
+
+function precedence(c)  {
+    if (c === '*' || c === '/')
+        return 2;
+    else if (c === '+' || c === '-')
+        return 1;
+    else
+        return -1;
 }

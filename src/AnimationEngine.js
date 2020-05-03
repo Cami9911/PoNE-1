@@ -61,7 +61,7 @@ function run(renderer, programs) {
 function animate(renderer, programs) {
     // Keep in mind that here is not a lot of error handling
     let expressionElement = document.getElementById("plain-text-expression");
-    const animationTime = 0.5;
+    const animationTime = 0.1;
 
     let expression = expressionElement.value;
     let re = /([-+*\/()])/g;
@@ -171,9 +171,40 @@ function animate(renderer, programs) {
         return mainText.update(dt);
     });
 
-    expression = expression.sort((a, b) => {
-        return a.index - b.index;
-    });
+    function addElementToStack(i) {
+        renderer.addSeparator();
+        renderer.addJob(dt => {
+            mainText.fadeOutText(0.0);
+            mainText.fadeInText("Move " + input.atomicElements[i].value + " to stack");
+            input.atomicElements[i].setAnimation("change-color", animationTime, "#FF0000");
+            return false;
+        });
+        renderer.addSeparator();
+        renderer.addJob(dt => {
+            let res = false;
+            res |= mainText.update(dt);
+            res |= input.update(dt);
+            return res;
+        });
+        renderer.addSeparator();
+        renderer.addJob(dt => {
+            st.addElementToStack(input.atomicElements[i]);
+            return false;
+        });
+        renderer.addSeparator();
+        renderer.addJob(dt => {
+            return st.update(dt);
+        });
+        renderer.addSeparator();
+        renderer.addJob(dt => {
+            input.atomicElements[i].setAnimation("change-color", animationTime, renderer.getHexFillColor());
+            return false;
+        });
+        renderer.addSeparator();
+        renderer.addJob(dt => {
+            return input.update(dt);
+        });
+    }
 
 
     for (let i = 0; i < input.atomicElements.length; ++i) {
@@ -182,7 +213,7 @@ function animate(renderer, programs) {
             renderer.addSeparator();
             renderer.addJob(dt => {
                 mainText.fadeOutText(0.0);
-                mainText.fadeInText("Move " + expression[i].value + " to output");
+                mainText.fadeInText("Move " + input.atomicElements[i].value + " to output");
                 input.atomicElements[i].setAnimation("change-color", animationTime, "#FF0000");
                 return false;
             });
@@ -215,44 +246,119 @@ function animate(renderer, programs) {
                 return output.update(dt);
             });
         } else if (input.atomicElements[i].isOpenBracket()) {
-            renderer.addSeparator();
-            renderer.addJob(dt => {
-                mainText.fadeOutText(0.0);
-                mainText.fadeInText("Move " + expression[i].value + " to stack");
-                input.atomicElements[i].setAnimation("change-color", animationTime, "#FF0000");
-                return false;
-            });
-            renderer.addSeparator();
-            renderer.addJob(dt => {
-                let res = false;
-                res |= mainText.update(dt);
-                res |= input.update(dt);
-                return res;
-            });
-            renderer.addSeparator();
-            renderer.addJob(dt => {
-                st.addElementToStack(input.atomicElements[i]);
-                return false;
-            });
-            renderer.addSeparator();
-            renderer.addJob(dt => {
-                return st.update(dt);
-            });
-            renderer.addSeparator();
-            renderer.addJob(dt => {
-                input.atomicElements[i].setAnimation("change-color", animationTime, renderer.getHexFillColor());
-                return false;
-            });
-            renderer.addSeparator();
-            renderer.addJob(dt => {
-                return input.update(dt);
-            });
+            addElementToStack(i);
         } else if (input.atomicElements[i].isClosedBracket()) {
             // After operators
         } else if (input.atomicElements[i].isOperator()) {
-            
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                mainText.fadeOutText(0.0);
+                mainText.fadeInText("Check if " + input.atomicElements[i].value + " can be added to the stack");
+                return false;
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                return mainText.update(dt);
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                renderer.currentState = "set-state";
+                return false;
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                if (renderer.currentState === "set-state") {
+                    let head = st.getHead();
+                    if (head.isSpecial() || precedence(input.atomicElements[i].value) > precedence(head.value)) {
+                        return false;
+                    }
+                    // prepare for next animation stuff
+                    let element = st.pop();
+                    let nextPosition = output.getNextElementPosition();
+                    mainText.fadeOutText(0.0);
+                    mainText.fadeInText("Pop " + head.value + " from stack and append to output");
+                    element.setAnimation("move", animationTime, nextPosition, EXPLAIN_TEXT_SIZE);
+                    output.addElement(element);
+                    renderer.currentState = "animate-state";
+                } else if (renderer.currentState === "animate-state") {
+                    let res = false;
+                    res |= mainText.update(dt);
+                    res |= output.update(dt);
+                    output.updateWidth();
+                    res |= st.update(dt);
+                    if (!res) {
+                        renderer.currentState = "set-state";
+                    }
+                }
+                return true;
+            });
+            // add to stack
+            addElementToStack(i);
         }
     }
+
+    // Pop everything remaining from stack
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        mainText.fadeOutText(0.0);
+        mainText.fadeInText("Pop everything that's left in stack and append to output");
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        return mainText.update(dt);
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        renderer.currentState = "set-state";
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        if (renderer.currentState === "set-state") {
+            let head = st.getHead();
+            if (head.isSpecial()) {
+                return false;
+            }
+            // prepare for next animation stuff
+            let element = st.pop();
+            let nextPosition = output.getNextElementPosition();
+            mainText.fadeOutText(0.0);
+            mainText.fadeInText("Pop " + head.value + " from stack and append to output");
+            element.setAnimation("move", animationTime, nextPosition, EXPLAIN_TEXT_SIZE);
+            output.addElement(element);
+            renderer.currentState = "animate-state";
+        } else if (renderer.currentState === "animate-state") {
+            let res = false;
+            res |= mainText.update(dt);
+            res |= output.update(dt);
+            output.updateWidth();
+            res |= st.update(dt);
+            if (!res) {
+                renderer.currentState = "set-state";
+            }
+        }
+        return true;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        mainText.fadeOutText(0.0);
+        mainText.fadeInText("Now the stack and input are containing the same thing. Done.");
+        input.hideSpecial();
+        st.hideWhatIsLeftInTheStack();
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        let res = false;
+        res |= mainText.update(dt);
+        res |= input.update(dt);
+        res |= st.update(dt);
+        return res;
+    });
+
+
+
 }
 
 window.onload = init();

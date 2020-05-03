@@ -65,7 +65,7 @@ class Stack {
     pop() {
         let toReturn = this.elementsInStack[0];
         this.elementsInStack.splice(0, 1);
-        for (let i = 0; i <= this.elementsInStack.length; ++i) {
+        for (let i = 0; i < this.elementsInStack.length; ++i) {
             let preferredFontSize = this.getPreferredFontSize(this.elementsInStack[i].value.length) + 1.0;
             let squareTargetPosition = this.getMiddlePosition(i, preferredFontSize, this.elementsInStack[i]);
             this.elementsInStack[i].setAnimation('move', this.animationTime, squareTargetPosition, preferredFontSize);
@@ -112,6 +112,19 @@ class Stack {
 
         // this.elementsInStack.push(element);
         this.elementsInStack = [element, this.elementsInStack].flat(1);
+        this.addJob(dt => {
+            let res = false;
+            for (let i = 0; i < this.elementsInStack.length; ++i) {
+                res |= this.elementsInStack[i].update(dt);
+            }
+            return res;
+        });
+    }
+
+    hideWhatIsLeftInTheStack() {
+        for (let i = 0; i < this.elementsInStack.length; ++i) {
+            this.elementsInStack[i].setAnimation('fade-out', this.animationTime);
+        }
         this.addJob(dt => {
             let res = false;
             for (let i = 0; i < this.elementsInStack.length; ++i) {

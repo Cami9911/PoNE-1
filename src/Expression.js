@@ -25,7 +25,7 @@ class Expression {
         this.totalWidth = 0;
 
         for (let i = 0; i < atomicElements.length; ++i) {
-            if (atomicElements[i].type !== "Special") {
+            if (atomicElements[i].type !== "special") {
                 // Make elements appear
                 atomicElements[i].setAnimation('fade-in', this.animationTime);
             }
@@ -42,6 +42,13 @@ class Expression {
         let indexToRemove = this.atomicElements.findIndex(element => element.id === id);
         if (indexToRemove > -1) {
             this.atomicElements.splice(indexToRemove, 1);
+        }
+    }
+
+    updateWidth() {
+        this.totalWidth = 0;
+        for (let i = 0; i < this.atomicElements.length; ++i) {
+            this.totalWidth += this.atomicElements[i].getWidth();
         }
     }
 
@@ -67,8 +74,16 @@ class Expression {
 
     revealSpecial() {
         for (let i = 0; i < this.atomicElements.length; ++i) {
-            if (this.atomicElements[i].type === "Special") {
+            if (this.atomicElements[i].type === "special") {
                 this.atomicElements[i].setAnimation('fade-in', this.animationTime);
+            }
+        }
+    }
+
+    hideSpecial() {
+        for (let i = 0; i < this.atomicElements.length; ++i) {
+            if (this.atomicElements[i].type === "special") {
+                this.atomicElements[i].setAnimation('fade-out', this.animationTime);
             }
         }
     }

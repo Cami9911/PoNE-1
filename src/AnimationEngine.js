@@ -61,7 +61,7 @@ function run(renderer, programs) {
 function animate(renderer, programs) {
     // Keep in mind that here is not a lot of error handling
     let expressionElement = document.getElementById("plain-text-expression");
-    const animationTime = 0.05;
+    const animationTime = 1.5;
 
     let expression = expressionElement.value;
     let re = /([-+*\/()])/g;
@@ -435,8 +435,38 @@ function animate(renderer, programs) {
         return mainText.update(dt);
     });
 
-
-
+    // Move output to input
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        mainText.fadeOutText(0.0);
+        mainText.fadeInText("Now prepare to calculate value.");
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        return mainText.update(dt);
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        mainText.fadeOutText(0.0);
+        mainText.fadeInText("Make the output from previous part input for this part");
+        input.clearAtomics();
+        for (let i = 0; i < output.atomicElements.length; ++i) {
+            let element = output.atomicElements[i];
+            element.setAnimation("move", animationTime, input.getNextElementPosition());
+            input.addElement(element);
+        }
+        output.clearAtomics();
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        let res = false;
+        res |= mainText.update(dt);
+        res |= input.update(dt);
+        res |= output.update(dt);
+        return res;
+    });
 }
 
 window.onload = init();

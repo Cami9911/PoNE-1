@@ -61,6 +61,11 @@ class Expression {
         return [this.startExpression + this.totalWidth, this.position[1]];
     }
 
+    clearAtomics() {
+        this.totalWidth = 0;
+        this.atomicElements = [];
+    }
+
     update(dt) {
         let res = false;
         res |= this.text.update(dt);

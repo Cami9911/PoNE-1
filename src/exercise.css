@@ -1,23 +1,4 @@
-* {
-    margin: 0px;
-    box-sizing: border-box;
-    text-decoration: none;
-    list-style: none;
-    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-}
 
-.main {
-    width: 100%;
-    min-height: 100vh;
-    background-image: url(./back3.jpg);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-color: #f8f5f5;
-    margin-bottom: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
 .content {
     width: 60vw;
     height: 60vh;
@@ -27,7 +8,7 @@
     justify-content: space-around;
     align-items: center;
     border-radius: 5px;
-    margin-bottom: 80px;
+    margin-top: 80px;
  
     box-shadow: rgb(182, 157, 182) 0 1px 1px;
 }

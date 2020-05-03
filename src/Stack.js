@@ -16,44 +16,11 @@ class Stack {
         this.MAX_SQUARE_SIZE = 200;
 
         this.elementSize = clamp(renderer.getWidth() / (numElements + 1), this.MIN_SQUARE_SIZE, this.MAX_SQUARE_SIZE);
+        this.squareLineThickness = 8;
 
         this.generateSquares();
 
-        this.text = new Text(renderer, ['middle', TEXT_EXPLAIN_Y], EXPLAIN_TEXT_SIZE, '#550a46', '1. Build a stack', 'explain-text');
-        this.text.setAnimation('fade-in', animationTime);
-
-        renderer.addJob(dt => this.update(dt));
-
-        renderer.addRandableObject(this.text);
-        this.jobs = [dt=> this.text.update(dt), [this.jobs]];
-        this.setStackText('2. ??', 0);
-        this.setStackText('3. Become a millionaire', 0.5);
-        this.setStackText('4. Buy a truck and an F1 car', 0.5);
-        this.setStackText('5. Be happy.', 0.5);
-    }
-
-    setStackText(text, waitTime = 0) {
-        this.addSeparator();
-        this.addJob(dt => {
-            waitTime -= dt;
-            if (waitTime <= 0.0) {
-                this.text.setAnimation('fade-out', this.animationTime);
-                return false;
-            } else {
-                return true;
-            }
-        });
-        this.addSeparator();
-        this.addJob(dt => this.text.update(dt));
-        this.addSeparator();
-        this.addJob(dt => {
-            this.text.setText(text);
-            this.text.setPosition('middle', TEXT_EXPLAIN_Y);
-            this.text.setAnimation('fade-in', this.animationTime);
-            return false;
-        });
-        this.addSeparator();
-        this.addJob(dt => this.text.update(dt));
+        this.elementsInStack = [];
     }
 
     generateSquares() {
@@ -67,7 +34,8 @@ class Stack {
         let upperBound = Math.floor(halfNumElements);
         for (let i = lowerBound; i < upperBound; ++i) {
             let sq = new Square(this.renderer, this.program,
-                [center + i * this.elementSize, yPosition], this.elementSize, this.renderer.fillColor, 8, this.animationTime / this.numElements);
+                [center + i * this.elementSize, yPosition], this.elementSize, this.renderer.fillColor,
+                            this.squareLineThickness, this.animationTime / this.numElements);
             this.squares.push(sq);
             this.addJob(sq.getJobs());
             this.addSeparator();
@@ -80,6 +48,77 @@ class Stack {
 
     addSeparator() {
         this.jobs.push(null);
+    }
+
+    getPreferredFontSize(numCharsInsideSquare = 3) {
+        return this.getSquareSize() / numCharsInsideSquare - 2; // 2 tx padding
+    }
+
+    getSquareSize() {
+        return this.elementSize;
+    }
+
+    getHead() {
+        return this.elementsInStack[0];
+    }
+
+    pop() {
+        let toReturn = this.elementsInStack[0];
+        this.elementsInStack.splice(0, 1);
+        for (let i = 0; i <= this.elementsInStack.length; ++i) {
+            let preferredFontSize = this.getPreferredFontSize(this.elementsInStack[i].value.length) + 1.0;
+            let squareTargetPosition = this.getMiddlePosition(i, preferredFontSize, this.elementsInStack[i]);
+            this.elementsInStack[i].setAnimation('move', this.animationTime, squareTargetPosition, preferredFontSize);
+        }
+        this.addJob(dt => {
+            let res = false;
+            for (let i = 0; i < this.elementsInStack.length; ++i) {
+                res |= this.elementsInStack[i].update(dt);
+            }
+            return res;
+        });
+        return toReturn;
+    }
+
+    getMiddlePosition(index, preferredFontSize, element) {
+
+        let topLeft = this.squares[index].getTopLeft();
+        let halfElementWidth = preferredFontSize * element.value.length / 2.0;
+        let halfSquareWidth = this.getSquareSize() / 2.0;
+
+        let halfSquareHeight = this.getSquareSize() / 2.0 + preferredFontSize / 4.0;
+
+        let targetPositionX = topLeft[0] + halfSquareWidth - halfElementWidth + this.squareLineThickness * 4.5;
+        let targetPositionY = topLeft[1] + halfSquareHeight + this.squareLineThickness;
+
+        return [targetPositionX, targetPositionY];
+    }
+
+    addElementToStack(element) {
+
+        element.setOpacity(1.0);
+
+        let preferredFontSize = this.getPreferredFontSize(element.value.length) + 1.0;
+
+        let firstSquareTargetPosition = this.getMiddlePosition(0, preferredFontSize, element)
+        element.setAnimation('move', this.animationTime, firstSquareTargetPosition,
+            preferredFontSize);
+
+        for (let i = 0; i < this.elementsInStack.length; ++i) {
+            preferredFontSize = this.getPreferredFontSize(this.elementsInStack[i].value.length) + 1.0;
+            let squareTargetPosition = this.getMiddlePosition(i + 1, preferredFontSize, this.elementsInStack[i]);
+            this.elementsInStack[i].setAnimation('move', this.animationTime, squareTargetPosition, preferredFontSize);
+        }
+
+        // this.elementsInStack.push(element);
+        this.elementsInStack = [element, this.elementsInStack].flat(1);
+        this.addJob(dt => {
+            let res = false;
+            for (let i = 0; i < this.elementsInStack.length; ++i) {
+                res |= this.elementsInStack[i].update(dt);
+            }
+            return res;
+        });
     }
 
     update(dt) {

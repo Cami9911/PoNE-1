@@ -2,27 +2,9 @@
 
 class Square {
 
-    generateNewLine(startPosition, endPosition) {
-        return new Line(this.renderer, this.program,
-            startPosition, endPosition, this.color, this.color, this.thickness, this.animationDuration / 4.0);
-    }
-
-    getJobs() {
-        return this.jobs;
-    }
-
-    addJob(job) {
-        this.jobs.push(job);
-    }
-
-    addSeparator() {
-        this.jobs.push(null);
-    }
-
     constructor(renderer, program, position, size, color, thickness = 5, animationDuration = 0.5) {
         this.renderer = renderer;
-        this.program = program;
-        this.randableObjects = [];
+        this.program = program
         this.jobs = [];
 
         this.position = position;
@@ -54,4 +36,27 @@ class Square {
         this.addSeparator();
 
     }
+
+    generateNewLine(startPosition, endPosition) {
+        return new Line(this.renderer, this.program,
+            startPosition, endPosition, this.color, this.color, this.thickness, this.animationDuration / 4.0);
+    }
+
+    getJobs() {
+        return this.jobs;
+    }
+
+    addJob(job) {
+        this.jobs.push(job);
+    }
+
+    addSeparator() {
+        this.jobs.push(null);
+    }
+
+    getTopLeft() {
+        return this.position;
+    }
+
+
 }

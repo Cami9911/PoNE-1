@@ -11,6 +11,7 @@ class Renderer {
         this.randableObjects = [];
         this.longLiveObjects = [];
 
+
         if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
             this.clearColor = [0.0, 0.0, 0.0, 1.0];
             this.fillColor  = [1.0, 1.0, 1.0, 1.0];
@@ -18,7 +19,8 @@ class Renderer {
             this.clearColor = [1.0, 1.0, 1.0, 1.0];
             this.fillColor  = [0.0, 0.0, 0.0, 1.0];
         }
-        console.log("Selected color", this.clearColor);
+        console.log("Selected clear color", this.clearColor);
+        console.log("Sected fill color", this.fillColor);
 
         var canvas = document.querySelector("#glCanvas");
         this.gl = canvas.getContext("webgl");
@@ -41,6 +43,15 @@ class Renderer {
 
     }
 
+    getHexFillColor() {
+        let hexColor = [
+            (this.fillColor[0] * 255.0).toString(16),
+            (this.fillColor[1] * 255.0).toString(16),
+            (this.fillColor[2] * 255.0).toString(16)
+        ];
+        return '#' + hexColor.join('');
+    }
+
     addJob(job, position = null) {
         if (position == null) {
             this.jobs.push(job);
@@ -58,6 +69,12 @@ class Renderer {
     }
     addRandableObject(obj) {
         this.randableObjects.push(obj);
+    }
+    removeRandableObject(obj) {
+        let indexToRemove = this.randableObjects.findIndex(el => el === obj);
+        if (indexToRemove > -1) {
+            this.randableObjects.splice(indexToRemove, 1);
+        }
     }
     addLongLiveObject(obj) {
         this.longLiveObjects.push(obj);
@@ -144,7 +161,7 @@ class Renderer {
         this.asyncJobs = [];
         this.randableObjects = [];
         this.longLiveObjects = [];
-        Text.clearAvailableTexts();
+        SVGText.clearAvailableTexts();
     }
 
     getWidth() {

@@ -1,23 +1,4 @@
-* {
-    margin: 0px;
-    box-sizing: border-box;
-    text-decoration: none;
-    list-style: none;
-    font-family: 'Segoe UI', Tahoma, Verdana, sans-serif;
-}
 
-.main {
-    width: 100%;
-    min-height: 100vh;
-    background-image: url(./back3.jpg);
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-color: #f8f5f5;
-    margin-bottom: 0px;
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-}
 .content {
     width: 80vw;
     height: 80vh;
@@ -117,9 +98,7 @@
         flex-direction: column;
         align-items: center; 
     }
-    .pone-container{
-        margin-right: 135px;
-    }
+   
     #plain-text-expression{
         width: 120%;
     }
@@ -134,7 +113,13 @@
         background-repeat: no-repeat;
         background-image: url(./ipad.jpg);
     }
-  
+    .user-input label{
+        font-size: 25px;
+    }
+    .user-input input{
+        font-size: 20px;
+    }
+    
 }
 @media screen and (width: 1024px) and (height: 1366px) {
     .content{
@@ -143,6 +128,15 @@
     .main {
         background-repeat: no-repeat;
         background-image: url(./ipad.jpg);
-      
+    }
+    .user-input label{
+        font-size: 30px;
+    }
+    .user-input input{
+        font-size: 25px;
+    }
+    #animate-button{
+        height: 40px;
+        width: 20vw;
     }
 }

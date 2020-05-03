@@ -14,8 +14,6 @@ function getComments() {
         // code for IE6, IE5
         xhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-
-    xhttp.variabilaNefolositaDeNimeni = comment.value;
     xhttp.onreadystatechange = function() {
 
         if (this.readyState == 4 && this.status == 200) {
@@ -25,9 +23,9 @@ function getComments() {
             for (i = 0; i < obj.length; i++) {
                 console.log(obj[i].email);
                 console.log(obj[i].comment);
+                document.getElementById('h1').innerHTML = obj[i].email;
+                break;
             }
-            location.assign('./comment.html');
-            print();
         } else {
             console.log('Eroare [Get Comment]');
         }
@@ -36,4 +34,7 @@ function getComments() {
     xhttp.open("POST", "./getComments.js", true);
     xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhttp.send(requestData);
+
 }
+
+window.onload = getComments();

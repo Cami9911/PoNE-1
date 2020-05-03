@@ -61,7 +61,7 @@ function run(renderer, programs) {
 function animate(renderer, programs) {
     // Keep in mind that here is not a lot of error handling
     let expressionElement = document.getElementById("plain-text-expression");
-    const animationTime = 0.1;
+    const animationTime = 0.05;
 
     let expression = expressionElement.value;
     let re = /([-+*\/()])/g;
@@ -248,7 +248,75 @@ function animate(renderer, programs) {
         } else if (input.atomicElements[i].isOpenBracket()) {
             addElementToStack(i);
         } else if (input.atomicElements[i].isClosedBracket()) {
-            // After operators
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                mainText.fadeOutText(0.0);
+                mainText.fadeInText("Pop out everything from stack until ( is encountered");
+                return false;
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt =>{
+                return mainText.update(dt);
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                renderer.currentState = "set-state";
+                return false;
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                if (renderer.currentState === "set-state") {
+                    let head = st.getHead();
+                    if (head.isSpecial() || head.isOpenBracket()) {
+                        return false;
+                    }
+                    // prepare for next animation stuff
+                    let element = st.pop();
+                    let nextPosition = output.getNextElementPosition();
+                    mainText.fadeOutText(0.0);
+                    mainText.fadeInText("Pop " + head.value + " from stack and append to output");
+                    element.setAnimation("move", animationTime, nextPosition, EXPLAIN_TEXT_SIZE);
+                    output.addElement(element);
+                    renderer.currentState = "animate-state";
+                } else if (renderer.currentState === "animate-state") {
+                    let res = false;
+                    res |= mainText.update(dt);
+                    res |= output.update(dt);
+                    output.updateWidth();
+                    res |= st.update(dt);
+                    if (!res) {
+                        renderer.currentState = "set-state";
+                    }
+                }
+                return true;
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                mainText.fadeOutText(0.0);
+                mainText.fadeInText("Remove brackets from input and stack.");
+                return false;
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                return mainText.update(dt);
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                let head = st.getHead();
+                if (head.isOpenBracket()) {
+                    let el = st.pop();
+                    el.setAnimation("move", animationTime, [9999, 9999]); // move away
+                }
+                input.atomicElements[i].setAnimation("move", animationTime, [9999, 9999]); // move away
+                return false;
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                let res = false;
+                res |= input.update(dt);
+                res |= st.update(dt);
+                return res;
+            });
         } else if (input.atomicElements[i].isOperator()) {
             renderer.addSeparator();
             renderer.addJob(dt => {
@@ -343,7 +411,7 @@ function animate(renderer, programs) {
     renderer.addSeparator();
     renderer.addJob(dt => {
         mainText.fadeOutText(0.0);
-        mainText.fadeInText("Now the stack and input are containing the same thing. Done.");
+        mainText.fadeInText("Now the stack and input are containing the same thing.");
         input.hideSpecial();
         st.hideWhatIsLeftInTheStack();
         return false;
@@ -355,6 +423,16 @@ function animate(renderer, programs) {
         res |= input.update(dt);
         res |= st.update(dt);
         return res;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        mainText.fadeOutText(0.0);
+        mainText.fadeInText("Done");
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        return mainText.update(dt);
     });
 
 

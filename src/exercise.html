@@ -32,10 +32,12 @@
 
             <div class="exercise-area">
                 <h1 id="exRequirement"> Lorem ipsum dolor sit, amet consectetur adipisicing elit. Des pariatur doloribus!</h1>
+                <p id="divMessage"></p>
+                <p id="divResponse"></p>
                 <form>
                     <div class="answer">
                         <input type="text" id="answer" placeholder="  Insert answer here...">
-                        <input class="btn" type="reset" value="POST">
+                        <input class="btn" type="reset" value="POST" onclick="getResult()">
                     </div>
                 </form>
             </div>
@@ -58,6 +60,7 @@
     <script type="text/javascript" src="exerciseScript.js"></script>
     <script src="postCommentScript.js"></script>
     <script src="getComments.js"></script>
+    <script type="text/javascript" src="getResult.js"></script>
 </body>
 
 </html>

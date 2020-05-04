@@ -27,6 +27,11 @@ function generateExercise() {
                 var res = symbol.replace(/_/g, nr);
                 resultat = resultat.concat(res);
             }
+           
+            //console.log("raspunsul este: ");
+            xhttp.resultEx=resultat;
+            sessionStorage.setItem("resEx",xhttp.resultEx);
+           // console.log(sessionStorage.getItem("resEx"));
 
             document.getElementById("exRequirement").innerHTML = resultat;
 

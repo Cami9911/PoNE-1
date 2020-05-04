@@ -19,12 +19,13 @@ function getComments() {
         if (this.readyState == 4 && this.status == 200) {
             // console.log(xhttp.response);
             var obj = JSON.parse(this.responseText)
-
-            for (i = 0; i < obj.length; i++) {
-                console.log(obj[i].email);
-                console.log(obj[i].comment);
-                document.getElementById('h1').innerHTML = obj[i].email;
-                break;
+            if (obj.length > 0) {
+                removeChildren();
+                for (i = 0; i < obj.length; i++) {
+                    console.log(obj[i].email);
+                    console.log(obj[i].comment);
+                    modifyHTML(obj[i].email, obj[i].comment);
+                }
             }
         } else {
             console.log('Eroare [Get Comment]');
@@ -38,3 +39,33 @@ function getComments() {
 }
 
 window.onload = getComments();
+
+function modifyHTML(owner, comentariu) {
+    var elem = document.createElement('div')
+    var heading = document.createElement('h4')
+    var comment = document.createElement('p')
+    var comm_text = document.createTextNode(comentariu)
+    var node = document.createTextNode('@' + truncString(owner))
+    heading.appendChild(node);
+    comment.appendChild(comm_text);
+    elem.appendChild(heading);
+    elem.appendChild(comment);
+    elem.classList.add("comm");
+    var original = document.getElementById('comment-section')
+    original.append(elem)
+}
+
+function removeChildren() {
+    const myNode = document.getElementById('comment-section')
+    while (myNode.lastElementChild) {
+        myNode.removeChild(myNode.lastElementChild)
+    }
+}
+
+function truncString(string) {
+    var index = string.indexOf("@");
+    console.log('aici index ' + index);
+    var newString = string.substr(0, index);
+    console.log(newString);
+    return newString;
+}

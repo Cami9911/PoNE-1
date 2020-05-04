@@ -13,7 +13,9 @@ conn.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
 });
-selectFromComments();
+dropTable();
+createTable();
+commitChanges();
 
 function populateTable() {
     var exercises = ["_ * _ + _ /_", "_ * (_ + _ / _)", "((_ * (_ + _) ) / _)", "(_ * (_ + (_ / _) ) )", "_ + _ + _ + _", "( _ + _ ) * _ - ( _ - _ ) * ( _ + _ )"];
@@ -70,3 +72,19 @@ function selectFromComments() {
         }
     });
 };
+
+
+function dropTable() {
+    conn.query("Drop Table users", function(err, result, fields) {
+        if (err) throw err;
+        console.log('Dropped Table');
+    });
+}
+
+function createTable() {
+    var query = "CREATE TABLE IF NOT EXISTS users (id int NOT NULL AUTO_INCREMENT,username varchar(30) Unique,email varchar(50) UNIQUE,password Varchar(100), PRIMARY KEY (id));";
+    conn.query(query, function(err, result, fields) {
+        if (err) throw err;
+        console.log('Table created');
+    });
+}

@@ -110,6 +110,20 @@ input {
     margin-bottom: 20px;
 }
 
+
+/*Login error messages*/
+
+#error span {
+    color: red;
+}
+
+.input-container:nth-child(2) {
+    margin-bottom: 0px;
+}
+
+
+/*End*/
+
 .icon {
     padding: 20px;
     color: #93137A;

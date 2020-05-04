@@ -1,6 +1,3 @@
-"use strict"
-
-
 function registerFunction() {
 
     var name = document.getElementById("username");
@@ -18,7 +15,7 @@ function registerFunction() {
         // code for IE6, IE5
         xhttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    
+
     xhttp.variabilaNefolositaDeNimeni = email.value;
     xhttp.onreadystatechange = function() {
 
@@ -29,7 +26,7 @@ function registerFunction() {
                 sessionStorage.setItem("loggedUserEmail", xhttp.variabilaNefolositaDeNimeni);
                 location.assign("main-page.html");
             } else {
-                location.assign("failure");
+                console.log("failure");
             }
         }
     };

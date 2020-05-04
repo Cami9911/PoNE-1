@@ -118,13 +118,20 @@ let loginPage = new Page('.*/login.js',
             function(err, results, fields) {
                 let response = {};
                 if (err) {
-                    response.message = "FAILED";
+                    response.status = "Failed";
+                    response.message = "SQL server error";
                 } else {
-                    // console.log(results);
-                    if (password == results[0].password) {
-                        response.message = "SUCCEEDED";
+                    if (results.length > 0) {
+                        if (password == results[0].password) {
+                            response.status = "Succes";
+                            response.message = "User authenticated";
+                        } else {
+                            response.status = "Failed";
+                            response.message = "Password Incorrect";
+                        }
                     } else {
-                        response.message = "FAILED";
+                        response.status = "Failed";
+                        response.message = "There is no user registered with this email";
                     }
                 }
                 res.writeHeader(200, { 'Content-Type': 'application/json' });

@@ -19,16 +19,17 @@
             <form>
                 <div class="input-container">
                     <i class="fa fa-user-circle-o icon"></i>
-                    <input class="input-field" type="text" id="username" name="username" placeholder="Username">
+                    <input class="input-field" type="text" id="username" name="username" placeholder="Username" required>
                 </div>
                 <div class="input-container">
                     <i class="fa fa-envelope icon"></i>
-                    <input class="input-field" type="email" name="email" id="email" placeholder="Email">
+                    <input class="input-field" type="email" name="email" id="email" placeholder="Email" required>
                 </div>
                 <div class="input-container">
                     <i class="fa fa-unlock-alt icon"></i>
-                    <input class="input-field" type="password" name="password" id="password" placeholder="Password">
+                    <input class="input-field" type="password" name="password" id="password" placeholder="Password" required>
                 </div>
+                <div id="error"></div>
                 <div class="submit-area">
                     <span>I agree with <a href="#">Application Policy</a></span>
                     <input onClick="registerFunction()" id="submit-button" type="reset" value="Sign Up">

@@ -23,14 +23,16 @@ let config = {
 let registerPage = new Page('.*/register.js',
     function(params, req, res) { // post
 
-        conn.query('INSERT INTO users (username,email, password) VALUES (?,?,?);', [params.username, params.email, md5(params.password)],
+        conn.query('INSERT INTO users (username,email,password) VALUES (?,?,?);', [params.username, params.email, md5(params.password)],
             function(err, results, fields) {
                 let response = {};
                 if (err) {
-                    response.message = "FAILED";
+                    response.status = "Failed";
+                    response.message = "There is already an user with the same email or username";
                 } else {
                     console.log('Inserted ' + results.affectedRows + ' row(s).');
-                    response.message = "SUCCEEDED";
+                    response.status = "Succes";
+                    response.message = "Account created";
                 }
 
                 res.writeHeader(200, { 'Content-Type': 'application/json' });

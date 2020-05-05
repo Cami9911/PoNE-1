@@ -1,4 +1,7 @@
 function generateExercise() {
+    document.getElementById("divMessage").innerHTML = "";
+    document.getElementById("divResponse").innerHTML = "";
+
     var displayed = 0;
     var xhttp;
 

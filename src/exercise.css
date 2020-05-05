@@ -21,6 +21,9 @@
     justify-content: space-around;
     font-size: 2vh;
 }
+.exercise-area #exRequirement{
+    margin-left: 10px;
+}
 .answer {
     display: flex;
     justify-content: space-around;
@@ -71,6 +74,11 @@
     align-items: center;
     color:black;
 
+}
+
+.exercise-area p{
+    font-size: 20px;
+    margin-left: 10px;
 }
 
 .comments-area #comment {
@@ -154,7 +162,8 @@
         margin-bottom: 120px;
     }
     h1{
-        font-size: 15px;
+        font-size: 20px;
+        margin-left: 10px;
     }
     .main {
         background-repeat: no-repeat;
@@ -169,7 +178,7 @@
         margin-bottom: 160px;
     }
     h1{
-        font-size: 15px;
+        font-size: 25px;
     }
     .main {
         background-repeat: no-repeat;

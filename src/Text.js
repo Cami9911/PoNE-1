@@ -32,6 +32,10 @@ class SVGText {
         
     }
 
+    setText(text) {
+        document.getElementById(this.id).innerText = text;
+    }
+
     setPosition(x, y) {
         this.position = [
             x === 'middle' ? this.getMiddleWidthCoordinate() : x,

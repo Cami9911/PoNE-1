@@ -45,7 +45,7 @@
             <div class="buttons-area">
                 <button onclick="generateExercise()" class="commentGenerate" id="generate-exercise"><i
                         class="fa fa-puzzle-piece"></i> Generate Exercise</button>
-                <button href="./comment.html" class="commentGenerate" onclick="window.location.href='./comment.html'" id="comment-exercise" type="submit"><i class="fa fa-commenting-o"></i>
+                <button class="commentGenerate" onclick="getComments()" id="comment-exercise" type="submit"><i class="fa fa-commenting-o"></i>
                     See comments</button>
             </div>
 
@@ -55,7 +55,11 @@
                     <input class="btn1" type="reset" value="POST" onclick="postCommentFunction()">
                 </div>
             </form>
+            <div class="comment-section" id="comment-section">
+                <h1 id="h1">Nu sunt inca comentarii...</h1>
+            </div>
         </div>
+        
     </div>
     <script type="text/javascript" src="exerciseScript.js"></script>
     <script src="postCommentScript.js"></script>

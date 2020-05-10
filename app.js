@@ -224,6 +224,9 @@ function serverHandler(req, res, type) {
     console.log(ext);
     switch (ext) {
         case "text/html":
+            req.url = req.url + ".html"
+            serveFile(req, res, ext);
+            return;
         case "text/css":
         case "text/plain":
         case "application/javascript":

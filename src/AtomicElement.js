@@ -55,4 +55,9 @@ class AtomicElement extends SVGText {
         return this.value;
     }
 
+    setValue(value) {
+        this.setText(value);
+        this.value = value;
+    }
+
 }

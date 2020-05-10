@@ -25,7 +25,7 @@ class Expression {
         this.totalWidth = 0;
 
         for (let i = 0; i < atomicElements.length; ++i) {
-            if (atomicElements[i].type !== "Special") {
+            if (atomicElements[i].type !== "special") {
                 // Make elements appear
                 atomicElements[i].setAnimation('fade-in', this.animationTime);
             }
@@ -45,6 +45,13 @@ class Expression {
         }
     }
 
+    updateWidth() {
+        this.totalWidth = 0;
+        for (let i = 0; i < this.atomicElements.length; ++i) {
+            this.totalWidth += this.atomicElements[i].getWidth();
+        }
+    }
+
     addElement(element) {
         this.atomicElements.push(element);
         this.totalWidth += element.getWidth();
@@ -52,6 +59,11 @@ class Expression {
 
     getNextElementPosition() {
         return [this.startExpression + this.totalWidth, this.position[1]];
+    }
+
+    clearAtomics() {
+        this.totalWidth = 0;
+        this.atomicElements = [];
     }
 
     update(dt) {
@@ -67,8 +79,16 @@ class Expression {
 
     revealSpecial() {
         for (let i = 0; i < this.atomicElements.length; ++i) {
-            if (this.atomicElements[i].type === "Special") {
+            if (this.atomicElements[i].type === "special") {
                 this.atomicElements[i].setAnimation('fade-in', this.animationTime);
+            }
+        }
+    }
+
+    hideSpecial() {
+        for (let i = 0; i < this.atomicElements.length; ++i) {
+            if (this.atomicElements[i].type === "special") {
+                this.atomicElements[i].setAnimation('fade-out', this.animationTime);
             }
         }
     }

@@ -61,7 +61,7 @@ function run(renderer, programs) {
 function animate(renderer, programs) {
     // Keep in mind that here is not a lot of error handling
     let expressionElement = document.getElementById("plain-text-expression");
-    const animationTime = 0.5;
+    const animationTime = 0.05;
 
     let expression = expressionElement.value;
     let re = /([-+*\/()])/g;
@@ -171,9 +171,40 @@ function animate(renderer, programs) {
         return mainText.update(dt);
     });
 
-    expression = expression.sort((a, b) => {
-        return a.index - b.index;
-    });
+    function addElementToStack(i) {
+        renderer.addSeparator();
+        renderer.addJob(dt => {
+            mainText.fadeOutText(0.0);
+            mainText.fadeInText("Move " + input.atomicElements[i].value + " to stack");
+            input.atomicElements[i].setAnimation("change-color", animationTime, "#FF0000");
+            return false;
+        });
+        renderer.addSeparator();
+        renderer.addJob(dt => {
+            let res = false;
+            res |= mainText.update(dt);
+            res |= input.update(dt);
+            return res;
+        });
+        renderer.addSeparator();
+        renderer.addJob(dt => {
+            st.addElementToStack(input.atomicElements[i]);
+            return false;
+        });
+        renderer.addSeparator();
+        renderer.addJob(dt => {
+            return st.update(dt);
+        });
+        renderer.addSeparator();
+        renderer.addJob(dt => {
+            input.atomicElements[i].setAnimation("change-color", animationTime, renderer.getHexFillColor());
+            return false;
+        });
+        renderer.addSeparator();
+        renderer.addJob(dt => {
+            return input.update(dt);
+        });
+    }
 
 
     for (let i = 0; i < input.atomicElements.length; ++i) {
@@ -182,7 +213,7 @@ function animate(renderer, programs) {
             renderer.addSeparator();
             renderer.addJob(dt => {
                 mainText.fadeOutText(0.0);
-                mainText.fadeInText("Move " + expression[i].value + " to output");
+                mainText.fadeInText("Move " + input.atomicElements[i].value + " to output");
                 input.atomicElements[i].setAnimation("change-color", animationTime, "#FF0000");
                 return false;
             });
@@ -215,44 +246,342 @@ function animate(renderer, programs) {
                 return output.update(dt);
             });
         } else if (input.atomicElements[i].isOpenBracket()) {
+            addElementToStack(i);
+        } else if (input.atomicElements[i].isClosedBracket()) {
             renderer.addSeparator();
             renderer.addJob(dt => {
                 mainText.fadeOutText(0.0);
-                mainText.fadeInText("Move " + expression[i].value + " to stack");
-                input.atomicElements[i].setAnimation("change-color", animationTime, "#FF0000");
+                mainText.fadeInText("Pop out everything from stack until ( is encountered");
+                return false;
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt =>{
+                return mainText.update(dt);
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                renderer.currentState = "set-state";
+                return false;
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                if (renderer.currentState === "set-state") {
+                    let head = st.getHead();
+                    if (head.isSpecial() || head.isOpenBracket()) {
+                        return false;
+                    }
+                    // prepare for next animation stuff
+                    let element = st.pop();
+                    let nextPosition = output.getNextElementPosition();
+                    mainText.fadeOutText(0.0);
+                    mainText.fadeInText("Pop " + head.value + " from stack and append to output");
+                    element.setAnimation("move", animationTime, nextPosition, EXPLAIN_TEXT_SIZE);
+                    output.addElement(element);
+                    renderer.currentState = "animate-state";
+                } else if (renderer.currentState === "animate-state") {
+                    let res = false;
+                    res |= mainText.update(dt);
+                    res |= output.update(dt);
+                    output.updateWidth();
+                    res |= st.update(dt);
+                    if (!res) {
+                        renderer.currentState = "set-state";
+                    }
+                }
+                return true;
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                mainText.fadeOutText(0.0);
+                mainText.fadeInText("Remove brackets from input and stack.");
+                return false;
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                return mainText.update(dt);
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                let head = st.getHead();
+                if (head.isOpenBracket()) {
+                    let el = st.pop();
+                    el.setAnimation("move", animationTime, [9999, 9999]); // move away
+                }
+                input.atomicElements[i].setAnimation("move", animationTime, [9999, 9999]); // move away
                 return false;
             });
             renderer.addSeparator();
             renderer.addJob(dt => {
                 let res = false;
-                res |= mainText.update(dt);
                 res |= input.update(dt);
+                res |= st.update(dt);
                 return res;
             });
-            renderer.addSeparator();
-            renderer.addJob(dt => {
-                st.addElementToStack(input.atomicElements[i]);
-                return false;
-            });
-            renderer.addSeparator();
-            renderer.addJob(dt => {
-                return st.update(dt);
-            });
-            renderer.addSeparator();
-            renderer.addJob(dt => {
-                input.atomicElements[i].setAnimation("change-color", animationTime, renderer.getHexFillColor());
-                return false;
-            });
-            renderer.addSeparator();
-            renderer.addJob(dt => {
-                return input.update(dt);
-            });
-        } else if (input.atomicElements[i].isClosedBracket()) {
-            // After operators
         } else if (input.atomicElements[i].isOperator()) {
-            
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                mainText.fadeOutText(0.0);
+                mainText.fadeInText("Check if " + input.atomicElements[i].value + " can be added to the stack");
+                return false;
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                return mainText.update(dt);
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                renderer.currentState = "set-state";
+                return false;
+            });
+            renderer.addSeparator();
+            renderer.addJob(dt => {
+                if (renderer.currentState === "set-state") {
+                    let head = st.getHead();
+                    if (head.isSpecial() || precedence(input.atomicElements[i].value) > precedence(head.value)) {
+                        return false;
+                    }
+                    // prepare for next animation stuff
+                    let element = st.pop();
+                    let nextPosition = output.getNextElementPosition();
+                    mainText.fadeOutText(0.0);
+                    mainText.fadeInText("Pop " + head.value + " from stack and append to output");
+                    element.setAnimation("move", animationTime, nextPosition, EXPLAIN_TEXT_SIZE);
+                    output.addElement(element);
+                    renderer.currentState = "animate-state";
+                } else if (renderer.currentState === "animate-state") {
+                    let res = false;
+                    res |= mainText.update(dt);
+                    res |= output.update(dt);
+                    output.updateWidth();
+                    res |= st.update(dt);
+                    if (!res) {
+                        renderer.currentState = "set-state";
+                    }
+                }
+                return true;
+            });
+            // add to stack
+            addElementToStack(i);
         }
     }
+
+    // Pop everything remaining from stack
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        mainText.fadeOutText(0.0);
+        mainText.fadeInText("Pop everything that's left in stack and append to output");
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        return mainText.update(dt);
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        renderer.currentState = "set-state";
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        if (renderer.currentState === "set-state") {
+            let head = st.getHead();
+            if (head.isSpecial()) {
+                return false;
+            }
+            // prepare for next animation stuff
+            let element = st.pop();
+            let nextPosition = output.getNextElementPosition();
+            mainText.fadeOutText(0.0);
+            mainText.fadeInText("Pop " + head.value + " from stack and append to output");
+            element.setAnimation("move", animationTime, nextPosition, EXPLAIN_TEXT_SIZE);
+            output.addElement(element);
+            renderer.currentState = "animate-state";
+        } else if (renderer.currentState === "animate-state") {
+            let res = false;
+            res |= mainText.update(dt);
+            res |= output.update(dt);
+            output.updateWidth();
+            res |= st.update(dt);
+            if (!res) {
+                renderer.currentState = "set-state";
+            }
+        }
+        return true;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        mainText.fadeOutText(0.0);
+        mainText.fadeInText("Now the stack and input are containing the same thing.");
+        input.hideSpecial();
+        st.hideWhatIsLeftInTheStack();
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        let res = false;
+        res |= mainText.update(dt);
+        res |= input.update(dt);
+        res |= st.update(dt);
+        return res;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        mainText.fadeOutText(0.0);
+        mainText.fadeInText("Done");
+        st.clearStack();
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        return mainText.update(dt);
+    });
+
+    // Move output to input
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        mainText.fadeOutText(0.0);
+        mainText.fadeInText("Now prepare to calculate value.");
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        return mainText.update(dt);
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        mainText.fadeOutText(0.0);
+        mainText.fadeInText("Make the output from previous part input for this part");
+        input.clearAtomics();
+        for (let i = 0; i < output.atomicElements.length; ++i) {
+            let element = output.atomicElements[i];
+            element.setAnimation("move", animationTime, input.getNextElementPosition());
+            input.addElement(element);
+        }
+        output.clearAtomics();
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        let res = false;
+        res |= mainText.update(dt);
+        res |= input.update(dt);
+        res |= output.update(dt);
+        return res;
+    });
+
+    // Calculate value of postfix expression
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        output.clearAtomics();
+        renderer.currentState = {
+            stateName: "set-state",
+            nextStateName: "",
+            additionalInfo: "",
+            i: 0,
+        };
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        let state = renderer.currentState;
+        if (state.i >= input.atomicElements.length) {
+            return false;
+        }
+        if (state.stateName === "set-state") {
+            if (input.atomicElements[state.i].isOperand()) {
+                mainText.fadeOutText(0.0);
+                mainText.fadeInText("Move " + input.atomicElements[state.i].value + " to stack");
+                input.atomicElements[state.i].setAnimation("change-color", animationTime, "#FF0000");
+                state.additionalInfo = "add-to-stack";
+            } else if (input.atomicElements[state.i].isOperator()) {
+                mainText.fadeOutText(0.0);
+                mainText.fadeInText("Execute operation " + input.atomicElements[state.i].value + " with the last two elements in the stack");
+                st.elementsInStack[0].setAnimation("change-color", animationTime, "#FF0000");
+                st.elementsInStack[1].setAnimation("change-color", animationTime, "#FF0000");
+                input.atomicElements[state.i].setAnimation("change-color", animationTime, "#FF0000");
+                state.additionalInfo = "perform-operation";
+            }
+            state.stateName = "highlight-state";
+        } else if (state.stateName === "highlight-state") {
+            let res = false;
+            res |= input.update(dt);
+            res |= st.update(dt);
+            if (!res) {
+                if (state.additionalInfo === "add-to-stack") {
+                    st.addElementToStack(input.atomicElements[state.i])
+                } else if (state.additionalInfo === "perform-operation") {
+                    let element = st.pop();
+                    // st.elementsInStack[0].setValue(String(parseInt(st.elementsInStack[0].value) + parseInt(element.value)));
+
+                    let value;
+                    switch (input.atomicElements[state.i].value) {
+                        case '+':
+                            value = String(parseInt(st.elementsInStack[0].value) + parseInt(element.value));
+                            break;
+                        case '-':
+                            value = String(parseInt(st.elementsInStack[0].value) - parseInt(element.value));
+                            break;
+                        case '*':
+                            value = String(parseInt(st.elementsInStack[0].value) * parseInt(element.value));
+                            break;
+                        case '/':
+                            value = String(parseInt(st.elementsInStack[0].value) / parseInt(element.value));
+                            break;
+                    }
+                    st.elementsInStack[0].setValue(value);
+                    st.resizeElements();
+
+                    element.setAnimation("move", animationTime, [9999, 9999]);
+                    input.atomicElements[state.i].setAnimation("move", animationTime, [9999, 9999]);
+                }
+                state.stateName = "animate-state";
+            }
+        } else if (state.stateName === "animate-state") {
+            let res = false;
+            res |= st.update(dt);
+            res |= input.update(dt);
+            res |= mainText.update(dt);
+            res |= output.update(dt);
+            if (!res) {
+                state.stateName = "unhighlight-state";
+                input.atomicElements[state.i].setAnimation("change-color", animationTime, renderer.getHexFillColor());
+                st.elementsInStack[0].setAnimation("change-color", animationTime, renderer.getHexFillColor());
+            }
+        } else if (state.stateName === "unhighlight-state") {
+            if (!input.update(dt)) {
+                state.stateName = "set-state";
+                state.i++;
+            }
+        }
+        return true;
+    });
+
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        mainText.fadeOutText(0.0);
+        mainText.fadeInText("The remaining element from the stack is the final result");
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        return mainText.update(dt);
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        let element = st.pop();
+        let nextPosition = output.getNextElementPosition();
+        element.setAnimation("move", animationTime, nextPosition, EXPLAIN_TEXT_SIZE);
+        output.addElement(element);
+        return false;
+    });
+    renderer.addSeparator();
+    renderer.addJob(dt => {
+        let res = false;
+        res |= output.update(dt);
+        return res;
+    });
+
 }
 
 window.onload = init();
+

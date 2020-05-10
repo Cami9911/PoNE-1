@@ -1,25 +1,26 @@
 
 .content {
     width: 60vw;
-    height: 60vh;
+    height: 80vh;
     background-color: #EFE5E5;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     border-radius: 5px;
-    margin-top: 80px;
- 
     box-shadow: rgb(182, 157, 182) 0 1px 1px;
 }
 
 .exercise-area {
     width: 90%;
-    height: 50%;
+    height: 30%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     font-size: 2vh;
+}
+.exercise-area #exRequirement{
+    margin-left: 10px;
 }
 .answer {
     display: flex;
@@ -34,6 +35,7 @@
     border-radius: 15px;
     border:solid #E6D7D7 1px;
     color: black;
+ 
 }
 
 
@@ -64,13 +66,18 @@
 }
 
 .comments-area {
-    width: 90%;
+    width: 100%;
     height: 20%;
     display: flex;
     justify-content: space-evenly;
     align-items: center;
     color:black;
 
+}
+
+.exercise-area p{
+    font-size: 20px;
+    margin-left: 10px;
 }
 
 .comments-area #comment {
@@ -109,6 +116,39 @@
 }
 .btn1:hover{
     background-color: rgb(107, 15, 89);
+}
+
+.comment-section {
+    border-top:white 1px solid ;
+    width: 65%;
+    height: 30%;
+    /*  display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;*/
+    overflow-y: scroll;
+    scrollbar-width: thin;
+    display:none;
+    transition: all 1s linear;
+}
+
+.comment-section::-webkit-scrollbar {
+    width: 5px;
+    /* width of the entire scrollbar */
+}
+
+.comment-section::-webkit-scrollbar-track {
+    background: #f8f5f5;
+    /* color of the tracking area */
+}
+
+.comment-section::-webkit-scrollbar-thumb {
+    background-color: lightgrey;
+    /* color of the scroll thumb */
+    border-radius: 20px;
+    /* roundness of the scroll thumb */
+    border: 3px solid lightgrey;
+    /* creates padding around scroll thumb */
 }
 
 @media only screen and (max-width: 600px) {
@@ -154,7 +194,8 @@
         margin-bottom: 120px;
     }
     h1{
-        font-size: 15px;
+        font-size: 20px;
+        margin-left: 10px;
     }
     .main {
         background-repeat: no-repeat;
@@ -169,7 +210,7 @@
         margin-bottom: 160px;
     }
     h1{
-        font-size: 15px;
+        font-size: 25px;
     }
     .main {
         background-repeat: no-repeat;

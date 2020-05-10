@@ -1,4 +1,8 @@
+
+
 function getComments() {
+    
+    document.getElementById('comment-section').style.display = "block";
 
     var id_exercise = sessionStorage.getItem("exerciseId");
 
@@ -38,7 +42,7 @@ function getComments() {
 
 }
 
-window.onload = getComments();
+//window.onload = getComments();
 
 function modifyHTML(owner, comentariu) {
     var elem = document.createElement('div')

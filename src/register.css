@@ -1,5 +1,5 @@
 * {
-    margin: 0px;
+    margin: 0;
     box-sizing: border-box;
     text-decoration: none;
     list-style: none;
@@ -8,12 +8,12 @@
 
 .main-content {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     background-image: url(./assets/back2.jpg);
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-color: #f8f5f5;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -24,7 +24,7 @@
     height: 80vh;
     margin-left: 50%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     flex-direction: column;
     align-items: center;
 }
@@ -32,7 +32,7 @@
 .link-list {
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     margin-right: 10%;
 }
 
@@ -43,7 +43,7 @@
     font-weight: bolder;
 }
 
-#sign-up-link {
+.link-list li:nth-child(2) a {
     color: #93137A;
 }
 
@@ -66,28 +66,28 @@ input {
     font-size: 18px;
 }
 
-#username {
-    margin-top: 0%;
-}
-
-#password {
-    margin-bottom: 5%;
+.input-container:nth-child(1) input {
+    margin-top: 0;
 }
 
 span>a,
-span {
+span,
+.submit-area input {
     color: #93137A;
     font-size: 21px;
 }
 
-#submit-button {
+.submit-area input {
     margin-top: 10%;
     background-color: #550A46;
     color: white;
-    font-size: 20px;
     width: 50%;
-    padding: 0px;
+    padding: 0;
     height: 50px;
+}
+
+.submit-area input:hover {
+    background-color: #93137A;
 }
 
 .input-container i {
@@ -104,10 +104,9 @@ span {
     min-width: 60px;
     text-align: center;
     z-index: 1;
-    padding: 24px;
-    padding-left: 7px;
+    padding: 22px;
+    padding-left: 12px;
     color: #93137A;
-    height: 60px;
 }
 
 .input-container:nth-child(2) .icon,
@@ -123,13 +122,18 @@ span {
     flex-direction: column;
 }
 
-#error span {
+.error span {
+    margin-top: 3px;
     color: red;
+    font-size: 18px;
 }
 
 .input-container:nth-child(3) {
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
+
+
+/*Phone view portrait*/
 
 @media only screen and (max-width: 900px) and (orientation: portrait) {
     .main-content {
@@ -141,7 +145,7 @@ span {
     .form-container {
         justify-content: center;
         align-items: center;
-        margin-left: 0px;
+        margin-left: 0;
         width: 100%;
         margin-bottom: 35%;
     }
@@ -155,7 +159,7 @@ span {
         height: 40px;
         font-size: 13px;
     }
-    #submit-button {
+    .submit-area input {
         height: 6vh;
         width: 60%;
         font-size: 18px;
@@ -171,7 +175,14 @@ span {
     }
 }
 
+
+/*Phone view landscape*/
+
 @media only screen and (max-width: 900px) and (orientation: landscape) {
+    .link-list {
+        margin-top: 10%;
+        padding-left: 5%;
+    }
     .link-list a {
         font-size: 20px;
     }
@@ -179,7 +190,7 @@ span {
         height: 35px;
         width: 100%;
     }
-    #submit-button {
+    .submit-area input {
         height: 7vh;
         width: 60%;
         font-size: 15px;
@@ -187,33 +198,30 @@ span {
     }
     .icon {
         padding: 11px;
-        font-size: 13px;
     }
     form {
         width: 90%;
+        margin-top: 13%;
     }
     .form-container {
-        justify-content: space-evenly;
+        justify-content: flex-start;
     }
     form:nth-child(1) {
-        margin-top: 0px;
+        margin-top: 0;
     }
     .input-container:nth-child(1),
     .input-container:nth-child(2) {
-        margin-bottom: 0px;
-    }
-    input {
-        font-size: 12px;
+        margin-bottom: 0;
     }
     .submit-area span,
-    .submit-area a {
-        font-size: 13px;
+    .submit-area a,
+    input,
+    form span,
+    form a,
+    .icon {
+        font-size: 12px;
     }
     .main-content {
         align-items: flex-start;
-    }
-    form span,
-    form a {
-        font-size: 12px;
     }
 }

@@ -43,6 +43,35 @@ let registerPage = new Page('.*/register.js',
             });
     }, null, null);
 
+    let adminPage = new Page('.*/admin.js',
+    function(params, req, res) { // post
+        console.log("am ajuns aici");
+        conn.query(params.command,
+            function(err, results, fields) {
+                console.log(params.command);
+                let response = {};
+
+                if (err) {
+                    console.log("eroare");
+                    response.status = "Failed";
+                    response.message = "Invalid command";
+                } else {
+                    console.log("merge ");
+                    response.status = "Succes";
+                    response.message = "Command created";
+                    response.resultSql = results;
+
+                    console.log(results);
+                }
+
+                res.writeHeader(200, { 'Content-Type': 'application/json' });
+
+                let jsonString = JSON.stringify(response);
+                res.write(jsonString);
+                res.end();
+            });
+    }, null, null);
+
 let commentPage = new Page('.*/comment.js',
     function(params, req, res) {
         conn.query('INSERT INTO comments (email, id_exercise, comment) VALUES (?,?,?);', [params.email, params.id_exercise, params.comment],
@@ -145,7 +174,7 @@ let loginPage = new Page('.*/login.js',
     }, null, null);
 
 let pages = [
-    registerPage, loginPage, commentPage, exercisePage, getCommentPage
+    registerPage, loginPage, commentPage, exercisePage, getCommentPage, adminPage
 ]
 
 const conn = new mysql.createConnection(config);

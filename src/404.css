@@ -1,5 +1,5 @@
 * {
-    margin: 0px;
+    margin: 0;
     box-sizing: border-box;
     text-decoration: none;
     list-style: none;
@@ -24,7 +24,7 @@
     text-align: center;
 }
 
-.wrapper h1 {
+h1 {
     color: #550A46;
     font-size: 150px;
 }
@@ -35,4 +35,30 @@ h2 {
 
 .wrapper p {
     margin-top: 20px;
+}
+
+@media only screen and (max-width: 800px) and (orientation:portrait) {
+    .main {
+        width: 100%;
+        min-height: 100vh;
+        background-image: url(./assets/iphone678.jpg);
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        background-color: #f8f5f5;
+    }
+    h1 {
+        font-size: 50px;
+    }
+    .wrapper {
+        width: 50%;
+    }
+}
+
+@media only screen and (max-width: 800px) and (orientation:landscape) {
+    h1 {
+        font-size: 50px;
+    }
+    .wrapper {
+        width: 50%;
+    }
 }

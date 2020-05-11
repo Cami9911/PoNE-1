@@ -1,5 +1,5 @@
 * {
-    margin: 0px;
+    margin: 0;
     box-sizing: border-box;
     text-decoration: none;
     list-style: none;
@@ -8,12 +8,12 @@
 
 .main-content {
     width: 100%;
-    min-height: 100vh;
+    height: 100vh;
     background-image: url(./assets/back2.jpg);
     background-size: 100% 100%;
     background-repeat: no-repeat;
     background-color: #f8f5f5;
-    margin-bottom: 0px;
+    margin-bottom: 0;
     display: flex;
     align-items: center;
     justify-content: space-around;
@@ -24,7 +24,7 @@
     height: 80vh;
     margin-left: 50%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     flex-direction: column;
     align-items: center;
 }
@@ -32,7 +32,7 @@
 .link-list {
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-around;
     margin-right: 10%;
 }
 
@@ -43,7 +43,7 @@
     font-weight: bolder;
 }
 
-#sign-up-link {
+.link-list li:nth-child(1) a {
     color: #93137A;
 }
 
@@ -65,34 +65,34 @@ input {
     font-size: 18px;
 }
 
-#username {
-    margin-top: 0%;
-}
-
-#password {
-    margin-bottom: 5%;
+.input-container:nth-child(1) input {
+    margin-top: 0;
 }
 
 .submit-area {
+    margin-top: 10%;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 6.5vh;
+    height: 55px;
 }
 
-#submit-button {
+.submit-area input {
     background-color: #550A46;
     color: white;
     font-size: 20px;
     width: 50%;
-    padding: 0px;
+    padding: 0;
     cursor: pointer;
-    height: 70%;
+    height: 50px;
 }
 
-#submit-button:hover {
+.submit-area input:hover {
     background-color: #93137A;
 }
+
+
+/*Input icons*/
 
 .input-container i {
     position: absolute;
@@ -103,25 +103,18 @@ input {
     margin-bottom: 20px;
 }
 
-
-/*Login error messages*/
-
-#error span {
-    color: red;
-}
-
-.input-container:nth-child(2) {
-    margin-bottom: 0px;
-}
-
-
-/*End*/
-
 .icon {
     padding: 22px;
     color: #93137A;
     height: 60px;
     text-align: center;
+}
+
+
+/*Login error messages*/
+
+.error span {
+    color: red;
 }
 
 @media only screen and (max-width: 900px) and (orientation: portrait) {
@@ -134,7 +127,7 @@ input {
     .form-container {
         justify-content: center;
         align-items: center;
-        margin-left: 0px;
+        margin-left: 0;
         width: 100%;
     }
     .link-list a {
@@ -153,7 +146,7 @@ input {
     .submit-area a {
         font-size: 15px;
     }
-    #submit-button {
+    .submit-area input {
         height: 35px;
         font-size: 18px;
         border-radius: 30px;
@@ -179,7 +172,7 @@ input {
     .submit-area a {
         font-size: 15px;
     }
-    #submit-button {
+    .submit-area input {
         height: 25px;
         width: 60%;
         font-size: 15px;
@@ -189,14 +182,20 @@ input {
         height: 35px;
     }
     .icon {
-        padding: 10px;
+        padding: 12px;
         height: 35px;
         padding-left: 18px;
     }
     form {
         width: 90%;
     }
-    #error span {
-        font-size: 13px;
+    .error span,
+    .submit-area span,
+    .submit-area a,
+    input,
+    form span,
+    form a,
+    .icon {
+        font-size: 12px;
     }
 }

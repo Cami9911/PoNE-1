@@ -16,17 +16,31 @@ function adminFunction(){
 
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
-
+            console.log(response.resultSql);
             if (response.status === "Succes") {
-                console.log(response);
-                console.log(response.resultSql);
                 removeChildren();
-                var myjson=JSON.stringify(response.resultSql)
-                modifyHTML(myjson);
-                
+
+                if ((sqlCommand.value.toLowerCase().search('select')) !== -1) {
+                    for (var i = 0; i < response.resultSql.length; i++) {
+                        var myjson = JSON.stringify(response.resultSql[i]);
+                    
+                        var myjson = myjson.replace(/"|{|}/g, "");
+                        var myjson = myjson.replace(/,/g, " , ");
+                        var myjson = myjson.replace(/:/g, ": ");
+
+                        modifyHTML(myjson);
+                    }
+                }
+                else {
+                    var rez=response.resultSql.affectedRows;
+                    var message='AffectedRows: ';
+                    var rezFinal=message.concat(rez)
+                    modifyHTML(rezFinal);
+                }
                 
             } else {
                 console.log('Failure');
+                modifyHTML("Incorrect command! Please try again!")
             }
         }
     };

@@ -55,14 +55,14 @@ form {
 
 input {
     width: 100%;
-    height: 50px;
+    height: 60px;
     border-radius: 15px;
     border: 1px solid #707070;
     border-bottom: 2px solid #93137A;
     border-right: 2px solid #93137A;
     background-color: white;
     padding-left: 50px;
-    font-size: 15px;
+    font-size: 18px;
 }
 
 #username {
@@ -118,9 +118,9 @@ input {
 /*End*/
 
 .icon {
-    padding: 17px;
+    padding: 22px;
     color: #93137A;
-    height: 50px;
+    height: 60px;
     text-align: center;
 }
 
@@ -145,6 +145,7 @@ input {
     }
     .input-field {
         height: 40px;
+        font-size: 13px;
     }
     .submit-area {
         height: 30%;

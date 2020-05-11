@@ -24,7 +24,7 @@ function loginFunction() {
 
                 if (response.status === "Succes") {
                     sessionStorage.setItem("loggedUserEmail", xhttp.variabilaNefolositaDeNimeni);
-                    location.assign("main-page.html");
+                    location.assign("main-page");
                 } else {
                     if (response.message === "SQL server error") {
                         location.assign("404.html");

@@ -25,13 +25,13 @@ function getResult() {
     var finalResponse = postfixExpression.concat(' = ',resultExpression);
 
     if (trimUserResponse == postfixExpression) {
-        var message = "Felicitări! Răspunsul tău este corect! &#128513";
+        var message = "Congratulations! Your answer is correct! &#128513";
         message=message.fontcolor("green");
         document.getElementById("divResponse").innerHTML = finalResponse;
     }
     else
     {
-        message = "Răspuns greșit. &#128542";
+        message = "Wrong answer. &#128542";
         message=message.fontcolor("red");
     }
     document.getElementById("divMessage").innerHTML = message;

@@ -81,11 +81,6 @@ input {
     height: 6.5vh;
 }
 
-.submit-area a {
-    color: #93137A;
-    font-size: 20px;
-}
-
 #submit-button {
     background-color: #550A46;
     color: white;
@@ -94,7 +89,8 @@ input {
     padding: 0px;
     cursor: pointer;
     height: 70%;
-    margin-top: 0%;
+    margin-top: 15%;
+    margin-left:100px;
 }
 
 #submit-button:hover {

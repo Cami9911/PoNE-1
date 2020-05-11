@@ -55,7 +55,7 @@ form {
 
 input {
     width: 100%;
-    height: 6.5vh;
+    height: 50px;
     border-radius: 15px;
     border: 1px solid #707070;
     border-bottom: 2px solid #93137A;
@@ -75,8 +75,7 @@ input {
 
 .submit-area {
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     height: 6.5vh;
 }
@@ -89,8 +88,6 @@ input {
     padding: 0px;
     cursor: pointer;
     height: 70%;
-    margin-top: 15%;
-    margin-left:100px;
 }
 
 #submit-button:hover {
@@ -121,9 +118,9 @@ input {
 /*End*/
 
 .icon {
-    padding: 20px;
+    padding: 17px;
     color: #93137A;
-    min-width: 50px;
+    height: 50px;
     text-align: center;
 }
 
@@ -147,23 +144,23 @@ input {
         margin-bottom: 30px;
     }
     .input-field {
-        height: 7vh;
+        height: 40px;
     }
     .submit-area {
         height: 30%;
-        flex-direction: column;
     }
     .submit-area a {
         font-size: 15px;
     }
     #submit-button {
-        height: 6vh;
-        width: 60%;
+        height: 35px;
         font-size: 18px;
         border-radius: 30px;
     }
     .icon {
-        padding: 15px;
+        padding: 12px;
+        padding-left: 20px;
+        height: 40px;
     }
 }
 
@@ -177,24 +174,28 @@ input {
     }
     .submit-area {
         height: 30%;
-        flex-direction: column;
     }
     .submit-area a {
         font-size: 15px;
     }
     #submit-button {
-        height: 7vh;
+        height: 25px;
         width: 60%;
         font-size: 15px;
         border-radius: 30px;
     }
     .input-field {
-        height: 9vh;
+        height: 35px;
     }
     .icon {
-        padding: 15px;
+        padding: 10px;
+        height: 35px;
+        padding-left: 18px;
     }
     form {
         width: 90%;
+    }
+    #error span {
+        font-size: 13px;
     }
 }

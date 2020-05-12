@@ -25,7 +25,7 @@ function registerFunction() {
 
                 if (response.status === "Succes") {
                     sessionStorage.setItem("loggedUserEmail", xhttp.variabilaNefolositaDeNimeni);
-                    location.assign("main-page.html");
+                    location.assign("main");
                 } else {
                     console.log('Failure');
                     changeHTML('*There is already an account registered with this username/email');

@@ -173,6 +173,9 @@ span,
     form a {
         font-size: 15px;
     }
+    .error span {
+        font-size: 13px;
+    }
 }
 
 
@@ -223,5 +226,8 @@ span,
     }
     .main-content {
         align-items: flex-start;
+    }
+    .error span {
+        font-size: 12px;
     }
 }

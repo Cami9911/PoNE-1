@@ -19,27 +19,21 @@
     justify-content: space-around;
     font-size: 2vh;
 }
-.exercise-area #exRequirement{
-    margin-left: 10px;
-}
 .answer {
     display: flex;
-    justify-content: space-around;
     align-items: center;
 }
 
-.answer #answer {
+.answerText{
     width: 50vw;
     height: 40px;
     background-color: #F8F5F5;
     border-radius: 15px;
     border:solid #E6D7D7 1px;
     color: black;
- 
 }
 
-
-#answer:hover {
+.answerText:hover {
     background-color: rgb(226, 221, 221);
 }
 
@@ -49,7 +43,6 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-
 }
 
 .commentGenerate {
@@ -69,10 +62,8 @@
     width: 100%;
     height: 20%;
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
     color:black;
-
 }
 
 .exercise-area p{
@@ -80,7 +71,7 @@
     margin-left: 10px;
 }
 
-.comments-area #comment {
+.inputComm{
     width: 50vw;
     height: 40px;
     background-color: #F8F5F5;
@@ -89,7 +80,7 @@
     margin-top: 30px;
     border:#E6D7D7 1px solid;
 }
-.comments-area #comment:hover{
+.inputComm:hover{
     background-color: rgb(226, 221, 221);
 }
 
@@ -100,7 +91,6 @@
     background-color: #93137A;
     color:white;
     border:#E6D7D7 1px solid;
-  
 }
 .btn1{
     border-radius: 50px;
@@ -127,7 +117,6 @@
     justify-content: space-around;
     align-items: center;*/
     overflow-y: scroll;
-    scrollbar-width: thin;
     display:none;
     transition: all 1s linear;
 }
@@ -151,14 +140,12 @@
     /* creates padding around scroll thumb */
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) and (orientation: portrait) {
    
     .main {
-        min-height: 90vh;
-    }
-    .answer img {
-        height: 50px;
-        width: 50px;
+        min-height: 100vh;
+        background-repeat: no-repeat;
+        background-image: url(./assets/phone.jpg);
     }
     .buttons-area {
         height: 15%;
@@ -171,50 +158,99 @@
         height: 60vh;
         position: absolute;
         bottom: 20vh;
-    }
-}
-@media only screen and (max-width: 600px) {
-    .content{
         margin-bottom: 50px;
     }
-    h1{
-        font-size: 15px;
+    .exercise-area p{
+        font-size: 14px;
+        margin-left: 20px;
     }
-    .main {
-        background-repeat: no-repeat;
-        background-image: url(./phone.jpg);
-        min-height: 100vh;
+    .answerText{
+        margin-left: 20px;
+    }
+    .comment-section{
+        font-size: 14px;
+    }
+    .font{
+        font-size: 15px;
+        margin-left: 20px;
+    }
+}
+
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+    .content {
+        width:80%;
+        height: 80vh;
+        margin-top: 20px;
+        display: flex;
+        justify-content: space-around;
+    }
+    .exercise-area p{
+        font-size: 14px;
+        margin-left: 45px;
+    }
+    font{
+        margin-left: 45px;
+    }
+    .answerText{
+        height: 9vh;
+        margin-left: 40px;
+    }
+    .btn{
+        height: 9vh;
+        margin-right: 9px;
+    }
+    .inputComm{
+        height: 9vh;
+    }
+    .btn1{
+        height: 9vh;
     }
     
 }
 
 @media screen and (width: 768px) and (height: 1024px) {
     .content{
-        width:90%;
-        margin-bottom: 120px;
+        width:80%;
+        height: 50vh;
+        margin-top: 20%;
     }
-    h1{
+    font{
         font-size: 20px;
-        margin-left: 10px;
+        margin-left: 55px;
     }
     .main {
         background-repeat: no-repeat;
-        background-image: url(./ipad.jpg);
+        background-image: url(./assets/ipad.jpg);
         min-height: 100vh;
+    }
+    .answerText{
+        margin-left: 50px; 
+    }
+    .exercise-area p{
+        margin-left: 55px;
     }
   
 }
 @media screen and (width: 1024px) and (height: 1366px) {
     .content{
-        width:90%;
-        margin-bottom: 160px;
+        width:80%;
+        height: 50vh;
+        margin-top: 20%;
     }
-    h1{
-        font-size: 25px;
-    }
+    
     .main {
         background-repeat: no-repeat;
-        background-image: url(./ipad.jpg);
+        background-image: url(./assets/ipad.jpg);
         min-height: 100vh;
+    }
+    .answerText{
+        margin-left: 70px; 
+    }
+    font{
+        margin-left: 80px;
+        font-size: 25px;
+    }
+    .exercise-area p{
+        margin-left: 80px;
     }
 }

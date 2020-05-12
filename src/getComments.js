@@ -1,7 +1,5 @@
-
-
 function getComments() {
-    
+
     document.getElementById('comment-section').style.display = "block";
 
     var id_exercise = sessionStorage.getItem("exerciseId");
@@ -42,21 +40,19 @@ function getComments() {
 
 }
 
-//window.onload = getComments();
-
 function modifyHTML(owner, comentariu) {
     var elem = document.createElement('div')
-    var heading = document.createElement('h4')
+    var heading = document.createElement('span')
     var comment = document.createElement('p')
     var comm_text = document.createTextNode(comentariu)
-    var node = document.createTextNode('@' + truncString(owner))
+    var node = document.createTextNode('@' + truncString(owner) + ': ')
     heading.appendChild(node);
+    comment.appendChild(heading);
     comment.appendChild(comm_text);
-    elem.appendChild(heading);
     elem.appendChild(comment);
     elem.classList.add("comm");
     var original = document.getElementById('comment-section')
-    original.append(elem)
+    original.append(elem);
 }
 
 function removeChildren() {

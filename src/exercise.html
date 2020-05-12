@@ -31,12 +31,12 @@
         <div class="content">
 
             <div class="exercise-area">
-                <h1 id="exRequirement"> Generate and try to solve an exercise!</h1>
+                <h1 class="font" id="exRequirement"> Generate and try to solve an exercise!</h1>
                 <p id="divMessage"></p>
                 <p id="divResponse"></p>
                 <form>
                     <div class="answer">
-                        <input type="text" id="answer" placeholder="  Insert answer here...">
+                        <input class="answerText" type="text" id="answer" placeholder="  Insert answer here...">
                         <input class="btn" type="reset" value="POST" onclick="getResult()">
                     </div>
                 </form>
@@ -51,12 +51,12 @@
 
             <form>
                 <div class="comments-area">
-                    <input type="text" id="comment" placeholder="  Write a comment...">
+                    <input class="inputComm" type="text" id="comment" placeholder="  Write a comment...">
                     <input class="btn1" type="reset" value="POST" onclick="postCommentFunction()">
                 </div>
             </form>
             <div class="comment-section" id="comment-section">
-                <h1 id="h1">Nu sunt inca comentarii...</h1>
+                <p id="h1">Nu sunt inca comentarii...</p>
             </div>
         </div>
 

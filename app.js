@@ -59,8 +59,9 @@ let registerPage = new Page('.*/register.js',
                     console.log("merge ");
                     response.status = "Succes";
                     response.message = "Command created";
-                    response.resultSql = results;
 
+                    response.resultSql = results;
+                    
                     console.log(results);
                 }
 

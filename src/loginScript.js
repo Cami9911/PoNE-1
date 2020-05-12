@@ -1,3 +1,5 @@
+document.getElementById("submit-button").addEventListener("click", loginFunction);
+
 function loginFunction() {
 
     var email = document.getElementById("email");

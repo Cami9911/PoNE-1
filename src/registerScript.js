@@ -1,3 +1,5 @@
+document.getElementById("submit-button").addEventListener("click", registerFunction);
+
 function registerFunction() {
 
     var name = document.getElementById("username");

@@ -58,12 +58,82 @@ function run(renderer, programs) {
     requestAnimationFrame(render);
 }
 
+
+function parseMathML(content) {
+
+    let parser = new DOMParser();
+    let xmlDoc = parser.parseFromString(content, "text/xml");
+
+    let rows = xmlDoc.getElementsByTagName("mrow");
+    if (rows.length > 1) {
+        return null;
+    }
+
+    let row = rows[0];
+    let elements = row.getElementsByTagName("*");
+    let expression = "";
+    for (let i = 0; i < elements.length; ++i) {
+        let el = elements.item(i);
+
+        if (el.tagName === "mn") {
+            if (el.innerHTML.match("-?[0-9]+")) {
+                expression += el.innerHTML;
+            } else {
+                return null;
+            }
+        } else if (el.tagName === "mo") {
+            if (el.innerHTML.match("[+\\-*\\/()]")) {
+                expression += el.innerHTML;
+            } else {
+                return null;
+            }
+        }
+    }
+    return expression;
+}
+
+
+function readInputFile(event) {
+    let input = event.target;
+
+    let reader = new FileReader();
+    reader.onload = function(){
+        let data = reader.result;
+        // let output = document.getElementById('output');
+        // output.src = dataURL;
+        let expression = parseMathML(data);
+        if (expression) {
+            let expressionElement = document.getElementById("plain-text-expression");
+            expressionElement.value = expression;
+        }
+    };
+    reader.readAsText(input.files[0]);
+}
+
 function animate(renderer, programs) {
     // Keep in mind that here is not a lot of error handling
     let expressionElement = document.getElementById("plain-text-expression");
     const animationTime = 0.05;
 
     let expression = expressionElement.value;
+    try
+    {
+        if (expression.match("[+\\-*\\/()0-9]+"))
+        {
+            let result = parseInt(eval(expression));
+            if (Math.abs(result) > 100) // I don't really like numbers greater than 100
+                return;
+        }
+        else
+        {
+            return;
+        }
+    }
+    catch (e)
+    {
+        return;
+    }
+
     let re = /([-+*\/()])/g;
     let parsedExpression = expression.split(re);
     parsedExpression = parsedExpression.filter(function (el) {

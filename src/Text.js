@@ -12,7 +12,7 @@ class SVGText {
         this.fontColor = fontColor;
 
         // Random ID to be able to select the line at any time
-        this.id = Math.random().toString(36).substr(2, 10);
+        this.id = 't' + Math.random().toString(36).substr(2, 10);
 
         // Proceed to add the element to the svg
         let svgElement = document.getElementById("text");

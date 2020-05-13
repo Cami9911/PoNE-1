@@ -66,7 +66,7 @@ class Expression {
         this.atomicElements = [];
     }
 
-    update(dt) {
+        update(dt) {
         let res = false;
         res |= this.text.update(dt);
 

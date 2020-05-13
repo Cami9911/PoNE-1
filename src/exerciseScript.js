@@ -1,3 +1,4 @@
+document.getElementById("generate-exercise").addEventListener("click", generateExercise);
 
 function generateExercise() {
  

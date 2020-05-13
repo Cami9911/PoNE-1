@@ -1,5 +1,11 @@
 
+
+document.getElementById("getresults").addEventListener("click", getResult);
+
 function getResult() {
+
+   
+
     document.getElementById("divMessage").innerHTML = "";
     document.getElementById("divResponse").innerHTML = "";
 

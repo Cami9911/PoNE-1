@@ -91,7 +91,7 @@
 @media only screen and (max-width: 600px) {
     .main {
         background-repeat: no-repeat;
-        background-image: url(./phone.jpg);
+        background-image: url(./assets/phone.jpg);
     }
     .content {
         display: flex;
@@ -111,7 +111,7 @@
     }
     .main {
         background-repeat: no-repeat;
-        background-image: url(./ipad.jpg);
+        background-image: url(./assets/ipad.jpg);
     }
     .user-input label{
         font-size: 25px;

@@ -1,3 +1,6 @@
+document.getElementById("comment-exercise").addEventListener("click", getComments);
+document.getElementById("btnComment").addEventListener("click", getComments);
+
 function getComments() {
 
     document.getElementById('comment-section').style.display = "block";

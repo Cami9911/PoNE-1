@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="comun.css">
+    <link rel="stylesheet" type="text/css" href="comments.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>comments</title>
+</head>
+
+<body>
+    <div class="main">
+
+        <nav>
+            <div class="avatar-dropmenu">
+                <div class="burger-menu" onclick="burger(this)">
+                    <div class="line1"></div>
+                    <div class="line2"></div>
+                    <div class="line3"></div>
+                </div>
+                <div class="drop-content" id="drop">
+                    <a href="./main">Home</a>
+                    <a href="./animation">Animation</a>
+                    <a href='./login' id="sign-out-link">Sign out</a>
+                </div>
+            </div>
+        </nav>
+
+        <div class="content">
+            <div class="exercise-requirement">
+                <i class="fa fa-angle-left"style="font-size:48px" aria-hidden="true"></i>
+                <h1>Exercise Requirement</h1>
+                <i class="fa fa-angle-right"style="font-size:48px" aria-hidden="true"></i>
+            </div>
+            <div class="comments-exercise">
+                <p>Comments</p>
+            </div>
+            <div class="insert-comment">
+                <input class="inputComment" type="text" id="input-comment" placeholder="  Write a comment...">
+                <input id="btnComment" class="btn" type="reset" value="POST" >
+            </div>
+        </div>
+
+            
+    </div>
+    <script src="burger-animation.js"></script>
+</body>
+
+</html>

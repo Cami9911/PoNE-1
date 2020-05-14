@@ -1,3 +1,5 @@
+document.getElementById("btnComment").addEventListener("click", postCommentFunction);
+
 function postCommentFunction() {
 
     var email = sessionStorage.getItem("loggedUserEmail");

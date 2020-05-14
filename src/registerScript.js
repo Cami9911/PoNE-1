@@ -3,34 +3,32 @@ document.getElementById("submit-button").addEventListener("click", registerFunct
 function registerFunction() {
 
     var name = document.getElementById("username");
-    var email = document.getElementById("email");
     var password = document.getElementById("password");
 
-    if (validateUsername(name) && validateMail(email) && validatePassword(password)) {
+    if (validateUsername(name) && validatePassword(password)) {
         var displayed = 0;
-        const requestData = `name=${name.value}&email=${email.value}&password=${password.value}`;
+        const requestData = `name=${name.value}&password=${password.value}`;
+        console.log(requestData);
         var xhttp;
 
         if (window.XMLHttpRequest) {
-            // code for modern browsers
             xhttp = new XMLHttpRequest();
         } else {
-            // code for IE6, IE5
             xhttp = new ActiveXObject("Microsoft.XMLHTTP");
         }
 
-        xhttp.variabilaNefolositaDeNimeni = email.value;
+        xhttp.variabilaNefolositaDeNimeni = name.value;
         xhttp.onreadystatechange = function() {
 
             if (this.readyState == 4 && this.status == 200) {
                 var response = JSON.parse(this.responseText);
 
                 if (response.status === "Succes") {
-                    sessionStorage.setItem("loggedUserEmail", xhttp.variabilaNefolositaDeNimeni);
+                    sessionStorage.setItem("loggedUserUsername", xhttp.variabilaNefolositaDeNimeni);
                     location.assign("main");
                 } else {
                     console.log('Failure');
-                    changeHTML('*There is already an account registered with this username/email');
+                    changeHTML('*There is already an account registered with this username');
                 }
             }
         };
@@ -59,21 +57,6 @@ function removeChildrenError() {
 function changeHTML(message) {
     removeChildrenError();
     modify(message);
-}
-
-function validateMail(email) {
-    if (email.value == "") {
-        changeHTML("*You didn't enter an email\n");
-        return false;
-    }
-
-    var myRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    var emailValid = myRegex.test(email.value);
-    if (emailValid == false) {
-        changeHTML("*You have entered an invalid email address");
-        return false;
-    }
-    return true;
 }
 
 function validatePassword(password) {

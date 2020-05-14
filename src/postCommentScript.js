@@ -2,14 +2,14 @@ document.getElementById("btnComment").addEventListener("click", postCommentFunct
 
 function postCommentFunction() {
 
-    var email = sessionStorage.getItem("loggedUserEmail");
+    var username = sessionStorage.getItem("loggedUserUsername");
     var id_exercise = sessionStorage.getItem("exerciseId");
     var comment = document.getElementById("comment");
 
     if (validateComment(comment)) {
 
         var displayed = 0;
-        const requestData = `email=${email}&id_exercise=${id_exercise}&comment=${comment.value}`;
+        const requestData = `username=${username}&id_exercise=${id_exercise}&comment=${comment.value}`;
         var xhttp;
         console.log(requestData);
 

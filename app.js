@@ -163,7 +163,7 @@ let loginPage = new Page('.*/login.js',
                         }
                     } else {
                         response.status = "Failed";
-                        response.message = "There is no user registered with this email";
+                        response.message = "There is no user registered with this username";
                     }
                 }
                 res.writeHeader(200, { 'Content-Type': 'application/json' });

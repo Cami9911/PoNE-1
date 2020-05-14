@@ -17,19 +17,19 @@ conn.connect(function(err) {
 /*-----------------One Time Run ---------------------/*
 /*Drop Tables*/
 // dropTable("comments");
-dropTable("solved_exercises");
-dropTable("users");
+//dropTable("solved_exercises");
+//dropTable("users");
 // dropTable("exercises");
 
 
 //*Create Tables*/
-createTableUsers();
+//createTableUsers();
 // createTableExercises();
 // createTableComments();
-createTableSolvedExercises();
+//createTableSolvedExercises();
 
 /*Commit Changes*/
-commitChanges();
+//commitChanges();
 
 /*Populate Table Exercises*/
 // populateTable();
@@ -37,7 +37,7 @@ commitChanges();
 /*-----------------One Time Run ---------------------/*
 
 /*Select From Tables*/
-selectFromTable("users");
+selectFromTable("comments");
 
 
 function dropTable(tableName) {

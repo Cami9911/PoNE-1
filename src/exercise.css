@@ -18,7 +18,10 @@
     justify-content: space-around;
     font-size: 2vh;
 }
-
+.exercise-area p {
+    font-size: 20px;
+    margin-left: 10px;
+}
 .answer {
     display: flex;
     align-items: center;
@@ -50,7 +53,6 @@
     height: 100%;
     background-color: #EFE5E5;
     font-size: medium;
-    border: none;
     border: solid white 1px;
 }
 
@@ -64,11 +66,6 @@
     display: flex;
     align-items: center;
     color: black;
-}
-
-.exercise-area p {
-    font-size: 20px;
-    margin-left: 10px;
 }
 
 .inputComm {
@@ -120,6 +117,7 @@
     height: 30%;
     overflow-y: scroll;
     display: none;
+    margin-left: 100px;
 }
 
 .comm {
@@ -153,60 +151,65 @@
         background-repeat: no-repeat;
         background-image: url(./assets/phone.jpg);
     }
-    .buttons-area {
-        height: 15%;
-    }
     .commentGenerate {
-        font-size: 12px;
+        background-color: #f8f5f5;
     }
     .content {
-        width: 85vw;
-        height: 60vh;
-        position: absolute;
-        bottom: 20vh;
-        margin-bottom: 50px;
-    }
-    .exercise-area p {
-        font-size: 14px;
-        margin-left: 20px;
+        width: 100vw;
+        height: 70vh;
+        background-color: #f8f5f5;
+        box-shadow: #f8f5f5 0 1px 1px;
+        
     }
     .answerText {
-        margin-left: 20px;
         height: 5vh;
+        width: 70vw;
+        border: 1px solid #707070;
+        border-bottom: 2px solid #93137A;
+        border-right: 2px solid #93137A;
+        margin-left: 5px;
     }
-    .comment-section {
-        font-size: 12px;
-        margin-left: 40px;
-    }
-    .font {
-        font-size: 15px;
-        margin-left: 20px;
-    }
-    .btn {
-        height: 5vh;
-    }
+   
     .inputComm {
         height: 5vh;
+        width: 70vw;
+        border: 1px solid #707070;
+        border-bottom: 2px solid #93137A;
+        border-right: 2px solid #93137A;
     }
-    .btn1 {
+    .btn{
         height: 5vh;
     }
+    .btn1{
+        height: 5vh;
+    }
+   
+    .exercise-area h1{
+        font-size: 17px;
+        margin-left:10px;
+    }
+    .exercise-area p{
+        font-size: 15px;
+    }
+   
+    .comment-section{
+        margin-left: 50px;
+    }
+
+
 }
 
 @media only screen and (max-width: 900px) and (orientation: landscape) {
     .content {
         width: 80%;
-        height: 80vh;
-        margin-top: 20px;
-        display: flex;
-        justify-content: space-around;
+        height: 85vh;
     }
     .exercise-area p {
         font-size: 14px;
-        margin-left: 45px;
+        margin-left: 40px;
     }
-    font {
-        margin-left: 45px;
+    .exercise-area h1{
+        margin-left: 40px;
     }
     .answerText {
         height: 9vh;
@@ -214,36 +217,45 @@
     }
     .btn {
         height: 9vh;
-        margin-right: 9px;
     }
     .inputComm {
         height: 9vh;
     }
+    .comments-area{
+        margin-bottom: -30px;
+    }
     .btn1 {
         height: 9vh;
+    }
+    .comment-section{
+        margin-left: 140px;
     }
 }
 
 @media screen and (width: 768px) and (height: 1024px) {
     .content {
-        width: 80%;
-        height: 50vh;
-        margin-top: 20%;
+        width: 90%;
+        height: 60vh;
+        margin-top: 10%;
     }
-    font {
-        font-size: 20px;
-        margin-left: 55px;
-    }
+
     .main {
         background-repeat: no-repeat;
         background-image: url(./assets/ipad.jpg);
         min-height: 100vh;
     }
     .answerText {
-        margin-left: 50px;
+        margin-left: 90px;
     }
     .exercise-area p {
-        margin-left: 55px;
+        margin-left: 40px;
+    }
+    .exercise-area h1{
+        font-size: 20px;
+        margin-left: 90px;
+    }
+    .comment-section{
+        margin-left: 35%;
     }
 }
 
@@ -261,11 +273,14 @@
     .answerText {
         margin-left: 70px;
     }
-    font {
+    .exercise-area h1 {
         margin-left: 80px;
-        font-size: 25px;
+        font-size: 20px;
     }
     .exercise-area p {
         margin-left: 80px;
+    }
+    .comment-section{
+        margin-left: 35%;
     }
 }

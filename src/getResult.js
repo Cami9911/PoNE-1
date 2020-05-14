@@ -1,10 +1,6 @@
-
-
 document.getElementById("getresults").addEventListener("click", getResult);
 
 function getResult() {
-
-   
 
     document.getElementById("divMessage").innerHTML = "";
     document.getElementById("divResponse").innerHTML = "";
@@ -12,35 +8,37 @@ function getResult() {
     var userResponse = document.getElementById("answer");
     var correctExpression = sessionStorage.getItem("resEx");
 
-    console.log("resultExpression: ");
-    var resultExpression = eval(correctExpression);
-    console.log(resultExpression);
+    if (validateResult(userResponse)) {
 
-    
+        console.log("resultExpression: ");
+        var resultExpression = eval(correctExpression);
+        console.log(resultExpression);
 
-    var trimUserResponse=userResponse.value.replace(/\s/g, '');
+        var trimUserResponse = userResponse.value.replace(/\s/g, '');
 
-    var trimCorrectExpression=correctExpression.replace(/\s/g, '');
-    console.log("trim expression");
-    console.log(trimCorrectExpression);
+        var trimCorrectExpression = correctExpression.replace(/\s/g, '');
+        console.log("trim expression");
+        console.log(trimCorrectExpression);
 
-    console.log("postfix notation:");
-    var postfixExpression=infixToPostfix(trimCorrectExpression);
-    console.log(postfixExpression);
+        console.log("postfix notation:");
+        var postfixExpression = infixToPostfix(trimCorrectExpression);
+        console.log(postfixExpression);
 
-    var finalResponse = postfixExpression.concat(' = ',resultExpression);
+        var finalResponse = postfixExpression.concat(' = ', resultExpression);
 
-    if (trimUserResponse == postfixExpression) {
-        var message = "Congratulations! Your answer is correct! &#128513";
-        message=message.fontcolor("green");
-        document.getElementById("divResponse").innerHTML = finalResponse;
+        if (trimUserResponse == postfixExpression) {
+            var message = "Congratulations! Your answer is correct! &#128513";
+            message = message.fontcolor("green");
+            document.getElementById("divResponse").innerHTML = finalResponse;
+        }
+        else {
+            message = "Wrong answer. &#128542";
+            message = message.fontcolor("red");
+        }
+        document.getElementById("divMessage").innerHTML = message;
+        removeChildrenError();
+
     }
-    else
-    {
-        message = "Wrong answer. &#128542";
-        message=message.fontcolor("red");
-    }
-    document.getElementById("divMessage").innerHTML = message;
 
 }
 
@@ -105,5 +103,30 @@ function prec(c)
     return -1; 
 } 
 
-/*var exp = "((((1+7-2)*5)/3)+10+9)-11"; 
-   console.log( infixpushostfix(exp)); */
+function modify1(message) {
+    var span = document.createElement('span')
+    var span_text = document.createTextNode(message)
+    span.appendChild(span_text);
+    var original = document.getElementById('error1')
+    original.append(span)
+}
+
+function removeChildrenError() {
+    const myNode = document.getElementById('error1')
+    while (myNode.lastElementChild) {
+        myNode.removeChild(myNode.lastElementChild)
+    }
+}
+
+function changeHTML1(message) {
+    removeChildrenError();
+    modify1(message);
+}
+
+function validateResult(userResponse) {
+    if (userResponse.value == "") {
+        changeHTML1("*You didn't enter an answer.\n");
+        return false;
+    }
+    return true;
+}

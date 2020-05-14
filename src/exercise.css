@@ -145,6 +145,12 @@
     border: 3px solid #f8f5f5;
 }
 
+.error span {
+    color: red;
+    font-size: 12px;
+    margin-left: 80%;
+}
+
 @media only screen and (max-width: 600px) and (orientation: portrait) {
     .main {
         min-height: 100vh;

@@ -13,25 +13,69 @@ conn.connect(function(err) {
     if (err) throw err;
     console.log("Connected!");
 });
-dropTable();
-createTable();
-commitChanges();
 
-function populateTable() {
-    var exercises = ["_ * _ + _ /_", "_ * (_ + _ / _)", "((_ * (_ + _) ) / _)", "(_ * (_ + (_ / _) ) )", "_ + _ + _ + _", "( _ + _ ) * _ - ( _ - _ ) * ( _ + _ )"];
-    var i;
+/*-----------------One Time Run ---------------------/*
+/*Drop Tables*/
+// dropTable("comments");
+// dropTable("solved_exercises");
+// dropTable("users");
+// dropTable("exercises");
 
-    for (i = 0; i < exercises.length; i++) {
-        insertIntoTable(exercises[i]);
-        commitChanges();
-    }
-};
 
-function insertIntoTable(exercise) {
-    conn.query("INSERT INTO exercises (exercise) VALUES (?);", (String(exercise)), function(err, result, fields) {
+//*Create Tables*/
+// createTableUsers();
+// createTableExercises();
+// createTableComments();
+// createTableSolvedExercises();
+
+/*Commit Changes*/
+// commitChanges();
+
+/*Populate Table Exercises*/
+// populateTable();
+// commitCahnges();
+/*-----------------One Time Run ---------------------/*
+
+/*Select From Tables*/
+selectFromTable("exercises");
+
+
+function dropTable(tableName) {
+    conn.query("Drop Table " + tableName, function(err, result, fields) {
         if (err) throw err;
-        console.log('Inserted ' + result.affectedRows + ' row(s).');
-        console.log('Insert successfull...');
+        console.log('Dropped Table ' + tableName);
+    });
+}
+
+function createTableUsers() {
+    var query = "CREATE TABLE IF NOT EXISTS users (username varchar(30) NOT NULL Unique PRIMARY KEY,password Varchar(100));";
+    conn.query(query, function(err, result, fields) {
+        if (err) throw err;
+        console.log('Table users created');
+    });
+}
+
+function createTableExercises() {
+    var query = "CREATE TABLE IF NOT EXISTS exercises (id_exercise int NOT NULL AUTO_INCREMENT PRIMARY KEY,exercise Varchar(200));";
+    conn.query(query, function(err, result, fields) {
+        if (err) throw err;
+        console.log('Table exercices created');
+    });
+}
+
+function createTableComments() {
+    var query = "CREATE TABLE IF NOT EXISTS comments (id_exercise int NOT NULL,username varchar(30),comment Varchar(400), CONSTRAINT fk_comments FOREIGN KEY (id_exercise) REFERENCES exercises(id_exercise) ON DELETE CASCADE);";
+    conn.query(query, function(err, result, fields) {
+        if (err) throw err;
+        console.log('Table comments created');
+    });
+}
+
+function createTableSolvedExercises() {
+    var query = "CREATE TABLE IF NOT EXISTS solved_exercises (id_exercise int NOT NULL,username Varchar(30) NOT NULL, CONSTRAINT fk_comments FOREIGN KEY (id_exercise) REFERENCES exercises(id_exercise) ON DELETE CASCADE);"
+    conn.query(query, function(err, result, fields) {
+        if (err) throw err;
+        console.log('Table solved_exercises created');
     });
 }
 
@@ -42,49 +86,37 @@ function commitChanges() {
     });
 };
 
-function deleteFromTable() {
-    conn.query("Delete from comments where id_exercise >= 11;", function(err, result, fields) {
+function selectFromTable(tableName) {
+    conn.query("Select * from " + tableName, function(err, result, fields) {
         if (err) throw err;
-        console.log('Delete Successfull...');
-    });
-}
-
-
-function selectFromTable() {
-    conn.query("Select * from exercises;", function(err, result, fields) {
-        if (err) throw err;
-        var i;
-        for (i = 0; i < result.length; i++) {
-            console.log(result[i].id_exercise);
-            console.log(result[i].exercise)
-        }
+        console.log(result)
     });
 };
 
-function selectFromComments() {
-    conn.query("Select * from comments;", function(err, result, fields) {
-        if (err) throw err;
-        var i;
-        for (i = 0; i < result.length; i++) {
-            console.log(result[i].id_exercise);
-            console.log(result[i].email);
-            console.log(result[i].comment);
-        }
-    });
+function populateTable() {
+    var exercises = ["_ * _ + _ /_", "_ * (_ + _ / _)", "((_ * (_ + _) )/ _)", "(_ * (_ + (_ / _)- _)", "_ + _ + _ + _", "( _ + _ ) * _ - ( _ - _ ) * ( _ + _ )", "_ - _ + ( _ * _ )/ ( _ / _ ) - ( _ + _ )", "( _ - _ )", "((( _ + _)/ _) * _ ) - _"];
+    let i, nr, res;
+    let resultat;
+    let results = [];
+    let str;
+    for (i = 0; i < exercises.length; i++) {
+        str = exercises[i];
+        resultat = str.replace(/_/g, function() {
+            return Math.floor(Math.random() * 20) + 1;
+        });
+        results.push(resultat);
+    }
+    for (i = 0; i < results.length; i++) {
+        console.log(results[i]);
+        insertIntoTable(results[i]);
+    }
 };
 
 
-function dropTable() {
-    conn.query("Drop Table users", function(err, result, fields) {
+function insertIntoTable(exercise) {
+    conn.query("INSERT INTO exercises (exercise) VALUES (?);", (String(exercise)), function(err, result, fields) {
         if (err) throw err;
-        console.log('Dropped Table');
-    });
-}
-
-function createTable() {
-    var query = "CREATE TABLE IF NOT EXISTS users (id int NOT NULL AUTO_INCREMENT,username varchar(30) Unique,email varchar(50) UNIQUE,password Varchar(100), PRIMARY KEY (id));";
-    conn.query(query, function(err, result, fields) {
-        if (err) throw err;
-        console.log('Table created');
+        console.log('Inserted ' + result.affectedRows + ' row(s).');
+        console.log('Insert successfull... ' + exercise);
     });
 }

@@ -1,7 +1,11 @@
 document.getElementById("submit-button").addEventListener("click", loginFunction);
 
-function loginFunction() {
+const form = document.getElementById("form");
+form.addEventListener('submit', loginFunction);
 
+function loginFunction(event) {
+
+    event.preventDefault();
     var name = document.getElementById("username");
     var password = document.getElementById("password");
 
@@ -74,21 +78,12 @@ function validateUsername(username) {
         changeHTML("*You didn't enter an username.\n");
         return false;
     }
-    if (username.value.length < 5 || username.value.length > 30) {
-        changeHTML("*Username must have between 5 and 30 characters.");
-        return false;
-    }
     return true;
 }
 
 function validatePassword(pw) {
     if (pw.value == "") {
         changeHTML("*You didn't enter a password.\n");
-        return false;
-    }
-    console.log
-    if (pw.value.length < 8) {
-        changeHTML("*The password must have at least 8 characters");
         return false;
     }
     return true;

@@ -1,7 +1,10 @@
 document.getElementById("submit-button").addEventListener("click", registerFunction);
 
-function registerFunction() {
+const form = document.getElementById("form");
+form.addEventListener('submit', registerFunction);
 
+function registerFunction(event) {
+    event.preventDefault();
     var name = document.getElementById("username");
     var password = document.getElementById("password");
 

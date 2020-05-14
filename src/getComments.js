@@ -27,9 +27,9 @@ function getComments() {
             if (obj.length > 0) {
                 removeChildren();
                 for (i = 0; i < obj.length; i++) {
-                    console.log(obj[i].email);
+                    console.log(obj[i].username);
                     console.log(obj[i].comment);
-                    modifyHTML(obj[i].email, obj[i].comment);
+                    modifyHTML(obj[i].username, obj[i].comment);
                 }
             }
         } else {

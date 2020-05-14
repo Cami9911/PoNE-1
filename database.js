@@ -17,19 +17,19 @@ conn.connect(function(err) {
 /*-----------------One Time Run ---------------------/*
 /*Drop Tables*/
 // dropTable("comments");
-// dropTable("solved_exercises");
-// dropTable("users");
+dropTable("solved_exercises");
+dropTable("users");
 // dropTable("exercises");
 
 
 //*Create Tables*/
-// createTableUsers();
+createTableUsers();
 // createTableExercises();
 // createTableComments();
-// createTableSolvedExercises();
+createTableSolvedExercises();
 
 /*Commit Changes*/
-// commitChanges();
+commitChanges();
 
 /*Populate Table Exercises*/
 // populateTable();
@@ -37,7 +37,7 @@ conn.connect(function(err) {
 /*-----------------One Time Run ---------------------/*
 
 /*Select From Tables*/
-selectFromTable("exercises");
+selectFromTable("users");
 
 
 function dropTable(tableName) {
@@ -72,7 +72,7 @@ function createTableComments() {
 }
 
 function createTableSolvedExercises() {
-    var query = "CREATE TABLE IF NOT EXISTS solved_exercises (id_exercise int NOT NULL,username Varchar(30) NOT NULL, CONSTRAINT fk_comments FOREIGN KEY (id_exercise) REFERENCES exercises(id_exercise) ON DELETE CASCADE);"
+    var query = "CREATE TABLE IF NOT EXISTS solved_exercises (id_exercise int NOT NULL,username Varchar(30) NOT NULL, CONSTRAINT fk FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE);"
     conn.query(query, function(err, result, fields) {
         if (err) throw err;
         console.log('Table solved_exercises created');

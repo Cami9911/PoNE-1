@@ -74,7 +74,7 @@ let adminPage = new Page('.*/admin.js',
 
 let commentPage = new Page('.*/comment.js',
     function(params, req, res) {
-        conn.query('INSERT INTO comments (email, id_exercise, comment) VALUES (?,?,?);', [params.email, params.id_exercise, params.comment],
+        conn.query('INSERT INTO comments (username, id_exercise, comment) VALUES (?,?,?);', [params.username, params.id_exercise, params.comment],
             function(err, results, fields) {
                 let response = {};
                 console.log("coloane inserate");

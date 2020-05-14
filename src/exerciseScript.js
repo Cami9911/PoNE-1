@@ -24,24 +24,18 @@ function generateExercise() {
         if (this.readyState == 4 && this.status == 200) {
             var response = JSON.parse(this.responseText);
             console.log(response);
+            
             xhttp.idExercise=response.id;
             sessionStorage.setItem("exerciseId",xhttp.idExercise);
             console.log(sessionStorage.getItem("exerciseId"));
 
-            var resultat="";
-            for(var i=0; i<response.exercise.length; i++){
-                var nr = Math.floor(Math.random() * 10) + 1;
-                var symbol = response.exercise[i];
-                var res = symbol.replace(/_/g, nr);
-                resultat = resultat.concat(res);
-            }
+            var result=response.exercise;
            
-            //console.log("raspunsul este: ");
-            xhttp.resultEx=resultat;
+            xhttp.resultEx=result;
             sessionStorage.setItem("resEx",xhttp.resultEx);
            // console.log(sessionStorage.getItem("resEx"));
 
-            document.getElementById("exRequirement").innerHTML = resultat;
+            document.getElementById("exRequirement").innerHTML = result;
 
         } else {
             console.log(response);

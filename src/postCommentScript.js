@@ -7,6 +7,7 @@ function postCommentFunction() {
     var comment = document.getElementById("comment");
 
     if (validateComment(comment)) {
+        removeChildrenError();
 
         var displayed = 0;
         const requestData = `username=${username}&id_exercise=${id_exercise}&comment=${comment.value}`;
@@ -41,10 +42,31 @@ function postCommentFunction() {
     }
 }
 
+function modify(message) {
+    var span = document.createElement('span')
+    var span_text = document.createTextNode(message)
+    span.appendChild(span_text);
+    var original = document.getElementById('error')
+    original.append(span)
+}
+
+function removeChildrenError() {
+    const myNode = document.getElementById('error')
+    while (myNode.lastElementChild) {
+        myNode.removeChild(myNode.lastElementChild)
+    }
+}
+
+function changeHTML(message) {
+    removeChildrenError();
+    modify(message);
+}
+
 function validateComment(comment) {
     if (comment.value == "") {
-        alert("You didn't enter a comment!");
+        changeHTML("*You didn't enter a comment.\n");
         return false;
     }
     return true;
 }
+

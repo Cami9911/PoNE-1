@@ -2,9 +2,46 @@ const mysql = require('mysql');
 const http = require('http');
 const fs = require('fs');
 const { parse } = require('querystring');
-const Page = require("./Page").Page;
 const md5 = require("md5");
-var xmlserializer = require('xmlserializer');
+
+class Page {
+    constructor(regexPattern = null, actionPost = null, getRegexPattern = null, actionGet = null) {
+
+        this.regexPattern = regexPattern;
+        this.actionPost = actionPost;
+        this.actionGet = actionGet;
+        this.getRegexPattern = getRegexPattern;
+
+    }
+
+    matchesPagePost(page) {
+        if (this.regexPattern) {
+            return page.match(this.regexPattern);
+        } else {
+            return false;
+        }
+    }
+
+    matchesPageGet(page) {
+        if (this.getRegexPattern) {
+            return page.match(this.getRegexPattern);
+        } else {
+            return false;
+        }
+    }
+
+    get(params, req, res) {
+        if (this.actionGet) {
+            this.actionGet(params, req, res);
+        }
+    }
+
+    post(params, req, res) {
+        if (this.actionPost) {
+            this.actionPost(params, req, res);
+        }
+    }
+}
 
 let config = {
     host: 'polish-notation-server.mysql.database.azure.com',
@@ -289,7 +326,7 @@ function view() {
 }
 
 
-const port = process.env.PORT
+const port = process.env.PORT || 3000;
 
 http.createServer(serverHandler).listen(port);
 

@@ -119,7 +119,7 @@ let exercisePage = new Page('.*/exercise.js',
 
 let getCommentPage = new Page('.*/getComments.js',
     function(params, req, res) {
-        conn.query("Select * from comments where id_exercise= '" + params.id_exercise + "'", function(err, result, fields) {
+        conn.query("Select id_exercise from user_progress where username= '" + params.username + "'", function(err, result, fields) {
             var arrayOfObjects = [];
             var response = {};
             if (err) {
@@ -174,8 +174,108 @@ let loginPage = new Page('.*/login.js',
             })
     }, null, null);
 
+/*Insert user's progress in DB */
+let progressPage = new Page('.*/progress.js',
+    function(params, req, res) {
+        conn.query('INSERT INTO user_progress (id_exercise, username) VALUES (?,?);', [params.id_exercise, params.username],
+            function(err, results, fields) {
+                let response = {};
+                if (err) {
+                    console.log('[Eroare la insert] ' + err);
+                    response.message = "Failed";
+                } else {
+                    console.log('Inserted ' + results.affectedRows + ' row(s).');
+                    response.message = "Succes";
+                }
+                console.log(response);
+                res.writeHeader(200, { 'Content-Type': 'application/json' });
+
+                let jsonString = JSON.stringify(response);
+                res.write(jsonString);
+                res.end();
+            });
+    }, null, null);
+
+/*Get user progress form DB */
+let getProgressPage = new Page('.*/getProgress.js',
+    function(params, req, res) { // post
+        console.log('Am primit ' + params.username);
+        let query = "Select id_exercise from user_progress where username = '" + params.username + "'";
+        conn.query(query,
+            function(err, results, fields) {
+                let responseArray = [];
+                let response = {};
+                var element = {};
+                if (err) {
+                    response.message = 'Failure';
+                    response.objects = [];
+                } else {
+                    response.message = 'Succes';
+                    for (i = 0; i < results.length; i++) {
+                        element = {};
+                        element.id_exercise = results[i].id_exercise;
+                        let query = "Select exercise from exercises where id_exercise = '" + results[i].id_exercise + "'";
+                        conn.query(query,
+                            function(err, result, fields) {
+                                if (err) throw err;
+                                element.exercise = result[0].exercise;
+                                console.log('response ' + element.exercise);
+                            });
+                        conn.query("Select * from exercises where id_exercise = " + results[i].id_exercise + "",
+                            function(err, result, fields) {
+                                if (err) throw err;
+                                let arrayOfComments = [];
+                                let elem;
+                                for (i = 0; i < result.length; i++) {
+                                    elem = {};
+                                    elem.comment = result[i].comment;
+                                    elem.username = result[i].username;
+                                    arrayOfComments.push(elem);
+                                }
+                                element.comments = arrayOfComments;
+                            });
+                        // element.comments = queryAllComments(results[i].id_exercise);
+                        responseArray.push(element);
+                    }
+                    response.objects = responseArray;
+                }
+                res.writeHeader(200, { 'Content-Type': 'application/json' });
+
+                let jsonString = JSON.stringify(response);
+                console.log('Rezultat final' + jsonString);
+                res.write(jsonString);
+                res.end();
+            })
+    }, null, null);
+
+function queryExercise(exerciseId) {
+    let query = "Select exercise from exercises where id_exercise = '" + exerciseId + "'";
+    conn.query(query,
+        function(err, result, fields) {
+            if (err) throw err;
+            console.log(result[0].exercise);
+            return result[0].exercise;
+        });
+}
+
+function queryAllComments(exerciseId) {
+    conn.query("Select comment, username from exercises where id_exercise = '" + exerciseId + "'",
+        function(err, result, fields) {
+            if (err) throw err;
+            let arrayOfComments = [];
+            let elem;
+            for (i = 0; i < result.length; i++) {
+                elem = {};
+                elem.comment = result[i].comment;
+                elem.username = result[i].username;
+                arrayOfExercises.push(elem);
+            }
+            return arrayOfExercises;
+        });
+}
+
 let pages = [
-    registerPage, loginPage, commentPage, exercisePage, getCommentPage, adminPage
+    registerPage, loginPage, commentPage, exercisePage, getCommentPage, adminPage, progressPage, getProgressPage
 ]
 
 const conn = new mysql.createConnection(config);

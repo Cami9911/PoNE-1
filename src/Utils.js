@@ -4,6 +4,8 @@ const EXPLAIN_TEXT_SIZE = 54;
 const PADDING_SIZE = 50;
 
 
+let speed = 1.0;
+
 function normalizeVector(vector) {
     let mag = vectorLength(vector);
     for (let i = 0; i < vector.length; ++i) {

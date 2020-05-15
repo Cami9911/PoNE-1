@@ -135,6 +135,8 @@ class Renderer {
             dt = 0.15;
         }
 
+        dt *= speed;
+
         this.gl.clearColor(this.clearColor[0],this.clearColor[1],this.clearColor[2],this.clearColor[3]);
         this.gl.clear(this.gl.COLOR_BUFFER_BIT);
 

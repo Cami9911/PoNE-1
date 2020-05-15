@@ -191,8 +191,8 @@ conn.connect(
 
 function serveFile(req, res, ext) {
     handleGetRequest(req, res, function() {
-        if (req.url === '/')
-            req.url = "/index.html";
+        if (req.url === '/.html')
+            req.url = "/main.html";
         fs.readFile("./src" + req.url, (err, data) => {
             if (err) {
                 req.url = "/unknown.html";
@@ -288,4 +288,9 @@ function view() {
     });
 }
 
-http.createServer(serverHandler).listen(3000);
+
+const port = process.env.PORT
+
+http.createServer(serverHandler).listen(port);
+
+console.log("Starting server on port " + port);

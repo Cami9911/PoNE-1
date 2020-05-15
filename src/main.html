@@ -33,15 +33,30 @@
                 <p>Polish postfix notation/postfix notation, is a mathematical notation in which operators follow their operands, in contrast to Polish notation (PN), in which operators precede their operands.</p>
             </div>
             <div class="main-content__text">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
+                <i class="fa fa-pencil" aria-hidden="true" id="pencil"></i>
                 <p>In our Animations section you will be able to see how stack works and understand the algorithm.</p>
             </div>
             <div class="main-content__text">
-                <i class="fa fa-check-circle" aria-hidden="true"></i>
+                <i class="fa fa-check-circle" aria-hidden="true" id="circle"></i>
                 <p>Exercise Section is for practice and better understanding. </p>
             </div>
         </div>
     </div>
+    <script>
+        const pencil = document.getElementById("pencil");
+        const circle = document.getElementById("circle");
+
+        pencil.addEventListener("click", redirect);
+        circle.addEventListener("click", change);
+
+        function redirect() {
+            location.assign("animation")
+        }
+
+        function change() {
+            location.assign("exercise")
+        }
+    </script>
     <script src="logOutScript.js"></script>
     <script src="burger-animation.js"></script>
 </body>

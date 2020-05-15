@@ -17,7 +17,7 @@ conn.connect(function(err) {
 /*-----------------One Time Run ---------------------/*
 /*Drop Tables*/
 // dropTable("comments");
-//dropTable("solved_exercises");
+//dropTable("user_progress");
 //dropTable("users");
 // dropTable("exercises");
 
@@ -26,7 +26,7 @@ conn.connect(function(err) {
 //createTableUsers();
 // createTableExercises();
 // createTableComments();
-//createTableSolvedExercises();
+//createTableUserProgress();
 
 /*Commit Changes*/
 //commitChanges();
@@ -37,8 +37,8 @@ conn.connect(function(err) {
 /*-----------------One Time Run ---------------------/*
 
 /*Select From Tables*/
-selectFromTable("comments");
-
+//selectFromTable("user_progress");
+select(2);
 
 function dropTable(tableName) {
     conn.query("Drop Table " + tableName, function(err, result, fields) {
@@ -71,11 +71,11 @@ function createTableComments() {
     });
 }
 
-function createTableSolvedExercises() {
-    var query = "CREATE TABLE IF NOT EXISTS solved_exercises (id_exercise int NOT NULL,username Varchar(30) NOT NULL, CONSTRAINT fk FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE);"
+function createTableUserProgress() {
+    var query = "CREATE TABLE IF NOT EXISTS user_progress (id_exercise int NOT NULL UNIQUE,username Varchar(30) NOT NULL, CONSTRAINT fk FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE);"
     conn.query(query, function(err, result, fields) {
         if (err) throw err;
-        console.log('Table solved_exercises created');
+        console.log('Table user_progress created');
     });
 }
 
@@ -92,6 +92,15 @@ function selectFromTable(tableName) {
         console.log(result)
     });
 };
+
+function select(exerciseId) {
+    let query = "Select exercise from exercises where id_exercise = '" + exerciseId + "'";
+    conn.query(query, function(err, result, fields) {
+        if (err) throw err;
+        console.log(result[0].exercise);
+    });
+};
+
 
 function populateTable() {
     var exercises = ["_ * _ + _ /_", "_ * (_ + _ / _)", "((_ * (_ + _) )/ _)", "(_ * (_ + (_ / _)- _)", "_ + _ + _ + _", "( _ + _ ) * _ - ( _ - _ ) * ( _ + _ )", "_ - _ + ( _ * _ )/ ( _ / _ ) - ( _ + _ )", "( _ - _ )", "((( _ + _)/ _) * _ ) - _"];

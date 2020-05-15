@@ -12,6 +12,7 @@
   "dependencies": {
     "md5": "^2.2.1",
     "mysql": "^2.18.1",
+    "nodemon": "^2.0.4",
     "xmlserializer": "^0.6.1"
   }
 }

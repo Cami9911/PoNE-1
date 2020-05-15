@@ -38,6 +38,7 @@
 .fa-check-circle {
     font-size: 70px;
     color: #550A46;
+    cursor: pointer;
 }
 
 @media only screen and (max-width: 800px) and (orientation:portrait) {

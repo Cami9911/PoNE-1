@@ -24,13 +24,13 @@
                 <div class="drop-content" id="drop">
                     <a href="./main">Home</a>
                     <a href="./animation">Animation</a>
-                    <a href='./login' id="sign-out-link">Sign out</a>
+                    <a href='#' id="sign-out-link">Sign out</a>
+                    <a href="./comments">See Progress</a>
                 </div>
             </div>
         </nav>
 
         <div class="content">
-
             <div class="exercise-area">
                 <h1 id="exRequirement"> Generate and try to solve an exercise!</h1>
                 <p id="divMessage"></p>
@@ -39,18 +39,16 @@
                     <div class="error" id="error1"></div>
                     <div class="answer">
                         <input class="answerText" type="text" id="answer" placeholder="  Insert answer here...">
-                        <input id="getresults" class="btn" type="reset" value="POST">
+                        <input id="get-results" class="btn" type="reset" value="POST">
                     </div>
                 </form>
             </div>
-
             <div class="buttons-area">
                 <button class="commentGenerate" id="generate-exercise"><i
                         class="fa fa-puzzle-piece"></i> Generate Exercise</button>
                 <button class="commentGenerate" id="comment-exercise" type="submit"><i class="fa fa-commenting-o"></i>
                     See comments</button>
             </div>
-
             <form>
                 <div class="error" id="error"></div>
                 <div class="comments-area">
@@ -70,6 +68,7 @@
     <script src="getResult.js"></script>
     <script src="logOutScript.js"></script>
     <script src="burger-animation.js"></script>
+    <script src="userProgress.js"></script>
 </body>
 
 </html>

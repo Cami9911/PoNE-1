@@ -21,14 +21,13 @@ let config = {
 };
 
 let registerPage = new Page('.*/register.js',
-    function(params, req, res) { // post
-
-        conn.query('INSERT INTO users (username,email,password) VALUES (?,?,?);', [params.username, params.email, md5(params.password)],
+    function(params, req, res) {
+        conn.query('INSERT INTO users (username,password) VALUES (?,?);', [params.name, md5(params.password)],
             function(err, results, fields) {
                 let response = {};
                 if (err) {
                     response.status = "Failed";
-                    response.message = "There is already an user with the same email or username";
+                    response.message = "There is already an user with the same username";
                 } else {
                     console.log('Inserted ' + results.affectedRows + ' row(s).');
                     response.status = "Succes";
@@ -43,7 +42,7 @@ let registerPage = new Page('.*/register.js',
             });
     }, null, null);
 
-    let adminPage = new Page('.*/admin.js',
+let adminPage = new Page('.*/admin.js',
     function(params, req, res) { // post
         console.log("am ajuns aici");
         conn.query(params.command,
@@ -61,7 +60,7 @@ let registerPage = new Page('.*/register.js',
                     response.message = "Command created";
 
                     response.resultSql = results;
-                    
+
                     console.log(results);
                 }
 
@@ -75,7 +74,7 @@ let registerPage = new Page('.*/register.js',
 
 let commentPage = new Page('.*/comment.js',
     function(params, req, res) {
-        conn.query('INSERT INTO comments (email, id_exercise, comment) VALUES (?,?,?);', [params.email, params.id_exercise, params.comment],
+        conn.query('INSERT INTO comments (username, id_exercise, comment) VALUES (?,?,?);', [params.username, params.id_exercise, params.comment],
             function(err, results, fields) {
                 let response = {};
                 console.log("coloane inserate");
@@ -129,7 +128,7 @@ let getCommentPage = new Page('.*/getComments.js',
             } else {
                 for (i = 0; i < result.length; i++) {
                     response = {};
-                    response.email = result[i].email;
+                    response.username = result[i].username;
                     response.comment = result[i].comment;
                     arrayOfObjects[i] = response;
                 }
@@ -144,8 +143,9 @@ let getCommentPage = new Page('.*/getComments.js',
 
 let loginPage = new Page('.*/login.js',
     function(params, req, res) { // post
+        console.log(params.password);
         let password = md5(params.password);
-        let query = "Select password from users where email = '" + params.email + "'";
+        let query = "Select password from users where username = '" + params.name + "'";
         conn.query(query,
             function(err, results, fields) {
                 let response = {};
@@ -163,7 +163,7 @@ let loginPage = new Page('.*/login.js',
                         }
                     } else {
                         response.status = "Failed";
-                        response.message = "There is no user registered with this email";
+                        response.message = "There is no user registered with this username";
                     }
                 }
                 res.writeHeader(200, { 'Content-Type': 'application/json' });
@@ -191,8 +191,8 @@ conn.connect(
 
 function serveFile(req, res, ext) {
     handleGetRequest(req, res, function() {
-        if (req.url === '/')
-            req.url = "/index.html";
+        if (req.url === '/.html')
+            req.url = "/main.html";
         fs.readFile("./src" + req.url, (err, data) => {
             if (err) {
                 req.url = "/unknown.html";
@@ -288,4 +288,9 @@ function view() {
     });
 }
 
-http.createServer(serverHandler).listen(3000);
+
+const port = process.env.PORT
+
+http.createServer(serverHandler).listen(port);
+
+console.log("Starting server on port " + port);

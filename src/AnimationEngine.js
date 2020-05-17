@@ -40,6 +40,24 @@ function init() {
     });
 }
 
+function slower() {
+    speed *= 0.75;
+    if (speed < 0.1) {
+        speed = 0.0;
+    }
+}
+
+function faster() {
+    if (speed === 0.0) {
+        speed = 0.1;
+    } else {
+        speed *= 1.25;
+        if (speed > 10.0) {
+            speed = 10.0;
+        }
+    }
+}
+
 function run(renderer, programs) {
     let then = 0.0;
 
@@ -113,7 +131,7 @@ function readInputFile(event) {
 function animate(renderer, programs) {
     // Keep in mind that here is not a lot of error handling
     let expressionElement = document.getElementById("plain-text-expression");
-    const animationTime = 0.05;
+    const animationTime = 1.5;
 
     let expression = expressionElement.value;
     try

@@ -1,6 +1,6 @@
 "use strict"
 
-const EXPLAIN_TEXT_SIZE = 54;
+const EXPLAIN_TEXT_SIZE = 80;
 const PADDING_SIZE = 50;
 
 

@@ -6,22 +6,18 @@
     flex-direction: row;
     justify-content: space-around;
     align-items: center;
-    margin-bottom: 80px;
 }
 
 .buttons-controller{
-    position: absolute;
     margin-top: -5rem;
 }
 
 .pone-container {
-    margin-top: 5%;
     display: flex;
     height: 60%;
     width: 60%;
     background-color: white;
     border-radius: 2.2rem;
-    margin-bottom: 5%;
     position: relative;
 }
 
@@ -46,7 +42,6 @@
 }
 
 .user-input {
-    margin-bottom: 5%;
     height: 60%; 
     display: flex;
     flex-direction: column;
@@ -54,7 +49,6 @@
 }
 
 .user-input-row {
-    margin-top: 2rem;
     color: #550a46;
     font-size: 20px;
     display: flex;
@@ -64,18 +58,17 @@
 
 #plain-text-expression{
     margin-top: 1rem;
-    font-size: 16px;
-    border: none;
     background-color: #ffffff;
-    font-size: 16px;
-    padding: 1rem 2.8rem 1rem 2.8rem;
-    border-radius: 2.2rem;
+    padding: 0.5rem 1.5rem 0.5rem 1.5rem;
+    border-radius: 1rem;
     text-align: center;
-    display: inline-block;
-    text-decoration: none;
-    line-height: 1.5;
     transition: opacity 0.2s linear;
-    color: #393939;
+    border: 1px solid #707070;
+    border-bottom: 2px solid #93137A;
+    border-right: 2px solid #93137A;
+}
+#plain-text-expression:hover{
+    background-color: rgb(235, 233, 236);
 }
 
 #plain-text-expression:focus{
@@ -84,15 +77,9 @@
 }
 
 #animate-button{
-    margin-top: 1rem;
-    font-size: 16px;
-    padding: 1rem 2.8rem 1rem 2.8rem;
-    border-radius: 2.2rem;
-    text-align: center;
-    display: inline-block;
-    text-decoration: none;
-    line-height: 1.5;
-    text-transform: uppercase;
+    font-size: 18px;
+    padding: 0.4rem 4rem 0.4rem 4rem;
+    border-radius: 1rem;
     transition: opacity 0.2s linear;
     background-color: #550a46;
     border: none;
@@ -110,12 +97,8 @@
 .animate-button-color{
     margin-right: 1rem;
     font-size: 16px;
-    padding: 1rem 2.8rem 1rem 2.8rem;
-    border-radius: 2.2rem;
-    display: inline-block;
-    text-decoration: none;
-    line-height: 1.5;
-    text-transform: uppercase;
+    padding: 0.5rem 2rem 0.5rem 2rem;
+    border-radius:1rem;
     transition: opacity 0.2s linear;
     background-color: #550a46;
     border: none;
@@ -129,14 +112,11 @@
 .animate-button-color:hover {
     opacity: .8;
 }
-
-
 #upload-file {
     display: none;
 }
 
 #upload-file + label {
-    margin-top: 1rem;
     font-weight: bold;
     display: inline-block;
     border-radius: 10px;
@@ -148,7 +128,7 @@
     text-decoration: underline;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 600px) and (orientation: portrait) {
     .main {
         background-repeat: no-repeat;
         background-image: url(./assets/phone.jpg);
@@ -156,19 +136,63 @@
     .content {
         display: flex;
         flex-direction: column;
-        align-items: center; 
-        justify-content: space-around;
 
+        width: 100%;
     }
     .pone-container{
-        width: 100%;
-        height: 100%;
-        margin-top: 20%;
+       width: 90%;
+       height: 50%;
+       margin-top: 10%;
+    }
+    .user-input{
+        height: 5vh;
+        margin-bottom: 40px;
     }
     .hide-when-small{
         display: none;
     }
     #animate-button{
+        font-size:15px;
+        padding: 0.4rem 2rem 0.4rem 2rem;
+    }
+    .user-input-row{
+        font-size:15px;
+        margin-top: 10px;
+    }
+    #plain-text-expression{
+        height: 5vh;
+    }
+    .animate-button-color{
+        padding: 0.3rem 2rem 0.3rem 2rem;
+        margin-top: 20px;
+    }
+    .buttons-controller{
+       margin-left: 30px;
+    }
+}
+@media only screen and (max-width: 320px) and (orientation: portrait) {
+    .buttons-controller{
+        margin-left: 10px;
+     }
+}
+
+@media only screen and (max-width: 900px) and (orientation: landscape) {
+    .content{
+        margin-left: 100px;
+        margin-top: 30px;
+    }
+    #plain-text-expression{
+        padding: 0.2rem 1rem 0.2rem 1rem;
+
+        font-size: 13px;
+    }
+    .animate-button-color{
+        padding: 0.2rem 1rem 0.2rem 1rem;
+        font-size:15px;
+        margin-top: 40px;
+    }
+    #animate-button{
+        padding: 0.2rem 2rem 0.2rem 2rem;
         font-size:15px;
     }
     .user-input-row{

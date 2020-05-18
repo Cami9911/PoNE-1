@@ -54,6 +54,8 @@
     background-color: #EFE5E5;
     font-size: medium;
     border: solid white 1px;
+    outline: none;
+
 }
 
 .commentGenerate:hover {
@@ -89,6 +91,8 @@
     background-color: #93137A;
     color: white;
     border: #E6D7D7 1px solid;
+    outline: none;
+
 }
 
 .btn1 {
@@ -99,6 +103,8 @@
     width: 60px;
     background-color: #93137A;
     color: white;
+    outline: none;
+
 }
 
 .btn:hover {
@@ -159,7 +165,10 @@
     }
     .commentGenerate {
         background-color: #f8f5f5;
+        border: 1px solid #93137A;
+
     }
+    
     .content {
         width: 100vw;
         height: 70vh;
@@ -174,6 +183,7 @@
         border-bottom: 2px solid #93137A;
         border-right: 2px solid #93137A;
         margin-left: 5px;
+        outline: none;
     }
    
     .inputComm {
@@ -182,6 +192,8 @@
         border: 1px solid #707070;
         border-bottom: 2px solid #93137A;
         border-right: 2px solid #93137A;
+        outline: none;
+
     }
     .btn{
         height: 5vh;
@@ -202,7 +214,9 @@
         margin-left: 50px;
     }
 
-
+    .error span {
+        margin-left: 50%;
+    }
 }
 
 @media only screen and (max-width: 900px) and (orientation: landscape) {
@@ -236,6 +250,7 @@
     .comment-section{
         margin-left: 140px;
     }
+   
 }
 
 @media screen and (width: 768px) and (height: 1024px) {

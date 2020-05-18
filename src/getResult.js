@@ -1,6 +1,12 @@
 document.getElementById("get-results").addEventListener("click", getResult);
 
-function getResult() {
+const form1 = document.getElementById("form1");
+form1.addEventListener('submit', getResult);
+
+function getResult(event) {
+
+    event.preventDefault();
+
     document.getElementById("divMessage").innerHTML = "";
     document.getElementById("divResponse").innerHTML = "";
 
@@ -20,9 +26,9 @@ function getResult() {
         //  console.log("trim expression");
         // console.log(trimCorrectExpression);
 
-        // console.log("postfix notation:");
+         console.log("postfix notation:");
         var postfixExpression = infixToPostfix(trimCorrectExpression);
-        // console.log(postfixExpression);
+         console.log(postfixExpression);
 
         var finalResponse = postfixExpression.concat(' = ', resultExpression);
 

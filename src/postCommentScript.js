@@ -1,13 +1,18 @@
 document.getElementById("btnComment").addEventListener("click", postCommentFunction);
 
-function postCommentFunction() {
+const form = document.getElementById("form");
+form.addEventListener('submit', postCommentFunction);
+
+function postCommentFunction(event) {
+
+    event.preventDefault();
 
     var username = sessionStorage.getItem("loggedUserUsername");
     var id_exercise = sessionStorage.getItem("exerciseId");
     var comment = document.getElementById("comment");
 
     if (validateComment(comment)) {
-        removeChildrenError();
+        removeChildrenError1();
 
         var displayed = 0;
         const requestData = `username=${username}&id_exercise=${id_exercise}&comment=${comment.value}`;
@@ -50,7 +55,7 @@ function modify(message) {
     original.append(span)
 }
 
-function removeChildrenError() {
+function removeChildrenError1() {
     const myNode = document.getElementById('error')
     while (myNode.lastElementChild) {
         myNode.removeChild(myNode.lastElementChild)
@@ -58,7 +63,7 @@ function removeChildrenError() {
 }
 
 function changeHTML(message) {
-    removeChildrenError();
+    removeChildrenError1();
     modify(message);
 }
 

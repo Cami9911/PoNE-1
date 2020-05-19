@@ -1,0 +1,353 @@
+<html lang="en-GB">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>PoNe Scholarly HTML</title>
+    <link rel="stylesheet" href="scholarly.css">
+</head>
+
+<body prefix="schema: http://schema.org/ xsd: http://www.w3.org/2001/XMLSchema# sa: https://ns.science.ai/">
+    <header>
+        <p class="title">Pone Scholarly HTML</p>
+        <p class="subtitle">Polish Notation Web Editor</p>
+    </header>
+    <article id="what" typeof="schema:ScholarlyArticle" resource="#">
+        <h1>What is Pone?</h1>
+        <section>
+            <ol>
+                <li>
+                    <span property="schema:givenName">Stefan</span>
+                    <span property="schema:familyName">Dobrica,</span>
+                </li>
+                <li>
+                    <span>Camelia</span>
+                    <span>Tirnovan, </span>
+                </li>
+                <li>
+                    <span> Diana Gabriela</span>
+                    <span>Terchea </span>
+                </li>
+            </ol>
+        </section>
+
+        <section>
+            <h2>Abstract</h2>
+            <p>
+                Să se implementeze o aplicație Web cu caracter educațional menită a descrie, a evalua și explica în manieră vizuala o expresie matematică in notație poloneza pre/postfixată. De exemplu, expresiei 1 + 30 * π îi corespunde expresia în forma poloneză prefixată
+                + 1 * 30 3.14159265. Parantezele sunt permise. De asemenea, se va oferi suport pentru modelarea/editarea de operații matematice uzuale. Sistemul va pune la dispoziție o serie de exemple predefinite și de exercitii, plus va facilita comentarea
+                acestora.
+            </p>
+        </section>
+        <section>
+            <h2>Motivation</h2>
+            <p>
+                Aplicatia are un caracter educational care isi propune explicarea, modelarea si exersarea a expresiilor in notatie poloneza. Notatia poloneza (sau postfix) este un mod de scriere a expresiilor, în care ordinea operatorilor si a operanzilor este schimbata
+                fata de cea dintr-o expresie uzuala. În notatia postfix (poloneza) expresia este scrisa sub forma: <b>operand operand operator</b>.
+            </p>
+        </section>
+        <section>
+            <h2>Structure</h2>
+            <p>
+                Aplicatia contine: Login Page, Register Page, Main Page, Animation Page, Exercise Page, Progress Page si Admin Page (accesibila doar din contul de admin)
+            </p>
+            <section>
+                <h3>Login Page</h3>
+                <p>
+                    User-ul se poate loga folosind o parola si un username unic.
+                </p>
+                <img src="../assets/login-page.PNG" width="100" height="100">
+                <img src="../assets/login-mobile-page.PNG" width="100" height="100">
+            </section>
+            <section>
+                <h3>Register Page</h3>
+                <p>
+                    User-ul se poate inregistra folosind o parola si un username unic.
+                </p>
+                <img src="../assets/register-page.PNG" width="100" height="100">
+                <img src="../assets/register-mobile.PNG" width="100" height="100">
+            </section>
+            <section>
+                <h3>Main Page</h3>
+                <p>
+                    Pagina Principala contine detalii introductive despre functionalitatile aplicatiei. Din menu user-ul poate alege urmatoarele pagini pe care acesta doreste sa navigheze.
+                </p>
+                <img src="../assets/main-page.PNG" width="100" height="100">
+            </section>
+            <section>
+                <h3>Animations Page</h3>
+                <p>
+                    Prezinta in mod vizual transformarea din notatie infixata in notatie postfixata, iar apoi arata calcularea unei valori in notatie postfixata.
+                </p>
+                <img src="../assets/animation.png" width="100" height="100">
+                <img src="../assets/animations-mobile.png" width="100" height="100">
+            </section>
+            <section>
+                <h3>Exercise Page</h3>
+                <p>
+                    User-ul are la dispozitie o serie de exercitii predefinite, ce au ca prim scop exersarea cunostintelor dobandite folosind "Animations Page". Totodata, acesta poate intr-un mod facil sa comenteze exercitiile propuse.
+                </p>
+                <img src="../assets/exercise_page.png" width="100" height="100">
+                <img src="../assets/exercise_page_mobile.png" width="100" height="100">
+            </section>
+            <section>
+                <h3>User Progress Page</h3>
+                <p>
+                    User-ul isi poate vedea exercitiile rezolvate pana la un anumit moment si comentariile aferente acestora.
+                </p>
+            </section>
+            <section>
+                <h3>Admin Page</h3>
+                <p>
+                    Pagina ce faciliteaza administrarea bazei de date aferente aplicatiei accesibila doar userilor ce detin un cont de admin.
+                </p>
+                <img src="../assets/admin_page.png" width="100" height="100">
+            </section>
+            <section>
+                <h3>Arhitectura Aplicatiei</h3>
+                <p>Diagrame UML</p>
+                <ul>
+                    <li>
+                        <a src="https://app.creately.com/diagram/BDxQlI1QPem/view">Animation Diagram Class</a>
+                    </li>
+                    <li>
+                        <a src="https://app.creately.com/diagram/8OsJZoRCbE5/view">Backend Diagram Class</a>
+                    </li>
+                </ul>
+            </section>
+            <section>
+                <h2>Code Snippets</h2>
+                <p>
+                    Verificare ca user-ul sa fie logat atunci cand incearca sa acceseze o pagina interna:
+                </p>
+                <pre><code>
+window.onload = check_user();
+function check_user() {
+    if (sessionStorage.getItem("loggedUserUsername") === null) {
+        location.assign("login");
+    }
+}
+                  </code></pre>
+                <br>
+                <p>
+                    Post User Progress request:
+                </p>
+                <pre>
+                      <code>
+function postProgress() {
+    fetch('./progress.js', {
+            method: 'post',
+            body: `id_exercise=${sessionStorage.getItem('exerciseId')}
+            &username=${sessionStorage.getItem("loggedUserUsername")}`,
+            headers: { 'Content-type': 'application/x-www-form-urlencoded' }
+        }).then(function(resp) {
+            return resp.json();
+        }).then(function(jsonResp) {
+            console.log(jsonResp);
+        })
+        .catch(function() {
+            console.log(err);
+        })
+}
+                      </code>
+                  </pre>
+                <br>
+                <p>
+                    PostFix Transformation function:
+                </p>
+                <pre>
+                        <code>
+function infixToPostfix(expression) {
+    var stack = [];
+    stack.push('N');
+    var length = expression.length;
+    let result = [];
+
+    for (var i = 0; i < length; i++) {
+        var char = expression[i];
+        if (!isNaN(parseFloat(char)) && isFinite(char))
+            result += char;
+
+        else if (char == '(')
+
+            stack.push('(');
+
+        else if (char == ')') {
+            while (stack[stack.length - 1] != 'N' && stack[stack.length - 1] != '(') {
+                var c = stack[stack.length - 1];
+                stack.pop();
+                result += c;
+            }
+            if (stack[stack.length - 1] == '(') {
+                var c = stack[stack.length - 1];
+                stack.pop();
+            }
+        } else {
+            while (stack[stack.length - 1] != 'N' && prec(char) <= prec(stack[stack.length - 1])) {
+                var c = stack[stack.length - 1];
+                stack.pop();
+                result += c;
+            }
+            stack.push(char);
+        }
+
+    }
+    while (stack[stack.length - 1] != 'N') {
+        var c = stack[stack.length - 1];
+        stack.pop();
+        result += c;
+    }
+    return result;
+}
+                        </code>
+                    </pre>
+                <br>
+                <p>
+                    Metoda principala in care se executa Joburi si se apeleaza recursiv Joburi complexe:
+                </p>
+                <pre>
+                        <code>
+executeJobs(jobs, dt) {
+    if (Array.isArray(jobs)) {
+        if (jobs.length) {
+            let reset = false;
+            for (let i = 0; i < jobs.length; ++i) {
+                if (jobs[i] == null) {
+                    if (!reset) { // delete elements [0, i]
+                        jobs.splice(0, i + 1);
+                    }
+                    return true;
+                } else if (i === jobs.length - 1) {
+                    reset |= this.executeJobs(jobs[i], dt);
+                    if (!reset) { // delete elements [0, i]
+                        jobs.splice(0, i + 1);
+                    }
+                    return true;
+                } else {
+                    reset |= this.executeJobs(jobs[i], dt); // This is some sort of update
+                }
+            }
+        } else {
+            // No jobs? Just look pretty for now!
+            return false;
+        }
+    } else {
+        return jobs(dt);
+    }
+}
+                        </code>
+                    </pre>
+                <br>
+                <p>
+                    Lucru cu baza de date: creearea tabelei "user_progress" cu constrangerile aferente:
+                </p>
+                <pre>
+                        <code>
+function createTableUserProgress() {
+    var query = "CREATE TABLE IF NOT EXISTS user_progress (id_exercise int NOT NULL UNIQUE,username Varchar(30) NOT NULL, CONSTRAINT fk FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE);"
+    conn.query(query, function(err, result, fields) {
+        if (err) throw err;
+        console.log('Table user_progress created');
+    });
+}
+                        </code>
+                    </pre>
+                <br>
+                <p>
+                    Actualizarea unei linii. Asta presupune punctelor ce formeaza patratul, rotirea lor, apoi scalarea ca sa devina o linie:
+                </p>
+                <pre>
+                        <code>
+update(dt) {
+    if (this.animationTime >= this.animationDuration) {
+
+        // Stabilize stuff
+        let currentLength = distance(this.startPoint, this.endPoint);
+
+        this.modelViewMatrix = mat4.create();
+        let startPosition = [this.startPoint, -1.0];
+        startPosition = startPosition.flat(1);
+        mat4.translate(this.modelViewMatrix, this.modelViewMatrix, startPosition);
+        mat4.rotate(this.modelViewMatrix, this.modelViewMatrix, this.angle, [0.0, 0.0, 1.0]);
+        mat4.scale(this.modelViewMatrix, this.modelViewMatrix, [currentLength, 1.0, 1.0]);
+        mat4.scale(this.modelViewMatrix, this.modelViewMatrix, [1.0, this.thickness, 1.0]);
+
+        return false;
+    }
+
+    let dist = distance(this.startPoint, this.endPoint);
+    let currentLength = lerp(0.0, dist, this.animationTime / this.animationDuration);
+
+    this.animationTime += dt;
+
+    this.modelViewMatrix = mat4.create();
+    let startPosition = [this.startPoint, -6.0];
+    startPosition = startPosition.flat(1);
+    mat4.translate(this.modelViewMatrix, this.modelViewMatrix, startPosition);
+    mat4.rotate(this.modelViewMatrix, this.modelViewMatrix, this.angle, [0.0, 0.0, 1.0]);
+    mat4.scale(this.modelViewMatrix, this.modelViewMatrix, [currentLength, 1.0, 1.0]);
+    mat4.scale(this.modelViewMatrix, this.modelViewMatrix, [1.0, this.thickness, 1.0]);
+
+
+    return true;
+}
+                        </code>
+                    </pre>
+                <br>
+                <p>Functie care trimite fisierul cerut la client:</p>
+                <pre>
+                        <code>
+function serveFile(req, res, ext) {
+    handleGetRequest(req, res, function() {
+        if (req.url === '/.html')
+            req.url = "/main.html";
+        fs.readFile("./src" + req.url, (err, data) => {
+            if (err) {
+                req.url = "/unknown.html";
+                fs.readFile("./src" + req.url, (err, data) => {
+                    res.writeHeader(200, { 'Content-Type': ext });
+                    res.write(data);
+                    res.end();
+                });
+                return;
+            }
+            res.writeHeader(200, { 'Content-Type': ext });
+            res.write(data);
+            res.end();
+        });
+    });
+}
+                        </code>
+                    </pre>
+            </section>
+            <section>
+                <h2>References</h2>
+                <ul>
+                    <li>
+                        <a href="https://www.geeksforgeeks.org/stack-set-2-infix-to-postfix/">https://www.geeksforgeeks.org/stack-set-2-infix-to-postfix</a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/toji/gl-matrix">https://github.com/toji/gl-matrix</a>
+                    </li>
+                    <li>
+                        <a href="https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial">https://developer.mozilla.org/en-US/docs/Web/API/WebGL_API/Tutorial</a>
+                    </li>
+                    <li>
+                        <a href="https://developer.mozilla.org/en-US/">https://developer.mozilla.org/en-US</a>
+                    </li>
+                    <li>
+                        <a href="https://www.w3schools.com/">https://www.w3schools.com</a>
+                    </li>
+                </ul>
+            </section>
+    </article>
+    <footer>
+        <p>
+            PoNe 20
+        </p>
+    </footer>
+
+
+</body>
+
+</html>

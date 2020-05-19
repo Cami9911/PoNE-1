@@ -38,7 +38,8 @@ conn.connect(function(err) {
 
 /*Select From Tables*/
 //selectFromTable("user_progress");
-select(2);
+selectJoinNested('Diana');
+//selectFromTable("comments");
 
 function dropTable(tableName) {
     conn.query("Drop Table " + tableName, function(err, result, fields) {
@@ -98,6 +99,15 @@ function select(exerciseId) {
     conn.query(query, function(err, result, fields) {
         if (err) throw err;
         console.log(result[0].exercise);
+    });
+};
+
+
+function selectJoinNested(username) {
+    let query = "SELECT exercises.exercise, exercises.id_exercise, comments.username, comments.comment FROM exercises LEFT JOIN comments ON exercises.id_exercise = comments.id_exercise WHERE exercises.id_exercise IN (SELECT id_exercise FROM user_progress WHERE username = '" + username + "'" + " )";
+    conn.query(query, function(err, result, fields) {
+        if (err) throw err;
+        console.log(result);
     });
 };
 

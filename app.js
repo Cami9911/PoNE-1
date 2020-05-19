@@ -237,44 +237,50 @@ let progressPage = new Page('.*/progress.js',
 let getProgressPage = new Page('.*/getProgress.js',
     function(params, req, res) { // post
         console.log('Am primit ' + params.username);
-        let query = "Select id_exercise from user_progress where username = '" + params.username + "'";
+        let query = "SELECT exercises.exercise, exercises.id_exercise, comments.username, comments.comment FROM exercises LEFT JOIN comments ON exercises.id_exercise = comments.id_exercise WHERE exercises.id_exercise IN (SELECT id_exercise FROM user_progress WHERE username = '" + params.username + "'" + " )";
         conn.query(query,
             function(err, results, fields) {
-                let responseArray = [];
                 let response = {};
-                var element = {};
+                let idExercise;
+                let arrayOfComments;
+                let info;
+                let elem;
                 if (err) {
                     response.message = 'Failure';
                     response.objects = [];
                 } else {
+                    let test = [];
+                    let info = [];
                     response.message = 'Succes';
+                    const id = []
+
                     for (i = 0; i < results.length; i++) {
-                        element = {};
-                        element.id_exercise = results[i].id_exercise;
-                        let query = "Select exercise from exercises where id_exercise = '" + results[i].id_exercise + "'";
-                        conn.query(query,
-                            function(err, result, fields) {
-                                if (err) throw err;
-                                element.exercise = result[0].exercise;
-                                console.log('response ' + element.exercise);
-                            });
-                        conn.query("Select * from exercises where id_exercise = " + results[i].id_exercise + "",
-                            function(err, result, fields) {
-                                if (err) throw err;
-                                let arrayOfComments = [];
-                                let elem;
-                                for (i = 0; i < result.length; i++) {
-                                    elem = {};
-                                    elem.comment = result[i].comment;
-                                    elem.username = result[i].username;
-                                    arrayOfComments.push(elem);
+                        let test = {};
+                        /*Setez prima parte din JSON */
+                        test.id_exercise = results[i].id_exercise;
+                        test.exercise = results[i].exercise;
+                        arrayOfComments = [];
+                        /*Imi adaug comentariile */
+                        let pos = info.map(function(e) { return e.id_exercise; }).indexOf(results[i].id_exercise);
+                        if (pos == -1) {
+                            for (j = 0; j < results.length; j++) {
+                                elem = {};
+                                if (results[j].id_exercise == results[i].id_exercise) {
+                                    if (results[j].comment != null) {
+                                        elem.comment = results[j].comment;
+                                        elem.username = results[j].username;
+                                        arrayOfComments.push(elem);
+                                    }
                                 }
-                                element.comments = arrayOfComments;
-                            });
-                        // element.comments = queryAllComments(results[i].id_exercise);
-                        responseArray.push(element);
+                            }
+                            test.comments = arrayOfComments;
+                            info.push(test);
+                        } else {
+                            i++;
+                        }
                     }
-                    response.objects = responseArray;
+                    response.data = info;
+
                 }
                 res.writeHeader(200, { 'Content-Type': 'application/json' });
 
@@ -283,33 +289,9 @@ let getProgressPage = new Page('.*/getProgress.js',
                 res.write(jsonString);
                 res.end();
             })
-    }, null, null);
+    },
+    null, null);
 
-function queryExercise(exerciseId) {
-    let query = "Select exercise from exercises where id_exercise = '" + exerciseId + "'";
-    conn.query(query,
-        function(err, result, fields) {
-            if (err) throw err;
-            console.log(result[0].exercise);
-            return result[0].exercise;
-        });
-}
-
-function queryAllComments(exerciseId) {
-    conn.query("Select comment, username from exercises where id_exercise = '" + exerciseId + "'",
-        function(err, result, fields) {
-            if (err) throw err;
-            let arrayOfComments = [];
-            let elem;
-            for (i = 0; i < result.length; i++) {
-                elem = {};
-                elem.comment = result[i].comment;
-                elem.username = result[i].username;
-                arrayOfExercises.push(elem);
-            }
-            return arrayOfExercises;
-        });
-}
 
 let pages = [
     registerPage, loginPage, commentPage, exercisePage, getCommentPage, adminPage, progressPage, getProgressPage

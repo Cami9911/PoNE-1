@@ -21,6 +21,10 @@
     overflow-y: scroll;
 }
 
+.comments-exercise div {
+    height: 10%;
+}
+
 .inputComment {
     width: 45vw;
     height: 40px;
@@ -35,6 +39,10 @@
 
 i {
     cursor: pointer;
+}
+
+.disable-put-comment {
+    display: none;
 }
 
 .disabled {

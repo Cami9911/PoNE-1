@@ -241,7 +241,6 @@ let getProgressPage = new Page('.*/getProgress.js',
         conn.query(query,
             function(err, results, fields) {
                 let response = {};
-                let idExercise;
                 let arrayOfComments;
                 let info;
                 let elem;
@@ -285,7 +284,6 @@ let getProgressPage = new Page('.*/getProgress.js',
                 res.writeHeader(200, { 'Content-Type': 'application/json' });
 
                 let jsonString = JSON.stringify(response);
-                console.log('Rezultat final' + jsonString);
                 res.write(jsonString);
                 res.end();
             })

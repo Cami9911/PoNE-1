@@ -43,11 +43,6 @@ article {
     max-width: 900px;
 }
 
-section:target h2,
-section:target h3,
-article:target h1 {
-    color: #93137A;
-}
 
 @media screen {
     article {
@@ -103,15 +98,6 @@ h2 {
     font-size: 20px;
 }
 
-article *:first-child {
-    padding-top: 0;
-    margin-top: 0;
-}
-
-figure:first-child {
-    padding-top: 0 !important;
-    margin-top: 0 !important;
-}
 
 h3 {
     padding-top: 16px;
@@ -135,11 +121,6 @@ a:active {
     color: #93137A;
 }
 
-figure img {
-    max-width: 100%;
-    width: auto;
-    height: auto;
-}
 
 pre,
 code,
@@ -148,15 +129,6 @@ a[property="schema:citation"] {
     hyphens: none;
 }
 
-code {
-    color: #ee2200;
-    border: 1px solid rgba(0, 0, 0, 0.1);
-    border-radius: 0.3em;
-    margin: 0 0.2em;
-    padding: 0.2em;
-    background: #FDFDFD;
-    display: inline;
-}
 
 code.language-html {
     color: inherit;
@@ -184,10 +156,6 @@ footer p {
     color: whitesmoke;
 }
 
-footer a:link,
-footer a:visited {
-    color: white;
-}
 
 section {
     margin-bottom: 6em;
@@ -266,7 +234,6 @@ section[typeof='sa:Abstract']>section>h3 {
 aside p:last-child {
     margin-bottom: 0;
 }
-
 
 /* wide screen */
 

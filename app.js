@@ -156,23 +156,26 @@ let exercisePage = new Page('.*/exercise.js',
 
 let getCommentPage = new Page('.*/getComments.js',
     function(params, req, res) {
-        conn.query("Select id_exercise from user_progress where username= '" + params.username + "'", function(err, result, fields) {
+        conn.query("Select * from comments where id_exercise= '" + params.id_exercise + "'", function(err, result, fields) {
             var arrayOfObjects = [];
             var response = {};
+            var data = {};
             if (err) {
-                response.message = 'Failure';
-                arrayOfObjects[0] = response;
+                data.message = 'Failure';
+                data.comments = [];
             } else {
+                data.message = "Succes";
                 for (i = 0; i < result.length; i++) {
                     response = {};
                     response.username = result[i].username;
                     response.comment = result[i].comment;
                     arrayOfObjects[i] = response;
                 }
+                data.comments = arrayOfObjects;
             }
             res.writeHeader(200, { 'Content-Type': 'application/json' });
 
-            let jsonString = JSON.stringify(arrayOfObjects);
+            let jsonString = JSON.stringify(data);
             res.write(jsonString);
             res.end();
         });
@@ -237,46 +240,21 @@ let progressPage = new Page('.*/progress.js',
 let getProgressPage = new Page('.*/getProgress.js',
     function(params, req, res) { // post
         console.log('Am primit ' + params.username);
-        let query = "SELECT exercises.exercise, exercises.id_exercise, comments.username, comments.comment FROM exercises LEFT JOIN comments ON exercises.id_exercise = comments.id_exercise WHERE exercises.id_exercise IN (SELECT id_exercise FROM user_progress WHERE username = '" + params.username + "'" + " )";
+        let query = "SELECT exercises.exercise, exercises.id_exercise FROM exercises WHERE id_exercise IN (SELECT id_exercise FROM user_progress WHERE username = '" + params.username + "'" + " )";
         conn.query(query,
             function(err, results, fields) {
                 let response = {};
-                let arrayOfComments;
-                let info;
-                let elem;
                 if (err) {
                     response.message = 'Failure';
-                    response.objects = [];
+                    response.data = [];
                 } else {
-                    let test = [];
                     let info = [];
                     response.message = 'Succes';
-                    const id = []
-
                     for (i = 0; i < results.length; i++) {
                         let test = {};
-                        /*Setez prima parte din JSON */
                         test.id_exercise = results[i].id_exercise;
                         test.exercise = results[i].exercise;
-                        arrayOfComments = [];
-                        /*Imi adaug comentariile */
-                        let pos = info.map(function(e) { return e.id_exercise; }).indexOf(results[i].id_exercise);
-                        if (pos == -1) {
-                            for (j = 0; j < results.length; j++) {
-                                elem = {};
-                                if (results[j].id_exercise == results[i].id_exercise) {
-                                    if (results[j].comment != null) {
-                                        elem.comment = results[j].comment;
-                                        elem.username = results[j].username;
-                                        arrayOfComments.push(elem);
-                                    }
-                                }
-                            }
-                            test.comments = arrayOfComments;
-                            info.push(test);
-                        } else {
-                            i++;
-                        }
+                        info.push(test);
                     }
                     response.data = info;
 

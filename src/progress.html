@@ -5,9 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="comun.css">
-    <link rel="stylesheet" type="text/css" href="comments.css">
+    <link rel="stylesheet" type="text/css" href="progress.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>comments</title>
+    <title>User Progress</title>
 </head>
 
 <body>
@@ -31,22 +31,23 @@
         <div class="content">
             <div class="exercise-requirement">
                 <i class="fa fa-angle-left" id="previous" style="font-size:48px" aria-hidden="true"></i>
-                <h1 id="requirement">Exercise Requirement</h1>
+                <h1 id="requirement">No exercises yet</h1>
                 <i class="fa fa-angle-right" id="next" style="font-size:48px" aria-hidden="true"></i>
             </div>
             <div class="comments-exercise" id="comments-area">
-                <p>There are no comments yet...</p>
             </div>
-            <div class="insert-comment">
-                <input class="inputComment" type="text" id="input-comment" placeholder="  Write a comment...">
-                <input id="btnComment" class="btn" type="reset" value="POST">
+            <div class="insert-comment" id="put-comment-area">
+                <form id="form">
+                    <input class="inputComment" type="text" id="input-comment" placeholder="  Write a comment...">
+                    <input id="btnComment" class="btn" type="reset" value="POST">
+                </form>
             </div>
         </div>
 
 
     </div>
     <script src="burger-animation.js"></script>
-    <script src="getProgress.js"></script>
+    <script src="getUserProgress.js"></script>
 </body>
 
 </html>

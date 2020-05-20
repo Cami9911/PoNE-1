@@ -3,47 +3,25 @@ document.getElementById("btnComment").addEventListener("click", postCommentFunct
 const form = document.getElementById("form");
 form.addEventListener('submit', postCommentFunction);
 
-function postCommentFunction(event) {
-
+function postCommentFunction() {
     event.preventDefault();
-
-    var username = sessionStorage.getItem("loggedUserUsername");
-    var id_exercise = sessionStorage.getItem("exerciseId");
-    var comment = document.getElementById("comment");
+    const username = sessionStorage.getItem("loggedUserUsername");
+    const id_exercise = sessionStorage.getItem("exerciseId");
+    const comment = document.getElementById("comment");
 
     if (validateComment(comment)) {
-        removeChildrenError1();
-
-        var displayed = 0;
-        const requestData = `username=${username}&id_exercise=${id_exercise}&comment=${comment.value}`;
-        var xhttp;
-        console.log(requestData);
-
-        if (window.XMLHttpRequest) {
-            // code for modern browsers
-            xhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-        xhttp.variabilaNefolositaDeNimeni = comment.value;
-        xhttp.onreadystatechange = function() {
-
-            if (this.readyState == 4 && this.status == 200) {
-                var response = JSON.parse(this.responseText);
-
-                console.log(response);
-
-            } else {
-                console.log(response);
-                console.log('Eroare [Post Comment]');
-            }
-        };
-
-        xhttp.open("POST", "./comment.js", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(requestData);
+        fetch("./comment.js", {
+                method: 'post',
+                body: `username=${username}&id_exercise=${id_exercise}&comment=${comment.value}`,
+                headers: { 'Content-type': 'application/x-www-form-urlencoded' }
+            }).then(function(resp) {
+                return resp.json();
+            }).then(function(jsonResp) {
+                console.log(jsonResp.message);
+            })
+            .catch(function() {
+                console.log(err);
+            })
     }
 }
 
@@ -74,4 +52,3 @@ function validateComment(comment) {
     }
     return true;
 }
-

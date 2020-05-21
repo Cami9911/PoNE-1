@@ -70,6 +70,7 @@ i {
     }
     .comments-exercise {
         width: 90vw;
+        height: 50vh;
     }
     .insert-comment {
         width: 90vw;

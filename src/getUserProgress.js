@@ -27,18 +27,21 @@ const next = document.getElementById("next").addEventListener("click", moveForwa
 
 
 function appendFirstElements() {
-    const next = document.getElementById("previous").classList.add("disabled");
+    const previous = document.getElementById("previous").classList.add("disabled");
     const commArray = JSON.parse(sessionStorage.getItem("progress"));
     sessionStorage.setItem("currentExerciseId", commArray[0].id_exercise);
     appendExercise(commArray[0].exercise);
+    if (commArray.length == 1) {
+        const next = document.getElementById("next").classList.add("disabled");
+    }
     getProgressComments();
     sessionStorage.setItem("currentIndex", 0);
 }
 
 function moveForward() {
     const commArray = JSON.parse(sessionStorage.getItem("progress"));
-    const currentIndex = parseInt(sessionStorage.getItem("currentIndex")) + 1
-    if (commArray.length > 0) {
+    const currentIndex = parseInt(sessionStorage.getItem("currentIndex")) + 1;
+    if (commArray.length > 1) {
         const previous = document.getElementById("previous").classList.remove("disabled");
         if (currentIndex == commArray.length - 1) {
             const next = document.getElementById("next").classList.add("disabled");
@@ -96,15 +99,16 @@ function cleanPage() {
 
 /*POST comment */
 document.getElementById("btnComment").addEventListener("click", postCommentProgress);
-
 const form = document.getElementById("form");
 form.addEventListener("submit", postCommentProgress);
 
 function postCommentProgress() {
+    event.preventDefault();
     const username = sessionStorage.getItem("loggedUserUsername");
     const id_exercise = sessionStorage.getItem("currentExerciseId");
     console.log("Id-ul exercitiului" + id_exercise);
     const comment = document.getElementById("input-comment");
+    const form = document.getElementById("form");
     if (validateComm(comment)) {
         fetch('./comment.js', {
                 method: 'post',
@@ -113,7 +117,7 @@ function postCommentProgress() {
             }).then(function(resp) {
                 return resp.json();
             }).then(function(jsonResp) {
-                console.log(jsonResp.message);
+                form.reset();
                 getProgressComments();
             })
             .catch(function() {

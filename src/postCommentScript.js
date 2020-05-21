@@ -8,7 +8,7 @@ function postCommentFunction() {
     const username = sessionStorage.getItem("loggedUserUsername");
     const id_exercise = sessionStorage.getItem("exerciseId");
     const comment = document.getElementById("comment");
-
+    const form = document.getElementById("form");
     if (validateComment(comment)) {
         fetch("./comment.js", {
                 method: 'post',
@@ -18,6 +18,7 @@ function postCommentFunction() {
                 return resp.json();
             }).then(function(jsonResp) {
                 console.log(jsonResp.message);
+                form.reset();
             })
             .catch(function() {
                 console.log(err);

@@ -5,40 +5,30 @@ form.addEventListener('submit', registerFunction);
 
 function registerFunction(event) {
     event.preventDefault();
-    var name = document.getElementById("username");
-    var password = document.getElementById("password");
-
+    let name = document.getElementById("username");
+    let password = document.getElementById("password");
+    console.log(name.value + " " + password.value);
+    const form = document.getElementById("form");
     if (validateUsername(name) && validatePassword(password)) {
-        var displayed = 0;
-        const requestData = `name=${name.value}&password=${password.value}`;
-        console.log(requestData);
-        var xhttp;
-
-        if (window.XMLHttpRequest) {
-            xhttp = new XMLHttpRequest();
-        } else {
-            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-        xhttp.variabilaNefolositaDeNimeni = name.value;
-        xhttp.onreadystatechange = function() {
-
-            if (this.readyState == 4 && this.status == 200) {
-                var response = JSON.parse(this.responseText);
-
-                if (response.status === "Succes") {
-                    sessionStorage.setItem("loggedUserUsername", xhttp.variabilaNefolositaDeNimeni);
+        fetch("./register.js", {
+                method: 'post',
+                body: `name=${name.value}&password=${password.value}`,
+                headers: { 'Content-type': 'application/x-www-form-urlencoded' }
+            }).then(function(resp) {
+                return resp.json();
+            }).then(function(jsonResp) {
+                if (jsonResp.status === 'Success') {
+                    sessionStorage.setItem("loggedUserUsername", jsonResp.username);
+                    form.reset();
                     location.assign("main");
                 } else {
                     console.log('Failure');
                     changeHTML('*There is already an account registered with this username');
                 }
-            }
-        };
-
-        xhttp.open("POST", "./register.js", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(requestData);
+            })
+            .catch(function() {
+                console.log(err);
+            })
     }
 }
 

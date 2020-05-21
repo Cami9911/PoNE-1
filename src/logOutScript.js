@@ -1,6 +1,6 @@
 document.getElementById("sign-out-link").addEventListener("click", logOut);
 
 function logOut() {
-    localStorage.removeItem("loggedUserEmail");
+    sessionStorage.removeItem("loggedUserUsername");
     location.assign("login");
 }

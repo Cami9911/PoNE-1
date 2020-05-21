@@ -21,7 +21,6 @@ function generateExercise() {
             console.log(sessionStorage.getItem("exerciseId"));
 
             var result = jsonResp.exercise;
-
             sessionStorage.setItem("resEx", result);
             //console.log(sessionStorage.getItem("resEx"));
 

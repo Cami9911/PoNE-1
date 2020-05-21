@@ -31,6 +31,7 @@
     background-color: rgb(241, 224, 224);
     border-radius: 15px;
     border: #E6D7D7 1px solid;
+    outline: none;
 }
 
 .inputComment:hover {
@@ -56,6 +57,7 @@ i {
     background-color: #93137A;
     color: white;
     border: #E6D7D7 1px solid;
+    outline: none;
 }
 
 @media only screen and (max-width: 600px) and (orientation: portrait) {

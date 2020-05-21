@@ -10,17 +10,17 @@ function getResult(event) {
     document.getElementById("divMessage").innerHTML = "";
     document.getElementById("divResponse").innerHTML = "";
 
-    var userResponse = document.getElementById("answer");
-    var correctExpression = sessionStorage.getItem("resEx");
+    var userResponse = document.getElementById("answer");//raspunsul dat de user
+    var correctExpression = sessionStorage.getItem("resEx"); //expresia care apare in front
 
     if (validateResult(userResponse)) {
-        var resultExpression = eval(correctExpression);
+        var resultExpression = eval(correctExpression); //rezultatul corect al expresiei
 
         var trimUserResponse = userResponse.value.replace(/\s/g, '');
 
         var trimCorrectExpression = correctExpression.replace(/\s/g, '');
 
-        var postfixExpression = infixToPostfix(trimCorrectExpression);
+        var postfixExpression = infixToPostfix(trimCorrectExpression); //expresia postfixata
 
         var finalResponse = postfixExpression.concat(' = ', resultExpression);
 

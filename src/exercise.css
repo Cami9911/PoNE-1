@@ -18,10 +18,12 @@
     justify-content: space-around;
     font-size: 2vh;
 }
+
 .exercise-area p {
     font-size: 20px;
     margin-left: 10px;
 }
+
 .answer {
     display: flex;
     align-items: center;
@@ -56,7 +58,6 @@
     font-size: medium;
     border: solid white 1px;
     outline: none;
-
 }
 
 .commentGenerate:hover {
@@ -94,7 +95,6 @@
     color: white;
     border: #E6D7D7 1px solid;
     outline: none;
-
 }
 
 .btn1 {
@@ -106,7 +106,6 @@
     background-color: #93137A;
     color: white;
     outline: none;
-
 }
 
 .btn:hover {
@@ -130,7 +129,7 @@
 
 .comm {
     width: 80%;
-    height: 20%;
+    height: auto;
     margin-bottom: 8px;
     margin-left: 10px;
 }
@@ -168,15 +167,12 @@
     .commentGenerate {
         background-color: #f8f5f5;
         border: 1px solid #93137A;
-
     }
-    
     .content {
         width: 100vw;
         height: 70vh;
         background-color: #f8f5f5;
         box-shadow: #f8f5f5 0 1px 1px;
-        
     }
     .answerText {
         height: 5vh;
@@ -186,34 +182,29 @@
         border-right: 2px solid #93137A;
         margin-left: 5px;
     }
-   
     .inputComm {
         height: 5vh;
         width: 70vw;
         border: 1px solid #707070;
         border-bottom: 2px solid #93137A;
         border-right: 2px solid #93137A;
-
     }
-    .btn{
+    .btn {
         height: 5vh;
     }
-    .btn1{
+    .btn1 {
         height: 5vh;
     }
-   
-    .exercise-area h1{
+    .exercise-area h1 {
         font-size: 17px;
-        margin-left:10px;
+        margin-left: 10px;
     }
-    .exercise-area p{
+    .exercise-area p {
         font-size: 15px;
     }
-   
-    .comment-section{
+    .comment-section {
         margin-left: 50px;
     }
-
     .error span {
         margin-left: 50%;
     }
@@ -228,7 +219,7 @@
         font-size: 14px;
         margin-left: 40px;
     }
-    .exercise-area h1{
+    .exercise-area h1 {
         margin-left: 40px;
     }
     .answerText {
@@ -241,16 +232,15 @@
     .inputComm {
         height: 9vh;
     }
-    .comments-area{
+    .comments-area {
         margin-bottom: -30px;
     }
     .btn1 {
         height: 9vh;
     }
-    .comment-section{
+    .comment-section {
         margin-left: 140px;
     }
-   
 }
 
 @media screen and (width: 768px) and (height: 1024px) {
@@ -259,7 +249,6 @@
         height: 60vh;
         margin-top: 10%;
     }
-
     .main {
         background-repeat: no-repeat;
         background-image: url(./assets/ipad.jpg);
@@ -271,11 +260,11 @@
     .exercise-area p {
         margin-left: 40px;
     }
-    .exercise-area h1{
+    .exercise-area h1 {
         font-size: 20px;
         margin-left: 90px;
     }
-    .comment-section{
+    .comment-section {
         margin-left: 35%;
     }
 }
@@ -301,7 +290,7 @@
     .exercise-area p {
         margin-left: 80px;
     }
-    .comment-section{
+    .comment-section {
         margin-left: 35%;
     }
 }

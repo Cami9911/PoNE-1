@@ -31,7 +31,7 @@ function modifyHTML(owner, comentariu) {
     const heading = document.createElement('span')
     const comment = document.createElement('p')
     const comm_text = document.createTextNode(comentariu)
-    const node = document.createTextNode('@' + owner + ': ')
+    const node = document.createTextNode(owner + ': ')
     heading.appendChild(node);
     comment.appendChild(heading);
     comment.appendChild(comm_text);

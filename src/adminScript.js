@@ -1,54 +1,56 @@
+document.getElementById("btn").addEventListener("click", adminFunction);
+
+const form = document.getElementById("form");
+form.addEventListener('submit', postCommentFunction);
+
 function adminFunction(){
+    event.preventDefault();
+
     var sqlCommand = document.getElementById("sqlcommand");
+    const form = document.getElementById("form");
 
-    var xhhtp;
-    const requestData = `command=${sqlCommand.value}`;
-    console.log(requestData);
+    fetch("./admin.js", {
+        method: 'post',
+        body: `command=${sqlCommand.value}`,
+        headers: { 'Content-type': 'application/x-www-form-urlencoded' }
+    }).then(function (resp) { //in resp se primeste rapunsul de la server
+        return resp.json(); //se transforma in json si il trimite ca parametru la urmatoarea functie
+    }).then(function (jsonResp) {
+        console.log(jsonResp.message);
+      
+        if (jsonResp.message === "Command created") {
+            removeChildren();
 
-    if (window.XMLHttpRequest) {
-        // code for modern browsers
-        xhttp = new XMLHttpRequest();
-    } else {
-        // code for IE6, IE5
-        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-    xhttp.onreadystatechange = function () {
+            if ((sqlCommand.value.toLowerCase().search('select')) !== -1) {
+                for (var i = 0; i < jsonResp.resultSql.length; i++) {
+                    var myjson = JSON.stringify(jsonResp.resultSql[i]);
 
-        if (this.readyState == 4 && this.status == 200) {
-            var response = JSON.parse(this.responseText);
-            console.log(response.resultSql);
-            if (response.status === "Succes") {
-                removeChildren();
+                    var myjson = myjson.replace(/"|{|}/g, "");
+                    var myjson = myjson.replace(/,/g, " , ");
+                    var myjson = myjson.replace(/:/g, ": ");
 
-                if ((sqlCommand.value.toLowerCase().search('select')) !== -1) {
-                    for (var i = 0; i < response.resultSql.length; i++) {
-                        var myjson = JSON.stringify(response.resultSql[i]);
-                    
-                        var myjson = myjson.replace(/"|{|}/g, "");
-                        var myjson = myjson.replace(/,/g, " , ");
-                        var myjson = myjson.replace(/:/g, ": ");
-
-                        modifyHTML(myjson);
-                    }
+                    modifyHTML(myjson);
                 }
-                else {
-                    var rez=response.resultSql.affectedRows;
-                    var message='AffectedRows: ';
-                    var rezFinal=message.concat(rez)
-                    modifyHTML(rezFinal);
-                }
-                
-            } else {
-                console.log('Failure');
-                modifyHTML("Incorrect command! Please try again!")
             }
+            else {
+                removeChildren();
+                var rez = jsonResp.resultSql.affectedRows;
+                var message = 'AffectedRows: ';
+                var rezFinal = message.concat(rez)
+                modifyHTML(rezFinal);
+            }
+
+        } else {
+            console.log('Failure');
+            modifyHTML("Incorrect command! Please try again!")
         }
-    };
+        form.reset();
 
 
-    xhttp.open("POST", "./admin.js", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(requestData);
+    })
+    .catch(function() {
+        console.log(err);
+    })
 }
 
 function modifyHTML(json) {

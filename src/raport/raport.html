@@ -1,4 +1,4 @@
-<html lang="en-GB">
+<html>
 
 <head>
     <meta charset="utf-8">
@@ -7,26 +7,26 @@
     <link rel="stylesheet" href="scholarly.css">
 </head>
 
-<body prefix="schema: http://schema.org/ xsd: http://www.w3.org/2001/XMLSchema# sa: https://ns.science.ai/">
+<body>
     <header>
         <p class="title">Pone Scholarly HTML</p>
         <p class="subtitle">Polish Notation Web Editor</p>
     </header>
-    <article id="what" typeof="schema:ScholarlyArticle" resource="#">
-        <h1>What is Pone?</h1>
+    <article>
+        <h1>Ce este Pone?</h1>
         <section>
             <ol>
                 <li>
-                    <span property="schema:givenName">Stefan</span>
-                    <span property="schema:familyName">Dobrica,</span>
+                    <span>Stefan</span>
+                    <span>Dobrica</span>
                 </li>
                 <li>
                     <span>Camelia</span>
-                    <span>Tirnovan, </span>
+                    <span>Tirnovan</span>
                 </li>
                 <li>
-                    <span> Diana Gabriela</span>
-                    <span>Terchea </span>
+                    <span>Diana Gabriela</span>
+                    <span>Terchea</span>
                 </li>
             </ol>
         </section>
@@ -40,14 +40,14 @@
             </p>
         </section>
         <section>
-            <h2>Motivation</h2>
+            <h2>Motivatie</h2>
             <p>
                 Aplicatia are un caracter educational care isi propune explicarea, modelarea si exersarea a expresiilor in notatie poloneza. Notatia poloneza (sau postfix) este un mod de scriere a expresiilor, în care ordinea operatorilor si a operanzilor este schimbata
                 fata de cea dintr-o expresie uzuala. În notatia postfix (poloneza) expresia este scrisa sub forma: <b>operand operand operator</b>.
             </p>
         </section>
         <section>
-            <h2>Structure</h2>
+            <h2>Structura</h2>
             <p>
                 Aplicatia contine: Login Page, Register Page, Main Page, Animation Page, Exercise Page, Progress Page si Admin Page (accesibila doar din contul de admin)
             </p>
@@ -95,6 +95,8 @@
                 <p>
                     User-ul isi poate vedea exercitiile rezolvate pana la un anumit moment si comentariile aferente acestora.
                 </p>
+                <img src="../assets/progress-page-mobile.PNG" width="150" height="250">
+                <img src="../assets/progress-page.PNG" width="400" height="250">
             </section>
             <section>
                 <h3>Admin Page</h3>
@@ -114,6 +116,21 @@
                         <a href="https://app.creately.com/diagram/8OsJZoRCbE5/view">Backend Diagram Class</a>
                     </li>
                 </ul>
+            </section>
+            <section>
+                <h3>Flow-ul Aplicatiei</h3>
+                <ol>
+                    <li>Prima data userul isi va face un cont nou, daca nu detine unul deja sau se logheaza in caz contrar.</li>
+                    <li>Odata logat userul va fi redirectionat spre pagina principala unde i se vor prezenta sectiunile principale alea aplicatiei. Aici va putea alege ce va face mai departe.</li>
+                    <li>Acesta poate alege din meniul principal sau din dropdown sa acceseze pagina de Animatii, Exercitii sau Progress. </li>
+                    <li>Pe pagina de animatii user-ul va putea introduce o expresie in notatie infixata, urmand ca aceasta sa fie transformata in notatie postfixata intr-un mod vizual ce are rolul de a facilita intelegerea conceptului, calculand totodata
+                        rezultatul acesteia. Utilizatorul poate alege viteza de derulare a animatiilor. Pagina faciliteaza si incarcarea unui fisier in format MathML. </li>
+                    <li>Utilizatorul poate sa rezolve diferite ecuatii pe Exercise page si sa adauge comentarii. Progresul acestuia va fi inregistrat in functie de exercitiile pe care incearca sa le rezolve. Progresul este vizibil selectand "See Progress"
+                        din dropdown</li>
+                    <li>Progresul unui utilizator consta in lista de exercitii pe care acesta a incercat sa le rezolve si comentariile aferente acestora. Scopul paginii este de a-i permite user-ului sa revizuiasca exercitiile anterioare.</li>
+                    <li>Deconectarea se realizeaza selectand optiunea "Sign Out" din dropdown menu.</li>
+                    <li>Admin page permite administrarea aplicatiei prin interogarea bazei de date. Accesul la aceasta pagina se realizeaza doar prin contul prestabilit de admin.</li>
+                </ol>
             </section>
             <section>
                 <h2>Code Snippets</h2>
@@ -244,7 +261,9 @@ executeJobs(jobs, dt) {
                 <pre>
                         <code>
 function createTableUserProgress() {
-    var query = "CREATE TABLE IF NOT EXISTS user_progress (id_exercise int NOT NULL UNIQUE,username Varchar(30) NOT NULL, CONSTRAINT fk FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE);"
+    var query = "CREATE TABLE IF NOT EXISTS user_progress (id_exercise int NOT NULL,username Varchar(30) NOT NULL, 
+    CONSTRAINT fk FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE,CONSTRAINT pk_user_progress 
+    PRIMARY KEY(id_exercise,username));"
     conn.query(query, function(err, result, fields) {
         if (err) throw err;
         console.log('Table user_progress created');
@@ -256,6 +275,7 @@ function createTableUserProgress() {
                 <p>
                     Actualizarea unei linii. Asta presupune punctelor ce formeaza patratul, rotirea lor, apoi scalarea ca sa devina o linie:
                 </p>
+                <p>Pentru toate operatiile matematice a fost folosit gl-matrix. Link in referinte.</p>
                 <pre>
                         <code>
 update(dt) {
@@ -321,7 +341,7 @@ function serveFile(req, res, ext) {
                     </pre>
             </section>
             <section>
-                <h2>References</h2>
+                <h2>Referinte</h2>
                 <ul>
                     <li>
                         <a href="https://www.geeksforgeeks.org/stack-set-2-infix-to-postfix/">https://www.geeksforgeeks.org/stack-set-2-infix-to-postfix</a>
@@ -337,6 +357,15 @@ function serveFile(req, res, ext) {
                     </li>
                     <li>
                         <a href="https://www.w3schools.com/">https://www.w3schools.com</a>
+                    </li>
+                    <li>
+                        <a href="https://www.w3schools.com/howto/howto_css_menu_icon.asp">https://www.w3schools.com/howto/howto_css_menu_icon.asp</a>
+                    </li>
+                    <li>
+                        <a href="https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp">https://www.w3schools.com/howto/howto_css_custom_scrollbar.asp</a>
+                    </li>
+                    <li>
+                        <a href="https://w3c.github.io/scholarly-html/">https://w3c.github.io/scholarly-html/</a>
                     </li>
                 </ul>
             </section>

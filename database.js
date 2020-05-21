@@ -39,6 +39,7 @@ conn.connect(function(err) {
 /*Select From Tables*/
 //selectFromTable("user_progress");
 //selectFromTable("comments");
+//selectFromTable("users");
 
 function dropTable(tableName) {
     conn.query("Drop Table " + tableName, function(err, result, fields) {
@@ -64,7 +65,7 @@ function createTableExercises() {
 }
 
 function createTableComments() {
-    var query = "CREATE TABLE IF NOT EXISTS comments (id_exercise int NOT NULL,username varchar(30),comment Varchar(400), CONSTRAINT fk_comments FOREIGN KEY (id_exercise) REFERENCES exercises(id_exercise) ON DELETE CASCADE);";
+    var query = "CREATE TABLE IF NOT EXISTS comments (id_exercise int NOT NULL,username varchar(30),comment Varchar(200), CONSTRAINT fk_comments FOREIGN KEY (id_exercise) REFERENCES exercises(id_exercise) ON DELETE CASCADE);";
     conn.query(query, function(err, result, fields) {
         if (err) throw err;
         console.log('Table comments created');

@@ -51,9 +51,10 @@ class MainText {
                 if (text[i] === " ") {
                     lastSpace = i;
                 }
-                if (i > 50) {
+                if (i > 45) {
                     firstText = text.substr(0, lastSpace);
                     secondText = text.substr(lastSpace, text.length);
+                    break;
                 }
             }
             if (firstText === "") {

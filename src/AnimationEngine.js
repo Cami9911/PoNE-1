@@ -62,6 +62,12 @@ function run(renderer, programs) {
     let then = 0.0;
 
     document.getElementById("animate-button").onclick = () => animate(renderer, programs);
+    document.getElementById("user-input-form").addEventListener('submit', (event) => {
+        event.preventDefault();
+        animate(renderer, programs);
+    });
+    document.getElementById("upload-file").onchange = () => readInputFile();
+
 
     function render(now) {
         now *= 0.001;
@@ -111,8 +117,8 @@ function parseMathML(content) {
 }
 
 
-function readInputFile(event) {
-    let input = event.target;
+function readInputFile() {
+    let input = document.getElementById("upload-file");
 
     let reader = new FileReader();
     reader.onload = function(){
@@ -166,6 +172,7 @@ function animate(renderer, programs) {
     let operands = [];
 
     for (let i = 0; i < parsedExpression.length; ++i) {
+        parsedExpression[i] = parsedExpression[i].trim();
         if (parsedExpression[i].match(re)) {
             count++;
             operators.push(new AtomicElement(renderer, parsedExpression[i], "Operator", i));
@@ -409,7 +416,8 @@ function animate(renderer, programs) {
             renderer.addSeparator();
             renderer.addJob(dt => {
                 mainText.fadeOutText(0.0);
-                mainText.fadeInText("Check if " + input.atomicElements[i].value + " can be added to the stack");
+                mainText.fadeInText("Check if " + input.atomicElements[i].value + "("
+                    + precedence(input.atomicElements[i].value) + ") can be added to the stack");
                 return false;
             });
             renderer.addSeparator();
@@ -432,7 +440,8 @@ function animate(renderer, programs) {
                     let element = st.pop();
                     let nextPosition = output.getNextElementPosition();
                     mainText.fadeOutText(0.0);
-                    mainText.fadeInText("Pop " + head.value + " from stack and append to output");
+                    mainText.fadeInText("Pop " + head.value + "(" +
+                        precedence(head.value) + ") from stack and append to output due to its larger precedence");
                     element.setAnimation("move", animationTime, nextPosition, EXPLAIN_TEXT_SIZE);
                     output.addElement(element);
                     renderer.currentState = "animate-state";

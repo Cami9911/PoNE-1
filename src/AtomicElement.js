@@ -47,14 +47,6 @@ class AtomicElement extends SVGText {
         return this.type === "special";
     }
 
-    getType() {
-        return this.type;
-    }
-
-    getValue() {
-        return this.value;
-    }
-
     setValue(value) {
         this.setText(value);
         this.value = value;

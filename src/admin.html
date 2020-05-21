@@ -25,6 +25,7 @@
                     <a href="./main">PoNe</a>
                     <a href="./animation">Animation</a>
                     <a href="./exercise">Exercises</a>
+                    <a href="./progress">See Progress</a>
                     <a href='./login'>Sign out</a>
                 </div>
             </div>
@@ -33,10 +34,12 @@
 
         <div class="content">
             <p id="command">Insert a command:</p>
-            <div class="box">
-                <input type="text" id="sqlcommand">
-                <input onClick="adminFunction()" class="btn" type="reset" value="POST">
-            </div>
+            <form id="form">
+                <div class="box">
+                    <input type="text" id="sqlcommand">
+                    <input id="btn" class="btn" type="submit" value="POST">
+                </div>
+            </form>
             <p id="result">Your result:</p>
             <div class="answer" id="answer">
             </div>

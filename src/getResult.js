@@ -26,9 +26,9 @@ function getResult(event) {
         //  console.log("trim expression");
         // console.log(trimCorrectExpression);
 
-         console.log("postfix notation:");
+        console.log("postfix notation:");
         var postfixExpression = infixToPostfix(trimCorrectExpression);
-         console.log(postfixExpression);
+        console.log(postfixExpression);
 
         var finalResponse = postfixExpression.concat(' = ', resultExpression);
 

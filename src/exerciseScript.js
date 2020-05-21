@@ -6,46 +6,32 @@ function generateExercise() {
 
     document.getElementById("divMessage").innerHTML = "";
     document.getElementById("divResponse").innerHTML = "";
+    const input=document.getElementById("form1");
 
-    var displayed = 0;
-    var xhttp;
+    fetch("./exercise.js",{
+        method:'post',
+        
+        headers: { 'Content-type': 'application/x-www-form-urlencoded' }
+        }).then(function(resp) {
+            return resp.json();
+        }).then(function(jsonResp) {
+            console.log(jsonResp);
 
-    if (window.XMLHttpRequest) {
-        // code for modern browsers
-        xhttp = new XMLHttpRequest();
-    } else {
-        // code for IE6, IE5
-        xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-    }
-
-
-    xhttp.onreadystatechange = function() {
-
-        if (this.readyState == 4 && this.status == 200) {
-            var response = JSON.parse(this.responseText);
-            console.log(response);
-
-            xhttp.idExercise = response.id;
-            sessionStorage.setItem("exerciseId", xhttp.idExercise);
+            sessionStorage.setItem("exerciseId", jsonResp.id);
             console.log(sessionStorage.getItem("exerciseId"));
 
-            var result = response.exercise;
+            var result = jsonResp.exercise;
 
-            xhttp.resultEx = result;
-            sessionStorage.setItem("resEx", xhttp.resultEx);
+            sessionStorage.setItem("resEx", result);
             // console.log(sessionStorage.getItem("resEx"));
 
             document.getElementById("exRequirement").innerHTML = result;
+            input.reset();
 
-        } else {
-            console.log(response);
-            console.log('Error in [Exercise Script]');
-        }
+        })
+        .catch(function() {
+            console.log(err);
+        })
 
-    };
-
-    xhttp.open("POST", "./exercise.js", true);
-    xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xhttp.send(null);
 
 }

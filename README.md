@@ -8,4 +8,4 @@ De exemplu, expresiei 1 + 30 * π îi corespunde expresia în forma poloneză pr
 Sistemul va pune la dispoziție o serie de exemple predefinite și de exercitii, plus va facilita comentarea acestora. Detalii de interes: Postfix Notation Mini-Lecture.
 
 
-Raportul scholarly este disponibil in directorul "raport" din "src".
+Raportul scholarly este disponibil in directorul /raport din /src.

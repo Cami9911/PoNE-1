@@ -4,37 +4,24 @@ const form = document.getElementById("form");
 form.addEventListener('submit', loginFunction);
 
 function loginFunction(event) {
-
     event.preventDefault();
-    var name = document.getElementById("username");
-    var password = document.getElementById("password");
-
-    if (validateUsername(username) && validatePassword(password)) {
-        var displayed = 0;
-        const requestData = `name=${name.value}&password=${password.value}`;
-        var xhttp;
-
-        if (window.XMLHttpRequest) {
-            // code for modern browsers
-            xhttp = new XMLHttpRequest();
-        } else {
-            // code for IE6, IE5
-            xhttp = new ActiveXObject("Microsoft.XMLHTTP");
-        }
-
-        xhttp.variabilaNefolositaDeNimeni = name.value;
-        xhttp.onreadystatechange = function() {
-
-            if (this.readyState == 4 && this.status == 200) {
-                var response = JSON.parse(this.responseText);
-
-                if (response.status === "Succes") {
-                    sessionStorage.setItem("loggedUserUsername", xhttp.variabilaNefolositaDeNimeni);
+    let name = document.getElementById("username");
+    let password = document.getElementById("password");
+    if (validateUsername(name) && validatePassword(password)) {
+        fetch("./login.js", {
+                method: 'post',
+                body: `name=${name.value}&password=${password.value}`,
+                headers: { 'Content-type': 'application/x-www-form-urlencoded' }
+            }).then(function(resp) {
+                return resp.json();
+            }).then(function(jsonResp) {
+                if (jsonResp.status === "Succes") {
+                    sessionStorage.setItem("loggedUserUsername", name.value);
                     location.assign("main");
                 } else {
-                    if (response.message === "SQL server error") {
+                    if (jsonResp.message === "SQL server error") {
                         location.assign("404.html");
-                    } else if (response.message === "Password Incorrect") {
+                    } else if (jsonResp.message === "Password Incorrect") {
                         console.log('Incorrect Password');
                         removeChildrenError();
                         modify('*Incorrect Password');
@@ -44,12 +31,10 @@ function loginFunction(event) {
                         modify('*There is no user registered with this email.');
                     }
                 }
-            }
-        };
-
-        xhttp.open("POST", "./login.js", true);
-        xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xhttp.send(requestData);
+            })
+            .catch(function() {
+                console.log(err);
+            })
     }
 }
 

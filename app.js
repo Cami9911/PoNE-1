@@ -67,8 +67,9 @@ let registerPage = new Page('.*/register.js',
                     response.message = "There is already an user with the same username";
                 } else {
                     console.log('Inserted ' + results.affectedRows + ' row(s).');
-                    response.status = "Succes";
+                    response.status = "Success";
                     response.message = "Account created";
+                    response.username = params.name;
                 }
 
                 res.writeHeader(200, { 'Content-Type': 'application/json' });
@@ -81,24 +82,16 @@ let registerPage = new Page('.*/register.js',
 
 let adminPage = new Page('.*/admin.js',
     function(params, req, res) { // post
-        console.log("am ajuns aici");
         conn.query(params.command,
             function(err, results, fields) {
-                console.log(params.command);
                 let response = {};
-
                 if (err) {
-                    console.log("eroare");
                     response.status = "Failed";
                     response.message = "Invalid command";
                 } else {
-                    console.log("merge ");
                     response.status = "Succes";
                     response.message = "Command created";
-
                     response.resultSql = results;
-
-                    console.log(results);
                 }
 
                 res.writeHeader(200, { 'Content-Type': 'application/json' });
@@ -114,14 +107,12 @@ let commentPage = new Page('.*/comment.js',
         conn.query('INSERT INTO comments (username, id_exercise, comment) VALUES (?,?,?);', [params.username, params.id_exercise, params.comment],
             function(err, results, fields) {
                 let response = {};
-                console.log("coloane inserate");
                 if (err) {
-                    response.message = "FAILED";
+                    response.message = "Failed";
                 } else {
                     console.log('Inserted ' + results.affectedRows + ' row(s).');
-                    response.message = "SUCCEEDED";
+                    response.message = "Success";
                 }
-                console.log(response);
                 res.writeHeader(200, { 'Content-Type': 'application/json' });
 
                 let jsonString = JSON.stringify(response);
@@ -145,7 +136,6 @@ let exercisePage = new Page('.*/exercise.js',
                 response.id = result[count].id_exercise;
                 response.exercise = result[count].exercise;
             }
-            console.log(response);
             res.writeHeader(200, { 'Content-Type': 'application/json' });
 
             let jsonString = JSON.stringify(response);
@@ -183,7 +173,6 @@ let getCommentPage = new Page('.*/getComments.js',
 
 let loginPage = new Page('.*/login.js',
     function(params, req, res) { // post
-        console.log(params.password);
         let password = md5(params.password);
         let query = "Select password from users where username = '" + params.name + "'";
         conn.query(query,
@@ -221,13 +210,10 @@ let progressPage = new Page('.*/progress.js',
             function(err, results, fields) {
                 let response = {};
                 if (err) {
-                    console.log('[Eroare la insert] ' + err);
                     response.message = "Failed";
                 } else {
-                    console.log('Inserted ' + results.affectedRows + ' row(s).');
                     response.message = "Succes";
                 }
-                console.log(response);
                 res.writeHeader(200, { 'Content-Type': 'application/json' });
 
                 let jsonString = JSON.stringify(response);
@@ -239,7 +225,6 @@ let progressPage = new Page('.*/progress.js',
 /*Get user progress form DB */
 let getProgressPage = new Page('.*/getProgress.js',
     function(params, req, res) { // post
-        console.log('Am primit ' + params.username);
         let query = "SELECT exercises.exercise, exercises.id_exercise FROM exercises WHERE id_exercise IN (SELECT id_exercise FROM user_progress WHERE username = '" + params.username + "'" + " )";
         conn.query(query,
             function(err, results, fields) {

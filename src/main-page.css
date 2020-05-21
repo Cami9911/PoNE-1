@@ -60,7 +60,8 @@
     }
     .fa-graduation-cap,
     .fa-pencil,
-    .fa-check-circle {
+    .fa-check-circle,
+    .fa-line-chart {
         font-size: 50px;
     }
     .main-content__text {
@@ -70,7 +71,7 @@
         border-bottom: none;
     }
     .main-content__text:nth-child(3) {
-        border-top: none;
+        border-bottom: none;
     }
 }
 
@@ -85,7 +86,8 @@
     }
     .fa-graduation-cap,
     .fa-pencil,
-    .fa-check-circle {
+    .fa-check-circle,
+    .fa-line-chart {
         font-size: 50px;
     }
     .main-content__text {
@@ -95,6 +97,6 @@
         border-bottom: none;
     }
     .main-content__text:nth-child(3) {
-        border-top: none;
+        border-bottom: none;
     }
 }

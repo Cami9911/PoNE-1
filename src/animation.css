@@ -1,4 +1,3 @@
-
 .content {
     width: 80vw;
     height: 80vh;
@@ -8,7 +7,7 @@
     align-items: center;
 }
 
-.buttons-controller{
+.buttons-controller {
     margin-top: -5rem;
 }
 
@@ -21,7 +20,7 @@
     position: relative;
 }
 
-.pone-container > #glCanvas {
+.pone-container>#glCanvas {
     width: 100%;
     height: 100%;
     border-radius: 20px;
@@ -31,7 +30,7 @@
     z-index: 0;
 }
 
-.pone-container > #text {
+.pone-container>#text {
     width: 100%;
     height: 100%;
     border-radius: 20px;
@@ -42,7 +41,7 @@
 }
 
 .user-input {
-    height: 60%; 
+    height: 60%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -56,7 +55,7 @@
     flex-direction: column;
 }
 
-#plain-text-expression{
+#plain-text-expression {
     margin-top: 1rem;
     background-color: #ffffff;
     padding: 0.5rem 1.5rem 0.5rem 1.5rem;
@@ -67,16 +66,17 @@
     border-bottom: 2px solid #93137A;
     border-right: 2px solid #93137A;
 }
-#plain-text-expression:hover{
+
+#plain-text-expression:hover {
     background-color: rgb(235, 233, 236);
 }
 
-#plain-text-expression:focus{
+#plain-text-expression:focus {
     background-color: #ffffff;
     outline: none;
 }
 
-#animate-button{
+#animate-button {
     font-size: 18px;
     padding: 0.4rem 4rem 0.4rem 4rem;
     border-radius: 1rem;
@@ -86,7 +86,7 @@
     color: #ffffff;
 }
 
-#animate-button:focus{
+#animate-button:focus {
     outline: none;
 }
 
@@ -94,29 +94,31 @@
     opacity: .8;
 }
 
-.animate-button-color{
+.animate-button-color {
     margin-right: 1rem;
     font-size: 16px;
     padding: 0.5rem 2rem 0.5rem 2rem;
-    border-radius:1rem;
+    border-radius: 1rem;
     transition: opacity 0.2s linear;
     background-color: #550a46;
     border: none;
     color: #ffffff;
+    cursor: pointer;
 }
 
-.animate-button-color:focus{
+.animate-button-color:focus {
     outline: none;
 }
 
 .animate-button-color:hover {
     opacity: .8;
 }
+
 #upload-file {
     display: none;
 }
 
-#upload-file + label {
+#upload-file+label {
     font-weight: bold;
     display: inline-block;
     border-radius: 10px;
@@ -124,7 +126,7 @@
     cursor: pointer;
 }
 
-#upload-file + label:hover{
+#upload-file+label:hover {
     text-decoration: underline;
 }
 
@@ -136,83 +138,82 @@
     .content {
         display: flex;
         flex-direction: column;
-
         width: 100%;
     }
-    .pone-container{
-       width: 90%;
-       height: 50%;
-       margin-top: 10%;
+    .pone-container {
+        width: 90%;
+        height: 50%;
+        margin-top: 10%;
     }
-    .user-input{
+    .user-input {
         height: 5vh;
         margin-bottom: 40px;
     }
-    .hide-when-small{
+    .hide-when-small {
         display: none;
     }
-    #animate-button{
-        font-size:15px;
+    #animate-button {
+        font-size: 15px;
         padding: 0.4rem 2rem 0.4rem 2rem;
     }
-    .user-input-row{
-        font-size:15px;
+    .user-input-row {
+        font-size: 15px;
         margin-top: 10px;
     }
-    #plain-text-expression{
+    #plain-text-expression {
         height: 5vh;
     }
-    .animate-button-color{
+    .animate-button-color {
         padding: 0.3rem 2rem 0.3rem 2rem;
         margin-top: 20px;
     }
-    .buttons-controller{
-       margin-left: 30px;
+    .buttons-controller {
+        margin-left: 30px;
     }
 }
+
 @media only screen and (max-width: 320px) and (orientation: portrait) {
-    .buttons-controller{
+    .buttons-controller {
         margin-left: 10px;
-     }
+    }
 }
 
 @media only screen and (max-width: 900px) and (orientation: landscape) {
-    .content{
+    .content {
         margin-left: 100px;
         margin-top: 30px;
     }
-    #plain-text-expression{
+    #plain-text-expression {
         padding: 0.2rem 1rem 0.2rem 1rem;
-
         font-size: 13px;
     }
-    .animate-button-color{
+    .animate-button-color {
         padding: 0.2rem 1rem 0.2rem 1rem;
-        font-size:15px;
+        font-size: 15px;
         margin-top: 40px;
     }
-    #animate-button{
+    #animate-button {
         padding: 0.2rem 2rem 0.2rem 2rem;
-        font-size:15px;
+        font-size: 15px;
     }
-    .user-input-row{
-        font-size:15px;
+    .user-input-row {
+        font-size: 15px;
     }
 }
 
 @media screen and (width: 768px) and (height: 1024px) {
-    .content{
-        width:95%;
+    .content {
+        width: 95%;
     }
     .main {
         background-repeat: no-repeat;
         background-image: url(./assets/ipad.jpg);
     }
-  
 }
+
 @media screen and (width: 1024px) and (height: 1366px) {
-    .content{
-        width:95%;
+    .content {
+        width: 95%;
     }
     .main {
         background-repeat: no-repeat;

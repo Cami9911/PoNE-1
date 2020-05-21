@@ -14,21 +14,15 @@ function getResult(event) {
     var correctExpression = sessionStorage.getItem("resEx");
 
     if (validateResult(userResponse)) {
-        /*request pentru a adauga exercitiul in tabela "user_progress" din DB */
-        postProgress();
-        //  console.log("resultExpression: ");
+       
+        console.log("id ex din getresult" + sessionStorage.getItem("exerciseId"));
         var resultExpression = eval(correctExpression);
-        //  console.log(resultExpression);
 
         var trimUserResponse = userResponse.value.replace(/\s/g, '');
 
         var trimCorrectExpression = correctExpression.replace(/\s/g, '');
-        //  console.log("trim expression");
-        // console.log(trimCorrectExpression);
 
-        console.log("postfix notation:");
         var postfixExpression = infixToPostfix(trimCorrectExpression);
-        console.log(postfixExpression);
 
         var finalResponse = postfixExpression.concat(' = ', resultExpression);
 
@@ -42,12 +36,16 @@ function getResult(event) {
         }
         document.getElementById("divMessage").innerHTML = message;
         removeChildrenError();
+        postProgress();
 
     }
 
 }
 /*Post progress for User*/
 function postProgress() {
+    console.log("id ex din POSTPROGRESS" + sessionStorage.getItem("exerciseId"));
+    console.log(sessionStorage.getItem("loggedUserUsername"))
+
     fetch('./progress.js', {
             method: 'post',
             body: `id_exercise=${sessionStorage.getItem('exerciseId')}&username=${sessionStorage.getItem("loggedUserUsername")}`,
@@ -56,6 +54,7 @@ function postProgress() {
             return resp.json();
         }).then(function(jsonResp) {
             console.log(jsonResp);
+            
         })
         .catch(function() {
             console.log(err);

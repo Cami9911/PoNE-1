@@ -38,7 +38,6 @@ conn.connect(function(err) {
 
 /*Select From Tables*/
 //selectFromTable("user_progress");
-//selectJoinNested('Diana');
 //selectFromTable("comments");
 
 function dropTable(tableName) {

@@ -63,6 +63,7 @@ input {
     background-color: white;
     padding-left: 50px;
     font-size: 18px;
+    outline: none;
 }
 
 .input-container:nth-child(1) input {

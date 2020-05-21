@@ -15,9 +15,6 @@ function postCommentFunction() {
                 body: `username=${username}&id_exercise=${id_exercise}&comment=${comment.value}`,
                 headers: { 'Content-type': 'application/x-www-form-urlencoded' }
             }).then(function(resp) {
-                return resp.json();
-            }).then(function(jsonResp) {
-                console.log(jsonResp.message);
                 form.reset();
             })
             .catch(function() {

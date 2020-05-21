@@ -10,7 +10,7 @@ function getResult(event) {
     document.getElementById("divMessage").innerHTML = "";
     document.getElementById("divResponse").innerHTML = "";
 
-    var userResponse = document.getElementById("answer");//raspunsul dat de user
+    var userResponse = document.getElementById("answer"); //raspunsul dat de user
     var correctExpression = sessionStorage.getItem("resEx"); //expresia care apare in front
 
     if (validateResult(userResponse)) {
@@ -40,8 +40,6 @@ function getResult(event) {
 }
 /*Post progress for User*/
 function postProgress() {
-    console.log(sessionStorage.getItem("loggedUserUsername"))
-
     fetch('./progress.js', {
             method: 'post',
             body: `id_exercise=${sessionStorage.getItem('exerciseId')}&username=${sessionStorage.getItem("loggedUserUsername")}`,
@@ -49,7 +47,7 @@ function postProgress() {
         }).then(function(resp) {
             return resp.json();
         }).then(function(jsonResp) {
-            console.log(jsonResp);
+            //console.log(jsonResp);
         })
         .catch(function() {
             console.log(err);

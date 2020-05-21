@@ -1,5 +1,6 @@
 window.onload = getProgress();
 
+/*Get exercises from user_progress */
 function getProgress() {
     fetch('./getProgress.js', {
             method: 'post',
@@ -25,7 +26,7 @@ function getProgress() {
 const previous = document.getElementById("previous").addEventListener("click", moveBack);
 const next = document.getElementById("next").addEventListener("click", moveForward);
 
-
+/*Put first element in page*/
 function appendFirstElements() {
     const previous = document.getElementById("previous").classList.add("disabled");
     const commArray = JSON.parse(sessionStorage.getItem("progress"));
@@ -37,7 +38,7 @@ function appendFirstElements() {
     getProgressComments();
     sessionStorage.setItem("currentIndex", 0);
 }
-
+/*Moving Forward to the next element in exercises array */
 function moveForward() {
     const commArray = JSON.parse(sessionStorage.getItem("progress"));
     const currentIndex = parseInt(sessionStorage.getItem("currentIndex")) + 1;
@@ -54,7 +55,7 @@ function moveForward() {
         }
     }
 }
-
+/*Moving Backward to the next element in exercises array */
 function moveBack() {
     const commArray = JSON.parse(sessionStorage.getItem("progress"));
     const currentIndex = parseInt(sessionStorage.getItem("currentIndex")) - 1;
@@ -71,7 +72,7 @@ function moveBack() {
         }
     }
 }
-
+/*Utils*/
 function appendExercise(exercise) {
     const elem = document.getElementById("requirement");
     elem.textContent = exercise;
@@ -97,7 +98,7 @@ function cleanPage() {
     const elem = document.getElementById("put-comment-area").classList.add("disable-put-comment");
 }
 
-/*POST comment */
+/*POST comment from "See Progress" Page */
 document.getElementById("btnComment").addEventListener("click", postCommentProgress);
 const form = document.getElementById("form");
 form.addEventListener("submit", postCommentProgress);
@@ -106,7 +107,6 @@ function postCommentProgress() {
     event.preventDefault();
     const username = sessionStorage.getItem("loggedUserUsername");
     const id_exercise = sessionStorage.getItem("currentExerciseId");
-    console.log("Id-ul exercitiului" + id_exercise);
     const comment = document.getElementById("input-comment");
     const form = document.getElementById("form");
     if (validateComm(comment)) {
@@ -126,16 +126,40 @@ function postCommentProgress() {
     }
 }
 
-
+/*Utils */
 function validateComm(comment) {
+    const error = document.getElementById("comment-error");
     if (comment.value == "") {
+        error.textContent = "*You didn't enter a comment."
         return false;
+    } else {
+        error.textContent = ""
+        return true;
     }
-    return true;
 }
 
-/*Get Comments For Exercise */
+function modify(message) {
+    var span = document.createElement('span')
+    var span_text = document.createTextNode(message)
+    span.appendChild(span_text);
+    var original = document.getElementById('error')
+    original.append(span)
+}
 
+function removeChildrenError1() {
+    const myNode = document.getElementById('error')
+    while (myNode.lastElementChild) {
+        myNode.removeChild(myNode.lastElementChild)
+    }
+}
+
+function changeHTML(message) {
+    removeChildrenError1();
+    modify(message);
+}
+
+
+/*Get Comments For Exercise */
 function getProgressComments() {
     const id_exercise = sessionStorage.getItem("currentExerciseId");
     const comment = document.getElementById("input-comment");

@@ -206,14 +206,11 @@ let loginPage = new Page('.*/login.js',
 /*Insert user's progress in DB */
 let progressPage = new Page('.*/progress.js',
     function(params, req, res) {
-console.log("din SERVER"+params.username +" "+ params.id_exercise);
-
         conn.query('INSERT INTO user_progress (id_exercise, username) VALUES (?,?);', [params.id_exercise, params.username],
             function(err, results, fields) {
                 let response = {};
                 if (err) {
                     response.message = "Failed";
-                    console.log(err +" din server");
                 } else {
                     response.message = "Succes";
                 }
@@ -227,7 +224,7 @@ console.log("din SERVER"+params.username +" "+ params.id_exercise);
 
 /*Get user progress form DB */
 let getProgressPage = new Page('.*/getProgress.js',
-    function(params, req, res) { // post
+    function(params, req, res) {
         let query = "SELECT exercises.exercise, exercises.id_exercise FROM exercises WHERE id_exercise IN (SELECT id_exercise FROM user_progress WHERE username = '" + params.username + "'" + " )";
         conn.query(query,
             function(err, results, fields) {
@@ -361,14 +358,6 @@ function serverHandler(req, res, type) {
         default:
             console.log("Unknown request: " + ext);
     }
-}
-
-
-function view() {
-    conn.query('SELECT * FROM users;', function(err, results, fields) {
-        if (err) throw err;
-        console.log(results);
-    });
 }
 
 

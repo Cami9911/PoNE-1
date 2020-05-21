@@ -22,11 +22,9 @@ function loginFunction(event) {
                     if (jsonResp.message === "SQL server error") {
                         location.assign("404.html");
                     } else if (jsonResp.message === "Password Incorrect") {
-                        console.log('Incorrect Password');
                         removeChildrenError();
                         modify('*Incorrect Password');
                     } else {
-                        console.log('There is no user registered with this email.');
                         removeChildrenError();
                         modify('*There is no user registered with this email.');
                     }

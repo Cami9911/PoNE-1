@@ -22,7 +22,6 @@ function registerFunction(event) {
                     form.reset();
                     location.assign("main");
                 } else {
-                    console.log('Failure');
                     changeHTML('*There is already an account registered with this username');
                 }
             })
@@ -57,7 +56,6 @@ function validatePassword(password) {
         changeHTML("*You didn't enter a password.\n");
         return false;
     }
-    console.log
     if (password.value.length < 8) {
         changeHTML("*The password must have at least 8 characters.");
         return false;

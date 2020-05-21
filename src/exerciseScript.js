@@ -23,7 +23,7 @@ function generateExercise() {
             var result = jsonResp.exercise;
 
             sessionStorage.setItem("resEx", result);
-            // console.log(sessionStorage.getItem("resEx"));
+            //console.log(sessionStorage.getItem("resEx"));
 
             document.getElementById("exRequirement").innerHTML = result;
             input.reset();

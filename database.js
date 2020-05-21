@@ -37,7 +37,7 @@ conn.connect(function(err) {
 /*-----------------One Time Run ---------------------/*
 
 /*Select From Tables*/
-selectFromTable("user_progress");
+//selectFromTable("user_progress");
 //selectJoinNested('Diana');
 //selectFromTable("comments");
 
@@ -99,6 +99,14 @@ function select(exerciseId) {
     conn.query(query, function(err, result, fields) {
         if (err) throw err;
         console.log(result[0].exercise);
+    });
+};
+
+function select(user) {
+    let query = "Select id_exercise from user_progress where username = '" + user + "'";
+    conn.query(query, function(err, result, fields) {
+        if (err) throw err;
+        console.log(result);
     });
 };
 

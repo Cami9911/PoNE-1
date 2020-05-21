@@ -206,11 +206,14 @@ let loginPage = new Page('.*/login.js',
 /*Insert user's progress in DB */
 let progressPage = new Page('.*/progress.js',
     function(params, req, res) {
+console.log("din SERVER"+params.username +" "+ params.id_exercise);
+
         conn.query('INSERT INTO user_progress (id_exercise, username) VALUES (?,?);', [params.id_exercise, params.username],
             function(err, results, fields) {
                 let response = {};
                 if (err) {
                     response.message = "Failed";
+                    console.log(err +" din server");
                 } else {
                     response.message = "Succes";
                 }

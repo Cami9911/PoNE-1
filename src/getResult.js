@@ -14,19 +14,13 @@ function getResult(event) {
     var correctExpression = sessionStorage.getItem("resEx");
 
     if (validateResult(userResponse)) {
-        //  console.log("resultExpression: ");
         var resultExpression = eval(correctExpression);
-        //  console.log(resultExpression);
 
         var trimUserResponse = userResponse.value.replace(/\s/g, '');
 
         var trimCorrectExpression = correctExpression.replace(/\s/g, '');
-        //  console.log("trim expression");
-        // console.log(trimCorrectExpression);
 
-        console.log("postfix notation:");
         var postfixExpression = infixToPostfix(trimCorrectExpression);
-        console.log(postfixExpression);
 
         var finalResponse = postfixExpression.concat(' = ', resultExpression);
 
@@ -46,6 +40,8 @@ function getResult(event) {
 }
 /*Post progress for User*/
 function postProgress() {
+    console.log(sessionStorage.getItem("loggedUserUsername"))
+
     fetch('./progress.js', {
             method: 'post',
             body: `id_exercise=${sessionStorage.getItem('exerciseId')}&username=${sessionStorage.getItem("loggedUserUsername")}`,
@@ -53,7 +49,7 @@ function postProgress() {
         }).then(function(resp) {
             return resp.json();
         }).then(function(jsonResp) {
-            console.log("[POST PROGRESS] STATUS " + jsonResp.message);
+            console.log(jsonResp);
         })
         .catch(function() {
             console.log(err);

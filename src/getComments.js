@@ -12,7 +12,6 @@ function getComments() {
         }).then(function(resp) {
             return resp.json();
         }).then(function(jsonResp) {
-            console.log(jsonResp);
             if (jsonResp.comments.length == 0) {
                 printNoComm();
             }

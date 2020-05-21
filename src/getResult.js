@@ -14,8 +14,6 @@ function getResult(event) {
     var correctExpression = sessionStorage.getItem("resEx");
 
     if (validateResult(userResponse)) {
-       
-        console.log("id ex din getresult" + sessionStorage.getItem("exerciseId"));
         var resultExpression = eval(correctExpression);
 
         var trimUserResponse = userResponse.value.replace(/\s/g, '');
@@ -37,13 +35,11 @@ function getResult(event) {
         document.getElementById("divMessage").innerHTML = message;
         removeChildrenError();
         postProgress();
-
     }
 
 }
 /*Post progress for User*/
 function postProgress() {
-    console.log("id ex din POSTPROGRESS" + sessionStorage.getItem("exerciseId"));
     console.log(sessionStorage.getItem("loggedUserUsername"))
 
     fetch('./progress.js', {
@@ -54,7 +50,6 @@ function postProgress() {
             return resp.json();
         }).then(function(jsonResp) {
             console.log(jsonResp);
-            
         })
         .catch(function() {
             console.log(err);

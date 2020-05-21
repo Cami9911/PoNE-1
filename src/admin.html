@@ -16,17 +16,17 @@
     <div class="main">
         <nav>
             <div class="avatar-dropmenu">
-                <div class="burger-menu">
+                <div class="burger-menu" onclick="burger(this)">
                     <div class="line1"></div>
                     <div class="line2"></div>
                     <div class="line3"></div>
                 </div>
-                <div class="drop-content">
-                    <a href="./main">PoNe</a>
+                <div class="drop-content" id="drop">
+                    <a href="./main">Home</a>
                     <a href="./animation">Animation</a>
                     <a href="./exercise">Exercises</a>
                     <a href="./progress">See Progress</a>
-                    <a href='./login'>Sign out</a>
+                    <a href='#' id="sign-out-link">Sign out</a>
                 </div>
             </div>
         </nav>
@@ -47,6 +47,8 @@
     </div>
     <script src="adminScript.js "></script>
     <script src="burger-animation.js"></script>
+    <script src="logOutScript.js"></script>
+
 </body>
 
 </html>

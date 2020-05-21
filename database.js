@@ -37,8 +37,8 @@ conn.connect(function(err) {
 /*-----------------One Time Run ---------------------/*
 
 /*Select From Tables*/
-//selectFromTable("user_progress");
-selectJoinNested('Diana');
+selectFromTable("user_progress");
+//selectJoinNested('Diana');
 //selectFromTable("comments");
 
 function dropTable(tableName) {
@@ -73,7 +73,7 @@ function createTableComments() {
 }
 
 function createTableUserProgress() {
-    var query = "CREATE TABLE IF NOT EXISTS user_progress (id_exercise int NOT NULL UNIQUE,username Varchar(30) NOT NULL, CONSTRAINT fk FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE);"
+    var query = "CREATE TABLE IF NOT EXISTS user_progress (id_exercise int NOT NULL,username Varchar(30) NOT NULL, CONSTRAINT fk FOREIGN KEY (username) REFERENCES users(username) ON DELETE CASCADE,CONSTRAINT pk_user_progress PRIMARY KEY(id_exercise,username));"
     conn.query(query, function(err, result, fields) {
         if (err) throw err;
         console.log('Table user_progress created');
@@ -102,14 +102,6 @@ function select(exerciseId) {
     });
 };
 
-
-function selectJoinNested(username) {
-    let query = "SELECT exercises.exercise, exercises.id_exercise, comments.username, comments.comment FROM exercises LEFT JOIN comments ON exercises.id_exercise = comments.id_exercise WHERE exercises.id_exercise IN (SELECT id_exercise FROM user_progress WHERE username = '" + username + "'" + " )";
-    conn.query(query, function(err, result, fields) {
-        if (err) throw err;
-        console.log(result);
-    });
-};
 
 
 function populateTable() {

@@ -14,8 +14,6 @@ function getResult(event) {
     var correctExpression = sessionStorage.getItem("resEx");
 
     if (validateResult(userResponse)) {
-        /*request pentru a adauga exercitiul in tabela "user_progress" din DB */
-        postProgress();
         //  console.log("resultExpression: ");
         var resultExpression = eval(correctExpression);
         //  console.log(resultExpression);
@@ -42,7 +40,7 @@ function getResult(event) {
         }
         document.getElementById("divMessage").innerHTML = message;
         removeChildrenError();
-
+        postProgress();
     }
 
 }
@@ -55,7 +53,7 @@ function postProgress() {
         }).then(function(resp) {
             return resp.json();
         }).then(function(jsonResp) {
-            console.log(jsonResp);
+            console.log("[POST PROGRESS] STATUS " + jsonResp.message);
         })
         .catch(function() {
             console.log(err);
